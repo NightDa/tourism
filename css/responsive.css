@@ -2,7 +2,63 @@
    Responsive CSS
 ========================== */
 
-/* For screens <= 1024px */
+/* ==========================
+   VIDEO SECTION
+========================== */
+#costa-victoria {
+  position: relative;
+  width: 100%;
+  height: 90vh; /* main height */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.video-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;  /* initial width */
+  height: 100vh; /* initial height */
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover; /* behave like background */
+  pointer-events: none;
+}
+
+.video-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.video-content h2 {
+  font-size: 3rem;
+  letter-spacing: 3px;
+}
+
+.video-content span {
+  font-size: 1.2rem;
+}
+
+/* ==========================
+   FOR SCREENS <= 1024px
+========================== */
 @media (max-width: 1024px) {
   .container {
     padding: 0 1rem;
@@ -22,10 +78,22 @@
     font-size: 3rem;
     letter-spacing: 3px;
   }
-  /* end SLIDER */
+
+  /* VIDEO SECTION */
+  #costa-victoria {
+    height: 70vh;
+  }
+  .video-content h2 {
+    font-size: 2.5rem;
+  }
+  .video-content span {
+    font-size: 1rem;
+  }
 }
 
-/* For screens <= 900px */
+/* ==========================
+   FOR SCREENS <= 900px
+========================== */
 @media (max-width: 900px) {
   .btn {
     display: block;
@@ -67,6 +135,10 @@
   nav ul li:hover::before {
     width: 20%;
   }
+  .video-wrapper iframe {
+    width: 177.78%; /* keeps aspect ratio for narrow screens */
+    height: 100%;
+  }
 
   /* SLIDER */
   .swiper {
@@ -86,9 +158,8 @@
     font-size: 2.5rem;
     letter-spacing: 3px;
   }
-  /* end SLIDER */
 
-  /* top search */
+  /* TOP SEARCH */
   #location-search {
     transform: translateY(0%);
     margin: 2rem 0;
@@ -98,9 +169,8 @@
     flex-direction: column;
     gap: 1rem;
   }
-  /* end top search */
 
-  /* about */
+  /* ABOUT */
   .about-content-wrapper {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -115,9 +185,8 @@
     bottom: 0;
     width: 90%;
   }
-  /* end about */
 
-  /* choose-place */
+  /* CHOOSE PLACE */
   .choose-wrapper {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
@@ -174,10 +243,11 @@
     object-fit: cover;
     border-radius: 10px;
   }
-  /* end choose-place */
 }
 
-/* For screens between 768px and 1024px — Static counters: 4 columns */
+/* ==========================
+   FOR SCREENS BETWEEN 768px AND 1024px
+========================== */
 @media (min-width: 768px) and (max-width: 1024px) {
   #static-counters .static-wrapper {
     grid-template-columns: repeat(4, 1fr);
@@ -185,7 +255,9 @@
   }
 }
 
-/* For screens <= 500px */
+/* ==========================
+   FOR SCREENS <= 500px
+========================== */
 @media (max-width: 500px) {
   /* SLIDER */
   .swiper {
@@ -207,9 +279,17 @@
     letter-spacing: 2px;
     line-height: 1.3;
   }
-  /* end SLIDER */
+/* MOBILE FIXES */
+  @media (max-width: 500px) {
+  #costa-victoria {
+    height: 50vh;
+  }
+  .video-wrapper iframe {
+    width: 177.78%;
+    height: 100%;
+  }
 
-  /* choose-place & row-wise-img stacking */
+  /* CHOOSE PLACE & ROW-WISE IMG */
   .choose-wrapper,
   .row-wise-img {
     grid-template-columns: 1fr;
@@ -221,13 +301,13 @@
     margin-bottom: 3rem;
   }
 
-  /* static counters — show 2 per row */
+  /* STATIC COUNTERS — show 2 per row */
   #static-counters .static-wrapper {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 
-  /* top destinations — show one image only */
+  /* TOP DESTINATIONS — show one image only */
   .top-destinations-wrapper {
     display: grid;
     grid-template-columns: 1fr;
@@ -239,18 +319,17 @@
     height: auto;
   }
 
-  /* video section */
-  .video-content h2{
-	font-size: 2rem;
-	letter-spacing: 2px;
-}
+  /* VIDEO SECTION */
+  #costa-victoria {
+    height: 50vh;
+  }
 
-.video-content span{
-	font-size: 1rem;
-}
+  .video-content h2 {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+  }
 
-#costa-victoria{
-	padding: 2rem 0;
-	position: relative;
-}
+  .video-content span {
+    font-size: 0.9rem;
+  }
 }
