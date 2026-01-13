@@ -1,0 +1,759 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Ubuntu:wght@400;500;700&display=swap');
+
+:root{
+	--primary-color: #009CC2;
+	--white-color: #fff;
+	--light-gray-color: #ddd;
+	--blue-color: 
+}
+
+*{
+	padding:0;
+	margin:0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+}
+
+html{
+	font-size:16px;
+}
+
+/* ================== utality classes Open========*/
+
+.container{
+	max-width: 1440px;
+	margin: 0 auto;
+	padding:0 2rem;
+	width:100%;
+	overflow: hidden;
+}
+
+img{
+	display:block;
+	width:100%;
+	height:100%;
+	object-fit:cover;
+}
+
+a{
+	text-decoration: none;
+}
+
+.heading-normal-txt{
+	font-size:1rem;
+	letter-spacing:6px;
+	color: var(--primary-color);
+}
+
+.headings{
+	font-size: 3rem;
+	font-family:"Ubuntu";
+	padding-bottom:2rem;
+	letter-spacing:2px;
+}
+
+.headings span{
+	color: var(--primary-color);
+}
+
+.secondary-headings{
+	font-size:2.5rem;
+	font-family: "Ubuntu";
+	padding: 1rem 0;
+}
+
+.lead{
+	font-size:1.1rem;
+	line-height:2;
+	text-align:justify;
+}
+
+.primary-btn{
+	width: 50%;
+	outline: none;
+	background-color: var(--primary-color);
+	border: none;
+	padding: 0.7rem;
+	font-size: 1rem;
+	border-radius:4px;
+	color: var(--white-color);
+	cursor: pointer;
+}	
+/* ================== utality classes Close========*/
+
+/* ==================Header Start========*/
+
+header {
+	padding: 1rem 0;
+	background: transparent; /* Transparent header */
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 6;
+	width: 100%;
+	height: 100;
+	transition: all 0.3s ease-in-out;
+	/* Removed height: 100; — it was invalid (missing units) */
+}
+
+header.sticky{
+	background: var(--primary-color);
+	padding: 0.4rem 0; /* keep compact on scroll */
+}
+
+.logo img {
+	width: 30%;
+	height: auto;
+	object-fit: cover;
+	filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5)); /* Optional: make visible on light bg */
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+nav ul {
+	list-style-type: none;
+	display: flex;
+}
+
+nav ul li {
+	margin: 0 0.9rem;
+	position: relative;
+}
+
+nav ul li a {
+	color: var(--white-color);
+	font-size: 1.1rem;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Optional: better contrast */
+	text-decoration: none;
+}
+
+nav ul li::before {
+	content: "";
+	position: absolute;
+	top: 30px;
+	left: 0;
+	width: 0;
+	height: 3px;
+	background: var(--white-color);
+	opacity: 0;
+	transition: all 0.3s ease-in;
+}
+
+nav ul li:hover::before {
+	opacity: 1;
+	width: 100%;
+}
+
+.btn {
+	font-size: 1.3rem;
+	color: var(--white-color);
+	cursor: pointer;
+	display: none;
+}
+
+/* ==================Header End======== */
+
+
+/* ==================showcase start========*/
+main{
+	position: relative;
+	top:0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+}
+
+.swiper{
+	height: 100vh;
+}
+
+.slide-container{
+	width: 100%;
+}
+
+.slide-container img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.img-overlay{
+	position: absolute;
+	z-index: 5;
+	left: 50%;
+	top: 50%;
+	text-align: center;
+	width: 100%;
+	font-family: "Ubuntu";
+	transform: translate(-50%, -50%);
+}
+
+.img-overlay p {
+	font-size: 1rem;
+	letter-spacing: 8px;
+	color: var(--white-color);
+	animation: animate 4s forwards;
+}
+
+.img-overlay h2{
+	font-size: 5rem;
+	color: var(--white-color);
+	text-transform: uppercase;
+	letter-spacing: 8px;
+	animation: animate 4s forwards;
+	transition: all 0.5s ease-in-out;
+}
+
+.overlay{
+	position: relative;
+}
+
+.overlay::after {
+	content: "";
+	position:absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.4);
+}
+
+@keyframes animate {
+	0% {
+		transform: translateX(-50%);
+		opacity: 0;
+	}
+	50% {
+		opacity: 0.2;
+	}
+	70% {
+		opacity: 0.5;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+.img-overlay h2 span{
+	color: transparent;
+	-webkit-text-stroke: 1px var(--white-color);
+}
+/* ==================showcase Close========*/
+
+/* =========== Search Start ==================*/
+#location-search{
+	transform: translateY(-170%);
+}
+
+.form-wrapper {
+	background-color: rgba(0, 0, 0, 0.6);
+	padding: 2rem;
+	width: 100%;
+}
+
+form{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.form-control {
+	width: 100%;
+}
+
+
+form input,
+select{
+	width: 100%;
+	padding:0.6rem;
+	outline: none;
+	font-size: 1.1rem;
+	color:#000;
+	border: 1px solid var(--light-gray-color);
+	margin: 0 0.4rem;
+	border-radius: 4px;
+}
+/* =========== Search close ==================*/
+
+
+/* =========== About start ==================*/
+.about-content-wrapper{
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-column-gap: 3rem;
+	margin: 3rem 0;
+}
+
+.about-content-wrapper h2 span{
+	color: var(--primary-color);
+	font-family: "ubuntu";
+}
+
+.about-content-wrapper ul{
+	list-style: none;
+}
+
+.about-content-wrapper ul .icons{
+	display: flex;
+	align-items: center;
+	margin: 1rem 0;
+}
+
+.about-content-wrapper ul .icons i{
+	background: var(--primary-color);
+	padding: 0.8rem;
+	border-radius: 50%;
+	color: var(--white-color);
+}
+
+.about-content-wrapper ul p{
+	margin-left: 1rem;
+}
+
+.agency-right-side .img{
+	position: relative;
+}
+.agency-right-side .img img{
+	width: 75%;
+	height: 100%;
+	object-fit: cover;
+	margin: 0 auto;
+	display: block;
+	transition: 0.5s ease-in;
+}
+
+.agency-right-side .img::after{
+	content: "";
+	position: absolute;
+	top: 15px;
+	left: 55px;
+	bottom: 0;
+	right: 0;
+	background: var(--primary-color);
+	width: 70%;
+	height: 100%;
+	z-index: -2;
+}
+
+.agency-right-side .img img:hover {
+	transform: scale(0.95);
+}
+
+/* =========== About close ==================*/
+
+/* =========== Choose place ================== Start*/
+
+#choose-place{
+	padding: 6rem 0;
+}
+
+.choose-wrapper{
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	grid-gap: 2rem;
+}
+
+.lg-img{
+	position: relative;
+	transition: all 0.5s;
+	cursor: pointer;
+	width: 100%;
+	height: 96%;
+}
+
+.lg-img:hover::before{
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+
+}
+
+.lg-img:hover{
+	transform: scale(1.02);
+}
+
+.img-content{
+	position: absolute;
+	bottom: 20px;
+}
+
+.img-content h2 {
+	padding: 0 2rem;
+	color: var(--white-color);
+}
+
+.hidden-content {
+	padding: 0.5rem 2rem;
+	color: var(--white-color);
+	transform: translateY(120%);
+	transition: all 0.5s ease-in-out;
+}
+
+.hidden-content i{
+	padding: 0.2rem 0.2rem 0 0;
+}
+
+.lg-img:hover .hidden-content {
+	transform: translateY(0%);
+}
+
+.price-label {
+	background: var(--primary-color);
+	padding: 0.5rem 1rem;
+	color: var(--white-color);
+	position: absolute;
+	top: 50px;
+	right: 0;
+	transform: rotate(-90deg);
+}
+
+.row-wise-img {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-gap: 2rem;
+}
+
+/* =========== Choose place ================== Close*/
+
+/* =========== Static Counter ================== Start*/
+#static-counters {
+	padding: 6rem 0;
+	background: url('../img/saharadeserttour_155.jpg') no-repeat center center/cover;
+	background-attachment: fixed;
+	position: relative;
+	z-index: 4;
+}
+
+#static-counters::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: -1;
+}
+
+.static-wrapper {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-gap: 2rem;
+	text-align: center;
+	align-items: center;
+	height: 100%;
+	padding: 2rem 0;
+}
+
+.static-icons {
+	color: var(--white-color);
+	cursor: pointer;
+}
+
+.static-icons i {
+	font-size: 3rem;
+	padding: 2rem;
+	border-radius: 50%;
+	border: 2px solid var(--primary-color);
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+}
+
+.numbers {
+	font-size: 2.5rem;
+	font-weight: 600;
+	margin-top: 1rem;
+}
+
+.static-icons i:hover {
+	background: var(--primary-color);
+	border: none;
+	transform: translateY(-20%);
+}
+/* =========== Static Counter ================== Close*/
+
+/* =========== Top Destinations Carousel ================== Start*/
+#top-destinations{
+	padding: 6rem 0;
+}
+
+.top-destinations-wrapper{
+	width: 100%;
+}
+
+.carousel {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden; /* make sure sliding text stays inside image */
+  transition: all 0.5s ease-in-out;
+}
+
+.carousel img {
+  width: 100%;
+  height: 420px;         /* fixed height for equal cards */
+  object-fit: cover;     /* crop to fit without distortion */
+  border-radius: 10px;
+  display: block;
+}
+
+.carousel:hover::before{
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.2);
+	z-index: 2;
+}
+
+.carousel-img-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* push hidden content down */
+  padding: 1rem;
+  z-index: 2;
+}
+
+.hidden-content-carousel {
+  color: var(--white-color);
+  transform: translateY(170%); /* start hidden below */
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel.img.overlay i {
+	padding-right: 1rem;
+}
+
+
+.carousel:hover .hidden-content-carousel {
+  transform: translateY(0); /* slide up when hover */
+}
+
+.carousel:hover {
+	transform: scale(1.2);
+}
+/* =========== Top Destinations Carousel ================== Close*/
+/* ================== Moroccan Sand Fade Preloader ================== */
+#preloader {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(180deg, #c79b63 0%, #e0b97b 50%, #f2d8a7 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 9999;
+  transition: opacity 1.2s ease, visibility 1.2s ease;
+}
+
+/* Subtle sand texture moving */
+.sand-layer {
+  position: absolute;
+  inset: 0;
+  background: url('./img/sand-texture.jpg') repeat;
+  background-size: 600px 600px;
+  opacity: 0.25;
+  animation: sandMove 12s linear infinite;
+  mix-blend-mode: multiply;
+}
+
+@keyframes sandMove {
+  from { background-position: 0 0; }
+  to { background-position: -400px 200px; }
+}
+
+.loader-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #fff8e1;
+}
+
+.preload-logo {
+  width: 140px;
+  height: auto;
+  margin-bottom: 1rem;
+  animation: drift 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(0,0,0,0.4));
+}
+
+.loading-text {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #fff3c6;
+  opacity: 0.9;
+  animation: shimmerText 3s infinite linear;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shimmerText {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Fade out preloader */
+#preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* ================== Page Fade-in ================== */
+#page-content {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+#page-content.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* ================== Moroccan Sand Fade Preloader ================== end*/
+
+/* ================== video background ================== start*/
+#costa-victoria{
+	padding: 6rem 0;
+	position: relative;
+}
+
+#costa-victoria video{
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	object-fit: cover;
+	max-height: 650px;
+}
+
+.video-bg::before {
+	content: "";
+	padding: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.video-content {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	text-align: center;
+	color: var(--white-color);
+}
+
+.video-content h2{
+	font-size: 2.5rem;
+	letter-spacing: 4px;
+	color: var(--white-color);
+	font-family: "ubuntu";
+	margin-bottom: 1rem;
+}
+
+.video-content span{
+	font-size: 1.2rem;
+	margin: 0 1.5rem;
+}
+
+/* ================== video background YT ================== start*/
+#costa-victoria {
+  position: relative;
+  width: 100%;
+  height: 650px;
+  overflow: hidden;
+}
+
+/* VIDEO LAYER */
+.video-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* CROPPED FULLSCREEN YOUTUBE */
+.video-bg iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120vw;
+  height: 67.5vw; /* 16:9 */
+  min-height: 100%;
+  min-width: 100%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* DARK OVERLAY */
+.video-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
+
+/* TEXT LAYER — PERFECT CENTER */
+.video-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  z-index: 3;
+}
+
+.video-content h2 {
+  font-size: 2.5rem;
+  letter-spacing: 4px;
+  margin-bottom: 1rem;
+}
+
+.video-content span {
+  font-size: 1.2rem;
+  margin: 0 1.5rem;
+}
+/* ================== video background YT ================== end*/
+/* ================== video background ================== end*/
+
+/* ================== travel citys ================== Start*/
+#travel-citys{
+	padding: 6rem 0;
+}
+
+.travel-citys-wrapper{
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 2rem;
+}
+/* ================== travel citys ================== end*/

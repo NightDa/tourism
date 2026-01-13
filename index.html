@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Tour and Travel Website</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/Responsive.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+
+<body>
+  <!-- ========== Preloader Start ========== -->
+  <div id="preloader">
+    <div class="sand-layer"></div>
+    <div class="loader-content">
+      <img src="./img/Sans titre.png" alt="Travelo Logo" class="preload-logo" />
+      <h2 class="loading-text">Discover Morocco...</h2>
+    </div>
+  </div>
+  <!-- ========== Preloader End ========== -->
+  <!-- ===========header ==================start-->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <img src="./img/Sans titre.png" alt="" />
+        </div>
+        <ul>
+          <div class="btn">
+            <i class="fas fa-times close-btn"></i>
+          </div>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Tours</a></li>
+          <li><a href="#">Destination</a></li>
+          <li><a href="#">Gallery</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="btn">
+          <i class="fas fa-bars menu-btn"></i>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <!-- ===========header ==================Close-->
+
+  <!-- ===========Showcase ==================Start-->
+  <main>
+    <div class="slide-container swiper">
+      <div class="slide-content swiper-wrapper">
+        <div class="overlay swiper-slide">
+          <img src="./img/show-case-1.jpg" alt="Showcase Morocco Image 1" />
+          <div class="img-overlay">
+            <p>let's Travel around Morocco with us</p>
+            <h2><span>Discover</span>Morocco</h2>
+            <h2>With Our Guide</h2>
+          </div>
+        </div>
+        <div class="overlay swiper-slide">
+          <img src="./img/show-case-2.jfif" alt="Showcase Morocco Image 2" />
+          <div class="img-overlay">
+            <p>let's Travel around Morocco with us</p>
+            <h2><span>Discover</span>Morocco</h2>
+            <h2>With Our Guide</h2>
+          </div>
+        </div>
+        <div class="overlay swiper-slide">
+          <img src="./img/show-case-3.jpg" alt="Showcase Morocco Image 3" />
+          <div class="img-overlay">
+            <p>let's Travel around Morocco with us</p>
+            <h2>Discover Morocco</h2>
+            <h2>With Our<span>Travelo</span></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- =========== Showcase ==================Close-->
+
+  <!-- =========== Search Location ==================Start-->
+  <section id="location-search">
+    <div class="container">
+      <div class="from-wrapper">
+        <form action="#">
+          <input type="text" placeholder="Where to?" class="from-control" />
+          <select class="from-control">
+            <option value="Destination">Destination</option>
+            <option value="Destination">Marrakech</option>
+            <option value="Destination">Agadir</option>
+            <option value="Destination">tangier</option>
+            <option value="Destination">Rabat</option>
+            <option value="Destination">Casablanca</option>
+          </select>
+          <select class="from-control">
+            <option value="duration">Duration</option>
+            <option value="day-1">1 Day Tour</option>
+            <option value="2-4 Days">2-4 Days Tour</option>
+            <option value="5-7 Days">5-7 Days Tour</option>
+            <option value="7 Days">7 Days Tour</option>
+            <option value="7+ Days">7+ Days Tour</option>
+          </select>
+          <button type="button" class="primary-btn">Search Now</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <!-- =========== Search Location ==================Close-->
+
+  <!-- =========== About ==================Start-->
+  <section id="about">
+    <div class="container">
+      <div class="about-content-wrapper">
+        <div class="agency-left-side">
+          <p class="heading-normal-txt">
+            EXPERIENCE MOROCCO LIKE NEVER BEFORE
+          </p>
+          <h2 class="headings">
+            DISCOVER THE<span>MAGIC</span>OF MOROCCO WITH OUR
+            <span>EXPERT GUIDES</span>
+          </h2>
+          <p class="lead">
+            From the vibrant souks of Marrakech to the golden dunes of the
+            Sahara, our agency offers immersive experiences that bring
+            Morocco's rich culture and natural beauty to life.
+          </p>
+          <br />
+          <p class="lead">
+            Hotel ut nisl quam nestibulm ac quam nec odio elementum ceisue the
+            miss varius natoque penatibus et magnis dis parturient monte.
+          </p>
+          <ul>
+            <li>
+              <div class="icons">
+                <i class="fa fa-check"></i>
+                <p>Over 20 Years of Local Expertise</p>
+              </div>
+            </li>
+            <li>
+              <div class="icons">
+                <i class="fa fa-check"></i>
+                <p>150+ Curated Moroccan Destinations</p>
+              </div>
+            </li>
+            <li>
+              <div class="icons">
+                <i class="fa fa-phone-volume"></i>
+                <p>Call Us: +212 6 66 66 66 66<< /p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="agency-right-side">
+          <div class="img">
+            <img src="./img/Northern+Morocco.jfif" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- =========== About ==================Close-->
+
+  <!-- =========== Choose your place ==================Start-->
+  <section id="choose-place">
+    <div class="container">
+      <p class="heading-normal-txt">CHOOSE YOUR PLACE</p>
+      <h2 class="headings">POPULAR <span>TOURS</span></h2>
+      <div class="choose-wrapper">
+        <div class="img-left-side">
+          <div class="lg-img">
+            <img src="./img/_Best-Restaurants-Marrakesh-Comptoir-Darna.webp" alt="" />
+            <div class="img-content">
+              <h2>Marrakech Tours</h2>
+              <div class="hidden-content">
+                <span><i class="fa fa-clock"></i>10 days</span>
+                <span><i class="fa fa-user"></i>12+</span>
+                <span><i class="fa fa-location-dot"></i>Marrakech</span>
+              </div>
+            </div>
+            <div class="price-label">
+              <p>$1.200</p>
+            </div>
+          </div>
+        </div>
+        <div class="img-right-side">
+          <div class="lg-img">
+            <img src="./img/15-days-tour-from-Marrakech-marrakech-700x400.webp" alt="" />
+            <div class="img-content">
+              <h2>Agadir Tours</h2>
+              <div class="hidden-content">
+                <span><i class="fa fa-clock"></i>10 days</span>
+                <span><i class="fa fa-user"></i>12+</span>
+                <span><i class="fa fa-location-dot"></i>Agadir</span>
+              </div>
+            </div>
+            <div class="price-label">
+              <p>$1.200</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- row wise images -->
+      <div class="row-wise-img">
+        <div class="lg-img">
+          <img src="./img/casablanca-mosque.jpg" alt="" />
+          <div class="img-content">
+            <h2>Casablanca Tours</h2>
+            <div class="hidden-content">
+              <span><i class="fa fa-clock"></i>10 days</span>
+              <span><i class="fa fa-user"></i>12+</span>
+              <span><i class="fa fa-location-dot"></i>Casablanca</span>
+            </div>
+          </div>
+          <div class="price-label">
+            <p>$400</p>
+          </div>
+        </div>
+
+        <div class="lg-img">
+          <img src="./img/morocco-tangier.jpg" alt="" />
+          <div class="img-content">
+            <h2>Tangier Tours</h2>
+            <div class="hidden-content">
+              <span><i class="fa fa-clock"></i>10 days</span>
+              <span><i class="fa fa-user"></i>12+</span>
+              <span><i class="fa fa-location-dot"></i>Tangier</span>
+            </div>
+          </div>
+          <div class="price-label">
+            <p>$500</p>
+          </div>
+        </div>
+
+        <div class="lg-img">
+          <img src="./img/Rabat-1-scaled.webp" alt="" />
+          <div class="img-content">
+            <h2>Rabat Tours</h2>
+            <div class="hidden-content">
+              <span><i class="fa fa-clock"></i>10 days</span>
+              <span><i class="fa fa-user"></i>12+</span>
+              <span><i class="fa fa-location-dot"></i>Rabat</span>
+            </div>
+          </div>
+          <div class="price-label">
+            <p>$600</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+    </div>
+  </section>
+  <!-- =========== Choose your place ==================Close-->
+
+
+  <!-- =========== Static Counter Numbers ==================Start-->
+  <section id="static-counters">
+    <div class="container">
+      <div class="static-wrapper">
+        <div class="static-icons">
+          <i class="fa fa-plane-departure"></i>
+          <p class="numbers" data-ceil="600">600</p>
+          <p class="txt">Flight booking</p>
+        </div>
+        <div class="static-icons">
+          <i class="fa fa-home"></i>
+          <p class="numbers" data-ceil="250">250</p>
+          <p class="txt">Amazing Tour</p>
+        </div>
+        <div class="static-icons">
+          <i class="fa fa-ship"></i>
+          <p class="numbers" data-ceil="25">25</p>
+          <p class="txt">Cruise Bookings</p>
+        </div>
+        <div class="static-icons">
+          <i class="fa fa-ticket"></i>
+          <p class="numbers" data-ceil="100">100</p>
+          <p class="txt">Ticket Bookings</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- =========== Static Counter Numbers ==================Close-->
+
+  <!-- =========== Top Destination ==================Start-->
+  <section id="top-destinations">
+    <div class="container">
+      <p class="heading-normal-txt">TOP DESTINATION</p>
+      <h2 class="headings">EXPLORE <span>OUR TOP DESTINATIONS</span></h2>
+      <div class="top-destination-wrapper swiper2">
+        <div class="swiper-wrapper">
+          <div class="carousel swiper-slide">
+            <img src="./img/Marrakech-jamaa-lafna.webp" alt="" />
+            <div class="carousel-img-overlay">
+              <div class="img-content">
+                <h2><i class="fa fa-location-dot"></i>JAMMA LAFNA</h2>
+                <div class="hidden-content-carousel">
+                  <span>4 tours packages</span>
+                  <a href="#">
+                    <span>Explore Now</span><i class="fa fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="price-label">
+              <p>15% off</p>
+            </div>
+          </div>
+          <div class="carousel swiper-slide">
+            <img src="./img/sahara.jfif" alt="" />
+            <div class="carousel-img-overlay">
+              <div class="img-content">
+                <h2><i class="fa fa-location-dot"></i>SAHARA DESERT</h2>
+                <div class="hidden-content-carousel">
+                  <span>3 tours packages</span>
+                  <a href="#">
+                    <span>Explore Now</span><i class="fa fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="price-label">
+              <p>$600</p>
+            </div>
+          </div>
+          <div class="carousel swiper-slide">
+            <img src="./img/chefchaouen.jpg" alt="" />
+            <div class="carousel-img-overlay">
+              <div class="img-content">
+                <h2><i class="fa fa-location-dot"></i>CHEFCHAOUEN</h2>
+                <div class="hidden-content-carousel">
+                  <span>3 tours packages</span>
+                  <a href="#">
+                    <span>Explore Now</span><i class="fa fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="price-label">
+              <p>$300</p>
+            </div>
+          </div>
+          <div class="carousel swiper-slide">
+            <img src="./img/agadir.jpg" alt="" />
+            <div class="carousel-img-overlay">
+              <div class="img-content">
+                <h2><i class="fa fa-location-dot"></i>AGADIR</h2>
+                <div class="hidden-content-carousel">
+                  <span>10 tours packages</span>
+                  <a href="#">
+                    <span>Explore Now</span><i class="fa fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="price-label">
+              <p>new</p>
+            </div>
+          </div>
+          <div class="carousel swiper-slide">
+            <img src="./img/meknes.jpg" alt="" />
+            <div class="carousel-img-overlay">
+              <div class="img-content">
+                <h2><i class="fa fa-location-dot"></i>MEKNES</h2>
+                <div class="hidden-content-carousel">
+                  <span>1 tour package</span>
+                  <a href="#">
+                    <span>Explore Now</span><i class="fa fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="price-label">
+              <p>new</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- =========== Top Destination ==================Close-->
+
+  <!-- =========== Video background ==================Start-->
+  <section id="costa-victoria">
+    <div class="video-bg">
+      <iframe src="https://www.youtube.com/embed/QipIufCH3rw?autoplay=1&mute=1&loop=1
+&playlist=QipIufCH3rw&controls=0&showinfo=0&modestbranding=1&rel=0" frameborder="0" allow="autoplay; fullscreen"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="video-content">
+      <h2>Morocco</h2>
+      <span><i class="fa fa-clock"></i> 10 Days</span>
+      <span><i class="fa fa-user"></i> +12 People</span>
+      <span><i class="fa fa-map-marker"></i> Morocco</span>
+    </div>
+  </section>
+
+
+  <!-- =========== Video background ==================Close-->
+
+  <!-- =========== Travel citys ==================Start-->
+  <section id="travel-citys">
+    <div class="container">
+      <p class="heading-normal-txt">MOST POPULAT</p>
+      <h2 class="headings">TRAVEL <span>CITYS</span></h2>
+      <!--marrakech-->
+      <div class="travel-citys-wrapper">
+        <div class="citys-content">
+          <h2 class="secondary-headings">Marrakech</h2>
+          <p class="lead">
+            From historic palaces to lively souks, we guide you through Marrakech’s most unforgettable places.
+          </p>
+          <ul>
+            <div class="citys-famous-location">
+              <li><i class="fa fa-location-dot"></i>Jemaa el-Fnaa</li>
+              <li><i class="fa fa-location-dot"></i>Koutoubia Mosque</li>
+              <li><i class="fa fa-location-dot"></i>Majorelle Garden (Jardin Majorelle)</li>
+            </div>
+            <div class="citys-famous-location">
+              <li><i class="fa fa-location-dot"></i>El Badi Palace</li>
+              <li><i class="fa fa-location-dot"></i>Medina & Souks of Marrakech</li>
+              <li><i class="fa fa-location-dot"></i>Bahia Palace</li>
+            </div>
+            <div class="citys-famous-location">
+              <li><i class="fa fa-location-dot"></i>Saadian Tombs</li>
+              <li><i class="fa fa-location-dot"></i>Menara Gardens</li>
+              <li><i class="fa fa-location-dot"></i>Ben Youssef Madrasa</li>
+            </div>
+          </ul>
+          <button type="button" class="primary-btn">
+            All tours <i class="fa fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- =========== Travel citys ==================Close-->
+
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="js/swiper.js"></script>
+  <script src="js/script.js"></script>
+</body>
+<footer>
+  <div class="container">
+    <p>&copy; 2025 Travelo Morocco. All rights reserved.</p>
+  </div>
+</footer>
+
+</html>
