@@ -1,0 +1,412 @@
+/* =========== Excursions Page Styles ================== */
+
+/* FIX 1: Header Styling - Make it work with background image */
+header {
+    background: transparent !important;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+header.sticky {
+    background: var(--primary-color) !important;
+    padding: 0.5rem 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Ensure all text in header is white */
+nav ul li a {
+    color: white !important;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: #ffd700 !important;
+}
+
+/* Menu button color */
+.btn i {
+    color: white !important;
+}
+
+/* Mobile menu background */
+nav ul.display {
+    background: var(--primary-color) !important;
+}
+
+/* FIX 2: Hero Section with your image */
+.excursions-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('https://i.ibb.co/rfTLXWpR/excursionmarrakech-maroc4.jpg') center/cover no-repeat;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    margin-top: 0;
+    position: relative;
+}
+
+
+.excursions-hero .hero-overlay {
+    width: 100%;
+    text-align: center;
+    color: white;
+    position: relative;
+    z-index: 2;
+    padding: 0 20px;
+}
+
+.excursions-hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    font-family: "Ubuntu";
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.excursions-hero p {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    max-width: 800px;
+    margin: 0 auto;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+/* The rest of your existing CSS stays the same below... */
+
+/* =========== Image Optimization for Excursion Cards =========== */
+.excursion-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
+    image-rendering: auto; /* Better image quality */
+}
+
+/* Improve image quality on hover */
+.excursion-card:hover .excursion-image img {
+    transform: scale(1.05); /* Slight zoom instead of 1.1 */
+    filter: brightness(1.05); /* Slight brightening */
+}
+
+/* Ensure images load properly from external URLs */
+.excursion-image {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    background-color: #f5f5f5; /* Fallback color while loading */
+}
+
+/* For better image loading experience */
+.excursion-image::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 70%, rgba(0,0,0,0.3) 100%);
+    z-index: 1;
+}
+
+.excursion-card:hover .excursion-image::after {
+    background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.4) 100%);
+}
+
+/* Make price tag stand out more */
+.price-tag {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1.2rem;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1rem;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Responsive adjustments for images */
+@media (max-width: 768px) {
+    .excursion-image img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .excursion-image img {
+        height: 180px;
+    }
+}
+
+/* Section Header */
+.section-header {
+  text-align: center;
+  margin: 4rem 0 3rem;
+}
+
+/* Filter Buttons */
+.excursions-filter {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0 3rem;
+}
+
+.filter-btn {
+  padding: 0.8rem 2rem;
+  border: 2px solid var(--primary-color);
+  background: transparent;
+  color: var(--primary-color);
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Excursions Grid */
+.excursions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2.5rem;
+  margin: 3rem 0;
+}
+
+.excursion-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.excursion-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.excursion-image {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.excursion-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.excursion-card:hover .excursion-image img {
+  transform: scale(1.1);
+}
+
+.price-tag {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--primary-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.excursion-content {
+  padding: 1.5rem;
+}
+
+.excursion-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+  font-family: "Ubuntu";
+}
+
+.excursion-meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.excursion-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.excursion-content > p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.pricing {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+.price-group {
+  margin-bottom: 0.8rem;
+}
+
+.price-group:last-child {
+  margin-bottom: 0;
+}
+
+.price-group h4 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.price-group p {
+  margin: 0.2rem 0;
+  color: #444;
+}
+
+.single-price h4 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.price-options p {
+  margin: 0.3rem 0;
+  color: #444;
+}
+
+.book-btn {
+  display: block;
+  width: 100%;
+  padding: 0.8rem;
+  background: var(--primary-color);
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.book-btn:hover {
+  background: #007a9c;
+}
+
+/* Load More Button */
+.load-more {
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.load-more .primary-btn {
+  width: auto;
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+}
+
+/* Booking Info */
+.booking-info {
+  background: #f8f9fa;
+  padding: 4rem 0;
+  margin-top: 3rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.info-card {
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.info-card i {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.info-card h3 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.info-card p {
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Active Menu Item */
+nav ul li a.active {
+  color: #ffd700 !important;
+  font-weight: bold;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .excursions-hero {
+    height: 50vh;
+  }
+
+  .excursions-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .excursions-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .excursion-image {
+    height: 200px;
+  }
+
+  .excursion-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .excursions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .excursions-filter {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .filter-btn {
+    width: 80%;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
