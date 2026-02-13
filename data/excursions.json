@@ -1,0 +1,41 @@
+{
+    "excursions": [
+        {
+            "id": 1,
+            "title": "Medina Tour",
+            "category": "cultural",
+            "image": "https://i.ibb.co/vCK30F8t/Medina-Tour.jpg",
+            "duration": "Full Day",
+            "location": "Marrakech",
+            "description": "Explore the iconic monuments and palaces for an immersive journey through the history of Marrakech. Wander through winding alleys to uncover hidden treasures.",
+            "priceTag": "From 350 MAD",
+            "groupPrice": {
+                "adult": 350,
+                "child": 175
+            },
+            "privatePrice": {
+                "adult": 650,
+                "child": 325
+            }
+        },
+        {
+            "id": 2,
+            "title": "Ourika Valley",
+            "category": "mountain",
+            "image": "https://i.ibb.co/BHdLd3Gh/Ourika-Valley.jpg",
+            "duration": "Full Day",
+            "location": "Atlas Mountains",
+            "description": "Admire spectacular landscapes of the High Atlas Mountains and the Ourika River. Explore preserved Berber villages and discover the seven waterfalls of Setti Fatma.",
+            "priceTag": "From 350 MAD",
+            "groupPrice": {
+                "adult": 350,
+                "child": 175
+            },
+            "privatePrice": {
+                "adult": 650,
+                "child": 325
+            }
+        }
+    ],
+    "last_updated": "2024-01-01 12:00:00"
+}
