@@ -4,7 +4,7 @@
             "id": 1,
             "title": "Medina Tour",
             "category": "cultural",
-            "image": "https://i.ibb.co/vCK30F8t/Medina-Tour.jpg",
+            "image": "https:\/\/i.ibb.co\/vCK30F8t\/Medina-Tour.jpg",
             "duration": "Full Day",
             "location": "Marrakech",
             "description": "Explore the iconic monuments and palaces for an immersive journey through the history of Marrakech. Wander through winding alleys to uncover hidden treasures.",
@@ -22,7 +22,7 @@
             "id": 2,
             "title": "Ourika Valley",
             "category": "mountain",
-            "image": "https://i.ibb.co/BHdLd3Gh/Ourika-Valley.jpg",
+            "image": "https:\/\/i.ibb.co\/BHdLd3Gh\/Ourika-Valley.jpg",
             "duration": "Full Day",
             "location": "Atlas Mountains",
             "description": "Admire spectacular landscapes of the High Atlas Mountains and the Ourika River. Explore preserved Berber villages and discover the seven waterfalls of Setti Fatma.",
@@ -35,7 +35,133 @@
                 "adult": 650,
                 "child": 325
             }
+        },
+        {
+            "id": 3,
+            "title": "The Berber Trails",
+            "category": "mountain",
+            "image": "https:\/\/i.ibb.co\/wZncdy47\/The-Berber-Trails.jpg",
+            "duration": "Full Day",
+            "location": "High Atlas",
+            "description": "Hike through the peaks of the High Atlas and the Three Valleys. Discover ancient Berber villages and enjoy traditional lunch in picturesque valleys.",
+            "priceTag": "From 550 MAD",
+            "groupPrice": {
+                "adult": 550,
+                "child": 225
+            },
+            "privatePrice": {
+                "adult": 800,
+                "child": 400
+            }
+        },
+        {
+            "id": 4,
+            "title": "Ouzoud Waterfalls",
+            "category": "mountain",
+            "image": "https:\/\/i.ibb.co\/sdvCDtc6\/Ouzoud-Waterfalls.jpg",
+            "duration": "Full Day",
+            "location": "Atlas Mountains",
+            "description": "Visit the most beautiful waterfalls in North Africa, standing 110 meters high with permanent rainbows. Watch Rhesus macaques and enjoy lunch with stunning views.",
+            "priceTag": "From 450 MAD",
+            "groupPrice": {
+                "adult": 450,
+                "child": 225
+            },
+            "privatePrice": {
+                "adult": 900,
+                "child": 450
+            }
+        },
+        {
+            "id": 5,
+            "title": "Essaouira",
+            "category": "coastal",
+            "image": "https:\/\/i.ibb.co\/cKVMk6wb\/Essaouira.jpg",
+            "duration": "Full Day",
+            "location": "Coastal",
+            "description": "Discover the charming coastal city beloved by surfers. Enjoy sunsets over Mogador Island, explore the souks, and experience the unique Atlantic climate.",
+            "priceTag": "From 450 MAD",
+            "groupPrice": {
+                "adult": 450,
+                "child": 225
+            },
+            "privatePrice": {
+                "adult": 800,
+                "child": 400
+            }
+        },
+        {
+            "id": 6,
+            "title": "Quad Biking in Agafay Desert",
+            "category": "desert",
+            "image": "https:\/\/i.ibb.co\/cWN5ZMD\/Quad-Biking-in-Agafay-Desert.jpg",
+            "duration": "Half Day",
+            "location": "Agafay Desert",
+            "description": "Ride across diverse desert landscapes on an exhilarating quad adventure. Meet Berber culture and enjoy mint tea with locals for authentic immersion.",
+            "priceTag": "550 MAD",
+            "groupPrice": {
+                "adult": 550,
+                "child": 300
+            },
+            "privatePrice": {
+                "adult": 550,
+                "child": 300
+            }
+        },
+        {
+            "id": 7,
+            "title": "Hot Air Balloon Flight",
+            "category": "cultural",
+            "image": "https:\/\/i.ibb.co\/gLQhfnnr\/Hot-Air-Balloon-Flight.jpg",
+            "duration": "Sunrise",
+            "location": "Marrakech",
+            "description": "Enjoy breathtaking panoramic views of Marrakech and the Atlas Mountains. Soar gently for an hour and celebrate with a traditional ceremony.",
+            "priceTag": "From 1850 MAD",
+            "groupPrice": {
+                "adult": 1850,
+                "child": 1850
+            },
+            "privatePrice": {
+                "adult": 2400,
+                "child": 2400
+            }
+        },
+        {
+            "id": 8,
+            "title": "Road of the Kasbahs",
+            "category": "cultural",
+            "image": "https:\/\/i.ibb.co\/w9YRC4q\/Road-of-the-Kasbahs.jpg",
+            "duration": "Full Day",
+            "location": "Tizi n'Tichka",
+            "description": "Take the spectacular Tizi n'Tichka pass, visit Berber villages, and discover the legendary Road of Kasbahs - a natural film set for famous movies.",
+            "priceTag": "From 650 MAD",
+            "groupPrice": {
+                "adult": 650,
+                "child": 325
+            },
+            "privatePrice": {
+                "adult": 900,
+                "child": 450
+            }
+        },
+        {
+            "id": 9,
+            "title": "Complete Marrakech Tour",
+            "category": "cultural",
+            "image": "https:\/\/i.ibb.co\/rfTLXWpR\/excursionmarrakech-maroc4.jpg",
+            "duration": "Full Day",
+            "location": "Marrakech",
+            "description": "Comprehensive tour covering all major attractions of Marrakech including palaces, gardens, souks, and hidden gems with expert local guide.",
+            "priceTag": "From 400 MAD",
+            "groupPrice": {
+                "adult": 400,
+                "child": 200
+            },
+            "privatePrice": {
+                "adult": 750,
+                "child": 375
+            }
         }
     ],
-    "last_updated": "2024-01-01 12:00:00"
+    "last_updated": "2026-02-14 00:28:54"
 }

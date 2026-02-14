@@ -1,0 +1,20 @@
+{
+    "destinations": [
+        {
+            "id": 1,
+            "name": "Marrakech",
+            "description": "The Red City",
+            "image": "./img/Marrakech-jamaa-lafna.webp",
+            "tours": 12,
+            "price": "From $400"
+        },
+        {
+            "id": 2,
+            "name": "Sahara Desert",
+            "description": "Golden dunes experience",
+            "image": "./img/sahara.jfif",
+            "tours": 8,
+            "price": "From $600"
+        }
+    ]
+}

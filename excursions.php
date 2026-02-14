@@ -1,0 +1,1472 @@
+<?php
+// Start output buffering for potential caching later
+ob_start();
+
+// Load excursions from JSON file
+$data_file = __DIR__ . '/data/excursions.json';
+require_once 'includes/analytics.php';
+
+// Load excursions
+if (file_exists($data_file)) {
+    $json_data = file_get_contents($data_file);
+    $data = json_decode($json_data, true);
+    $excursions = $data['excursions'] ?? [];
+} else {
+    $excursions = [];
+}
+
+// For AJAX requests, return JSON data
+if (isset($_GET['ajax']) && $_GET['ajax'] == 'get_tours') {
+    header('Content-Type: application/json');
+    echo json_encode($excursions);
+    exit;
+}
+
+// Admin check
+session_start();
+$is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true;
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travol Morocco - Excursions & Tours</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Discover unforgettable Moroccan excursions and day tours from Marrakech.">
+    <meta name="keywords" content="Morocco tours, Marrakech excursions, desert tours, atlas mountains">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Travol Morocco">
+
+    <!-- Open Graph for Social Media -->
+    <meta property="og:title" content="Travol Morocco - Excursions & Tours">
+    <meta property="og:description" content="Professional Moroccan tour agency">
+    <meta property="og:image" content="./img/logo.png">
+    <meta property="og:type" content="website">
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="css/Responsive.css" />
+    <link rel="stylesheet" href="css/excursions.css" />
+
+    <!-- jQuery for easy AJAX -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        /* Smooth transitions */
+        .excursions-grid {
+            transition: opacity 0.3s ease;
+            min-height: 400px;
+        }
+
+        .excursions-grid.loading {
+            opacity: 0.5;
+            pointer-events: none;
+            position: relative;
+        }
+
+        .excursions-grid.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Search and filter styles */
+        .search-wrapper {
+            max-width: 600px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e1e1e1;
+            border-radius: 50px;
+            font-size: 16px;
+            transition: all 0.3s;
+            padding-right: 120px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 100px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 14px;
+            display: none;
+        }
+
+        .search-clear.visible {
+            display: block;
+        }
+
+        .search-clear:hover {
+            color: #667eea;
+        }
+
+        /* Filter buttons */
+        .excursions-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 30px 0;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #e1e1e1;
+            background: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+
+        /* Results count */
+        .results-count {
+            text-align: center;
+            margin: 20px 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .results-count span {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        /* No results */
+        .no-results {
+            text-align: center;
+            grid-column: 1/-1;
+            padding: 60px 20px;
+        }
+
+        .no-results i {
+            font-size: 48px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .no-results h3 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .no-results p {
+            color: #666;
+        }
+
+        /* Admin quick link */
+        .admin-quick-link {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            z-index: 999;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .admin-quick-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+            color: white;
+        }
+
+        /* Price display under inputs */
+        .price-hint {
+            display: block;
+            margin-top: 5px;
+            font-size: 13px;
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .price-hint i {
+            margin-right: 3px;
+            font-size: 12px;
+        }
+
+        .current-prices {
+            background: #f0f3ff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            border-left: 3px solid #667eea;
+        }
+
+        .current-prices p {
+            margin: 5px 0;
+        }
+
+        .current-prices .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .current-prices .price-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .current-prices .price-value {
+            color: #667eea;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <?php if ($is_admin): ?>
+        <a href="admin/index.php" class="admin-quick-link">
+            <i class="fas fa-cog"></i> Admin Dashboard
+        </a>
+    <?php endif; ?>
+
+    <!-- ========== Preloader Start ========== -->
+    <div id="preloader">
+        <div class="sand-layer"></div>
+        <div class="loader-content">
+            <img src="./img/Sans titre.png" alt="Travelo Logo" class="preload-logo" />
+            <h2 class="loading-text">Discover Morocco...</h2>
+        </div>
+    </div>
+    <!-- ========== Preloader End ========== -->
+
+    <!-- ===========header ==================start-->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="./img/Sans titre.png" alt="Travelo Logo" />
+                </div>
+                <ul>
+                    <div class="btn">
+                        <i class="fas fa-times close-btn"></i>
+                    </div>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="about.php">About</a></li>
+                    <li><a href="excursions.php" class="active">Tours</a></li>
+                    <li><a href="destinations.php">Destination</a></li>
+                    <li><a href="gallery.php">Gallery</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                </ul>
+                <div class="btn">
+                    <i class="fas fa-bars menu-btn"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- ===========header ==================Close-->
+
+    <!-- =========== Page Hero ==================Start-->
+    <section class="excursions-hero">
+        <div class="hero-overlay">
+            <div class="container">
+                <h1>Morocco Excursions & Tours</h1>
+                <p>Discover unforgettable experiences from Marrakech and beyond</p>
+            </div>
+        </div>
+    </section>
+    <!-- =========== Page Hero ==================Close-->
+
+    <!-- =========== Search and Filter ==================Start-->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" class="search-input"
+                    placeholder="Search tours by name, location, or description...">
+                <button class="search-clear" id="clearSearch">
+                    <i class="fas fa-times"></i> Clear
+                </button>
+            </div>
+
+            <div class="excursions-filter">
+                <button class="filter-btn active" data-filter="all">All Tours</button>
+                <button class="filter-btn" data-filter="desert">Desert Adventures</button>
+                <button class="filter-btn" data-filter="mountain">Mountain Tours</button>
+                <button class="filter-btn" data-filter="cultural">Cultural Experiences</button>
+                <button class="filter-btn" data-filter="coastal">Coastal Tours</button>
+            </div>
+
+            <div class="results-count" id="resultsCount">
+                Showing <span id="showingCount"><?php echo count($excursions); ?></span> of
+                <span id="totalCount"><?php echo count($excursions); ?></span> tours
+            </div>
+        </div>
+    </section>
+    <!-- =========== Search and Filter ==================Close-->
+
+    <!-- =========== Excursions Grid ==================Start-->
+    <section class="excursions-section">
+        <div class="container">
+            <div class="section-header">
+                <p class="heading-normal-txt">UNFORGETTABLE EXPERIENCES</p>
+                <h2 class="headings">DAY <span>TOURS & EXCURSIONS</span></h2>
+            </div>
+
+            <div class="excursions-grid" id="excursionsGrid">
+                <!-- Tours will be loaded here via JavaScript -->
+            </div>
+        </div>
+    </section>
+    <!-- =========== Excursions Grid ==================Close-->
+
+    <!-- =========== Booking Info ==================Start-->
+    <section class="booking-info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-headset"></i>
+                    <h3>24/7 Support</h3>
+                    <p>Contact us anytime for assistance</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Best Price Guarantee</h3>
+                    <p>Find a lower price? We'll match it!</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3>Easy Booking</h3>
+                    <p>Instant confirmation for all tours</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Contact Us</h3>
+                    <p>+212 524 43 34 51<br>reservationrak@sti.ma</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- =========== Booking Info ==================Close-->
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="booking-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-shopping-cart"></i> Your Booking Cart</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+
+            <div class="modal-body">
+                <!-- Cart Items -->
+                <div id="cartItems" class="cart-items">
+                    <!-- Cart items will appear here -->
+                </div>
+
+                <!-- Add New Item Form -->
+                <div class="add-item-section">
+                    <h3><i class="fas fa-plus-circle"></i> Add Another Tour</h3>
+
+                    <div class="tour-selector">
+                        <select id="modalTourSelect" class="form-control">
+                            <option value="">Select a tour...</option>
+                            <?php foreach ($excursions as $tour): ?>
+                                <option value="<?php echo $tour['id']; ?>"
+                                    data-price-group="<?php echo $tour['groupPrice']['adult']; ?>"
+                                    data-price-private="<?php echo $tour['privatePrice']['adult']; ?>"
+                                    data-child-group="<?php echo $tour['groupPrice']['child']; ?>"
+                                    data-child-private="<?php echo $tour['privatePrice']['child']; ?>">
+                                    <?php echo $tour['title']; ?> - <?php echo $tour['priceTag']; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="booking-form" id="bookingForm" style="display: none;">
+                        <!-- Current Prices Display -->
+                        <div class="current-prices" id="currentPrices">
+                            <div class="price-row">
+                                <span class="price-label">Adult Price:</span>
+                                <span class="price-value" id="displayAdultPrice">0 MAD</span>
+                            </div>
+                            <div class="price-row">
+                                <span class="price-label">Child Price:</span>
+                                <span class="price-value" id="displayChildPrice">0 MAD</span>
+                            </div>
+                        </div>
+
+                        <!-- Date Selection -->
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar"></i> Select Date</label>
+                            <input type="date" id="tourDate" class="form-control" min="<?php echo date('Y-m-d'); ?>">
+                        </div>
+
+                        <!-- Time selection that only shows for private tours -->
+                        <div class="form-group" id="timeSelectionGroup" style="display: none;">
+                            <label><i class="fas fa-clock"></i> Preferred Time (Private Tours Only)</label>
+                            <select id="tourTime" class="form-control">
+                                <option value="">Select a time...</option>
+                                <option value="08:00">08:00 AM</option>
+                                <option value="09:00">09:00 AM</option>
+                                <option value="10:00">10:00 AM</option>
+                                <option value="11:00">11:00 AM</option>
+                                <option value="14:00">02:00 PM</option>
+                                <option value="15:00">03:00 PM</option>
+                                <option value="16:00">04:00 PM</option>
+                            </select>
+                            <small style="display: block; margin-top: 5px; color: #666; font-size: 12px;">
+                                <i class="fas fa-info-circle"></i> Group tours start at 9:00 AM
+                            </small>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-user"></i> Adults</label>
+                                <input type="number" id="adults" class="form-control" min="1" value="1">
+                                <span class="price-hint" id="adultPriceHint"><i class="fas fa-tag"></i> <span id="adultPriceValue">0</span> MAD per adult</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label><i class="fas fa-child"></i> Children (under 12)</label>
+                                <input type="number" id="children" class="form-control" min="0" value="0">
+                                <span class="price-hint" id="childPriceHint"><i class="fas fa-tag"></i> <span id="childPriceValue">0</span> MAD per child</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-users"></i> Tour Type</label>
+                            <div class="tour-type-options">
+                                <label class="radio-label">
+                                    <input type="radio" name="tourType" value="group" checked>
+                                    <span>Group Tour</span>
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="tourType" value="private">
+                                    <span>Private Tour</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-comment"></i> Special Requests</label>
+                            <textarea id="specialRequests" class="form-control" rows="2" placeholder="Any special requirements?"></textarea>
+                        </div>
+
+                        <button type="button" id="addToCartBtn" class="primary-btn">
+                            <i class="fas fa-cart-plus"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Customer Information -->
+                <div class="customer-info-section">
+                    <h3><i class="fas fa-user-circle"></i> Your Information</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> Full Name *</label>
+                            <input type="text" id="customerName" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email *</label>
+                            <input type="email" id="customerEmail" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><i class="fas fa-phone"></i> WhatsApp/Phone *</label>
+                            <input type="tel" id="customerPhone" class="form-control" placeholder="+212 XXX XXXXXX" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-map-marker-alt"></i> Pickup Location</label>
+                            <input type="text" id="pickupLocation" class="form-control" value="Your Marrakech Riad/Hotel">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Summary -->
+                <div class="payment-summary" id="paymentSummary">
+                    <h3><i class="fas fa-credit-card"></i> Payment Summary</h3>
+                    <div class="summary-details">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">0 MAD</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Payment Method:</span>
+                            <span><i class="fas fa-money-bill-wave"></i> Cash on Arrival</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total to Pay:</span>
+                            <span id="totalAmount">0 MAD</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-note">
+                        <i class="fas fa-info-circle"></i> Pay in cash (MAD, EUR, USD) when we meet
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="secondary-btn" id="continueShoppingBtn">
+                    <i class="fas fa-arrow-left"></i> Continue Shopping
+                </button>
+                <button type="button" class="primary-btn" id="submitBookingBtn">
+                    <i class="fas fa-check"></i> Confirm Booking
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Icon -->
+    <div id="cartIcon" class="cart-icon" style="display: none;">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cartCount" class="cart-count">0</span>
+    </div>
+
+    <style>
+        /* Modal Styles */
+        .booking-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 30px auto;
+            padding: 0;
+            width: 90%;
+            max-width: 900px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 i {
+            margin-right: 10px;
+        }
+
+        .close-modal {
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #ff4444;
+        }
+
+        .modal-body {
+            padding: 30px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        /* Cart Items */
+        .cart-items {
+            margin-bottom: 30px;
+        }
+
+        .cart-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+            position: relative;
+        }
+
+        .cart-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .cart-item-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .cart-item-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .cart-item-details i {
+            margin-right: 5px;
+            color: #667eea;
+        }
+
+        .remove-item {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .remove-item:hover {
+            background: #cc0000;
+            transform: scale(1.1);
+        }
+
+        /* Add Item Section */
+        .add-item-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .add-item-section h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .tour-selector {
+            margin-bottom: 20px;
+        }
+
+        .booking-form {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #ddd;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .tour-type-options {
+            display: flex;
+            gap: 20px;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .radio-label input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* Customer Info Section */
+        .customer-info-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .customer-info-section h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Payment Summary */
+        .payment-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .payment-summary h3 {
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .summary-row.total {
+            font-size: 20px;
+            font-weight: bold;
+            border-bottom: none;
+            margin-top: 10px;
+        }
+
+        .payment-note {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .payment-note i {
+            margin-right: 5px;
+        }
+
+        /* Cart Icon */
+        .cart-icon {
+            position: fixed;
+            bottom: 130px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            z-index: 999;
+            transition: all 0.3s;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-icon i {
+            font-size: 24px;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4444;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .secondary-btn {
+            background: #e1e1e1;
+            color: #333;
+        }
+
+        .secondary-btn:hover {
+            background: #d1d1d1;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 15px auto;
+            }
+
+            .cart-icon {
+                bottom: 100px;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+
+    <script src="js/script.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // ========== TOUR DISPLAY CODE ==========
+            let allTours = [];
+            let currentFilter = 'all';
+            let currentSearch = '';
+
+            // Load tours via AJAX
+            function loadTours() {
+                $('#excursionsGrid').addClass('loading');
+
+                $.ajax({
+                    url: 'excursions.php?ajax=get_tours',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(tours) {
+                        allTours = tours;
+                        filterAndDisplayTours();
+                    },
+                    error: function() {
+                        console.error('Failed to load tours');
+                        $('#excursionsGrid').removeClass('loading');
+                        $('#excursionsGrid').html('<div class="no-results"><i class="fas fa-exclamation-circle"></i><h3>Error Loading Tours</h3><p>Please refresh the page or try again later.</p></div>');
+                    }
+                });
+            }
+
+            // Filter and display tours
+            function filterAndDisplayTours() {
+                let filtered = allTours;
+
+                if (currentFilter !== 'all') {
+                    filtered = filtered.filter(tour => tour.category === currentFilter);
+                }
+
+                if (currentSearch.trim() !== '') {
+                    const searchTerm = currentSearch.toLowerCase().trim();
+                    filtered = filtered.filter(tour =>
+                        tour.title.toLowerCase().includes(searchTerm) ||
+                        tour.description.toLowerCase().includes(searchTerm) ||
+                        tour.location.toLowerCase().includes(searchTerm)
+                    );
+                }
+
+                $('#showingCount').text(filtered.length);
+                $('#totalCount').text(allTours.length);
+
+                if (currentSearch.trim() !== '') {
+                    $('#clearSearch').addClass('visible');
+                } else {
+                    $('#clearSearch').removeClass('visible');
+                }
+
+                displayTours(filtered);
+            }
+
+            // Display tours in grid
+            function displayTours(tours) {
+                const grid = $('#excursionsGrid');
+                grid.empty();
+
+                if (tours.length === 0) {
+                    grid.append(`
+                        <div class="no-results">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <h3>No Tours Found</h3>
+                            <p>Try adjusting your search or filter to find what you're looking for.</p>
+                        </div>
+                    `);
+                    grid.removeClass('loading');
+                    return;
+                }
+
+                tours.forEach(tour => {
+                    let pricingHtml = '';
+
+                    if (tour.id == 7) {
+                        pricingHtml = `
+                            <div class="price-options">
+                                <p><strong>Classic Flight:</strong> ${tour.groupPrice.adult} MAD</p>
+                                <p><strong>Premium Flight:</strong> ${tour.privatePrice.adult} MAD</p>
+                            </div>
+                        `;
+                    } else if (tour.id == 6) {
+                        pricingHtml = `
+                            <div class="pricing single-price">
+                                <h4>Price Per Person</h4>
+                                <p>Driver: ${tour.groupPrice.adult} MAD</p>
+                                <p>Passenger: ${tour.groupPrice.child} MAD</p>
+                            </div>
+                        `;
+                    } else {
+                        pricingHtml = `
+                            <div class="price-group">
+                                <h4>Group Tour</h4>
+                                <p>Adult: ${tour.groupPrice.adult} MAD</p>
+                                <p>Child: ${tour.groupPrice.child} MAD</p>
+                            </div>
+                            <div class="price-group">
+                                <h4>Private Tour</h4>
+                                <p>Adult: ${tour.privatePrice.adult} MAD</p>
+                                <p>Child: ${tour.privatePrice.child} MAD</p>
+                            </div>
+                        `;
+                    }
+
+                    const tourCard = `
+                        <div class="excursion-card" data-category="${tour.category}" data-tour-id="${tour.id}">
+                            <div class="excursion-image">
+                                <img src="${tour.image}" alt="${tour.title}">
+                                <div class="price-tag">${tour.priceTag}</div>
+                            </div>
+                            <div class="excursion-content">
+                                <h3>${tour.title}</h3>
+                                <div class="excursion-meta">
+                                    <span><i class="fas fa-clock"></i> ${tour.duration}</span>
+                                    <span><i class="fas fa-users"></i> Group/Private</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> ${tour.location}</span>
+                                </div>
+                                <p>${tour.description}</p>
+                                <div class="pricing">
+                                    ${pricingHtml}
+                                </div>
+                                <a href="#" class="book-btn">Book Now</a>
+                            </div>
+                        </div>
+                    `;
+
+                    grid.append(tourCard);
+                });
+
+                grid.removeClass('loading');
+            }
+
+            // ========== BOOKING CART CODE ==========
+            let cart = [];
+            let selectedTourId = null;
+            let currentAdultPrice = 0;
+            let currentChildPrice = 0;
+
+            // Load cart from localStorage
+            if (localStorage.getItem('bookingCart')) {
+                cart = JSON.parse(localStorage.getItem('bookingCart'));
+                updateCartCount();
+            }
+
+            // Function to update price display
+            function updatePriceDisplay() {
+                if (selectedTourId) {
+                    const tourOption = $('#modalTourSelect option:selected');
+                    const tourType = $('input[name="tourType"]:checked').val();
+
+                    if (tourType === 'private') {
+                        currentAdultPrice = parseInt(tourOption.data('price-private'));
+                        currentChildPrice = parseInt(tourOption.data('child-private'));
+                    } else {
+                        currentAdultPrice = parseInt(tourOption.data('price-group'));
+                        currentChildPrice = parseInt(tourOption.data('child-group'));
+                    }
+
+                    $('#displayAdultPrice').text(currentAdultPrice + ' MAD');
+                    $('#displayChildPrice').text(currentChildPrice + ' MAD');
+                    $('#adultPriceValue').text(currentAdultPrice);
+                    $('#childPriceValue').text(currentChildPrice);
+                }
+            }
+
+            // Book Now button click
+            $(document).on('click', '.book-btn', function(e) {
+                e.preventDefault();
+                const tourCard = $(this).closest('.excursion-card');
+                const tourId = tourCard.data('tour-id');
+
+                $('#modalTourSelect').val(tourId).trigger('change');
+                $('#bookingModal').fadeIn();
+            });
+
+            // Tour select change
+            $('#modalTourSelect').on('change', function() {
+                const tourId = $(this).val();
+                if (tourId) {
+                    selectedTourId = tourId;
+                    $('#bookingForm').slideDown();
+                    const today = new Date().toISOString().split('T')[0];
+                    $('#tourDate').attr('min', today);
+                    updatePriceDisplay();
+                } else {
+                    $('#bookingForm').slideUp();
+                }
+            });
+
+            // Show/hide time selection based on tour type
+            $('input[name="tourType"]').on('change', function() {
+                if ($(this).val() === 'private') {
+                    $('#timeSelectionGroup').slideDown();
+                } else {
+                    $('#timeSelectionGroup').slideUp();
+                    $('#tourTime').val(''); // Clear time selection
+                }
+                updatePriceDisplay();
+            });
+
+            // Add to Cart button
+            $('#addToCartBtn').on('click', function() {
+                if (!validateBookingForm()) return;
+
+                const tourOption = $('#modalTourSelect option:selected');
+                const tourType = $('input[name="tourType"]:checked').val();
+
+                // Get correct prices based on tour type
+                let adultPrice = 0;
+                let childPrice = 0;
+
+                if (tourType === 'private') {
+                    adultPrice = parseInt(tourOption.data('price-private'));
+                    childPrice = parseInt(tourOption.data('child-private'));
+                } else {
+                    adultPrice = parseInt(tourOption.data('price-group'));
+                    childPrice = parseInt(tourOption.data('child-group'));
+                }
+
+                const cartItem = {
+                    id: Date.now() + Math.random(),
+                    tourId: selectedTourId,
+                    title: tourOption.text().split(' - ')[0],
+                    date: $('#tourDate').val(),
+                    time: tourType === 'private' ? $('#tourTime').val() : '09:00 (Fixed)',
+                    adults: parseInt($('#adults').val()),
+                    children: parseInt($('#children').val()),
+                    tourType: tourType,
+                    adultPrice: adultPrice,
+                    childPrice: childPrice,
+                    specialRequests: $('#specialRequests').val()
+                };
+
+                cartItem.totalPrice = (cartItem.adults * cartItem.adultPrice) + (cartItem.children * cartItem.childPrice);
+
+                cart.push(cartItem);
+                saveCart();
+                updateCartDisplay();
+
+                // Reset form
+                $('#bookingForm').slideUp();
+                $('#modalTourSelect').val('');
+                $('#tourDate, #tourTime, #specialRequests').val('');
+                $('#adults').val('1');
+                $('#children').val('0');
+                $('input[name="tourType"][value="group"]').prop('checked', true);
+                $('#timeSelectionGroup').slideUp();
+
+                showNotification('Tour added to cart!', 'success');
+            });
+
+            // Remove from cart
+            $(document).on('click', '.remove-item', function() {
+                const itemId = $(this).data('id');
+                cart = cart.filter(item => item.id != itemId);
+                saveCart();
+                updateCartDisplay();
+                showNotification('Item removed from cart', 'info');
+            });
+
+            // Update cart display
+            function updateCartDisplay() {
+                const cartContainer = $('#cartItems');
+                if (cart.length === 0) {
+                    cartContainer.html('<div class="empty-cart"><i class="fas fa-shopping-cart"></i><p>Your cart is empty</p></div>');
+                    $('#subtotal').text('0 MAD');
+                    $('#totalAmount').text('0 MAD');
+                } else {
+                    let html = '';
+                    let subtotal = 0;
+
+                    cart.forEach(item => {
+                        subtotal += item.totalPrice;
+                        const timeDisplay = item.time === '09:00 (Fixed)' ? '9:00 AM (Fixed)' : item.time;
+
+                        html += `
+                            <div class="cart-item">
+                                <button class="remove-item" data-id="${item.id}"><i class="fas fa-times"></i></button>
+                                <div class="cart-item-header">
+                                    <span class="cart-item-title">${item.title}</span>
+                                    <span class="cart-item-price">${item.totalPrice} MAD</span>
+                                </div>
+                                <div class="cart-item-details">
+                                    <span><i class="fas fa-calendar"></i> ${item.date}</span>
+                                    <span><i class="fas fa-clock"></i> ${timeDisplay}</span>
+                                    <span><i class="fas fa-user"></i> ${item.adults} Adults</span>
+                                    <span><i class="fas fa-child"></i> ${item.children} Children</span>
+                                    <span><i class="fas fa-users"></i> ${item.tourType} tour</span>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    cartContainer.html(html);
+                    $('#subtotal').text(subtotal + ' MAD');
+                    $('#totalAmount').text(subtotal + ' MAD');
+                }
+
+                updateCartCount();
+            }
+
+            function updateCartCount() {
+                const count = cart.length;
+                $('#cartCount').text(count);
+                if (count > 0) {
+                    $('#cartIcon').fadeIn();
+                } else {
+                    $('#cartIcon').fadeOut();
+                }
+            }
+
+            function saveCart() {
+                localStorage.setItem('bookingCart', JSON.stringify(cart));
+            }
+
+            function validateBookingForm() {
+                if (!$('#tourDate').val()) {
+                    showNotification('Please select a date', 'error');
+                    return false;
+                }
+
+                const tourType = $('input[name="tourType"]:checked').val();
+                if (tourType === 'private' && !$('#tourTime').val()) {
+                    showNotification('Please select a preferred time for your private tour', 'error');
+                    return false;
+                }
+
+                if (!$('#adults').val() || parseInt($('#adults').val()) < 1) {
+                    showNotification('Please add at least 1 adult', 'error');
+                    return false;
+                }
+                return true;
+            }
+
+            function showNotification(message, type) {
+                const notification = $(`<div class="notification ${type}">${message}</div>`);
+                $('body').append(notification);
+                setTimeout(() => notification.fadeOut(() => notification.remove()), 3000);
+            }
+
+            // Cart icon click
+            $('#cartIcon').on('click', function() {
+                $('#bookingModal').fadeIn();
+            });
+
+            // Close modal
+            $('.close-modal, #continueShoppingBtn').on('click', function() {
+                $('#bookingModal').fadeOut();
+            });
+
+            // Submit booking
+            $('#submitBookingBtn').on('click', function() {
+                if (!validateCustomerInfo()) return;
+                if (cart.length === 0) {
+                    showNotification('Your cart is empty', 'error');
+                    return;
+                }
+
+                const bookingData = {
+                    customer: {
+                        name: $('#customerName').val(),
+                        email: $('#customerEmail').val(),
+                        phone: $('#customerPhone').val(),
+                        pickup: $('#pickupLocation').val()
+                    },
+                    items: cart,
+                    total: cart.reduce((sum, item) => sum + item.totalPrice, 0),
+                    date: new Date().toISOString(),
+                    status: 'pending'
+                };
+
+                $.ajax({
+                    url: 'process-booking.php',
+                    method: 'POST',
+                    data: {
+                        booking: JSON.stringify(bookingData)
+                    },
+                    success: function(response) {
+                        cart = [];
+                        saveCart();
+                        updateCartDisplay();
+                        alert('Booking confirmed! We will contact you shortly on WhatsApp.');
+                        $('#bookingModal').fadeOut();
+                        $('#customerName, #customerEmail, #customerPhone').val('');
+                        $('#pickupLocation').val('Your Marrakech Riad/Hotel');
+                    },
+                    error: function() {
+                        showNotification('Error processing booking. Please try again.', 'error');
+                    }
+                });
+            });
+
+            function validateCustomerInfo() {
+                if (!$('#customerName').val()) {
+                    showNotification('Please enter your name', 'error');
+                    return false;
+                }
+                if (!$('#customerEmail').val() || !$('#customerEmail').val().includes('@')) {
+                    showNotification('Please enter a valid email', 'error');
+                    return false;
+                }
+                if (!$('#customerPhone').val()) {
+                    showNotification('Please enter your phone number', 'error');
+                    return false;
+                }
+                return true;
+            }
+
+            // Filter button clicks
+            $('.filter-btn').click(function() {
+                $('.filter-btn').removeClass('active');
+                $(this).addClass('active');
+                currentFilter = $(this).data('filter');
+                filterAndDisplayTours();
+            });
+
+            // Search input
+            $('#searchInput').on('input', function() {
+                currentSearch = $(this).val();
+                filterAndDisplayTours();
+            });
+
+            // Clear search
+            $('#clearSearch').click(function() {
+                $('#searchInput').val('');
+                currentSearch = '';
+                filterAndDisplayTours();
+            });
+
+            // Load tours on page load
+            loadTours();
+            updateCartDisplay();
+        });
+    </script>
+
+    <!-- Add notification styles -->
+    <style>
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 10000;
+            animation: slideInRight 0.3s ease;
+        }
+
+        .notification.success {
+            background: #28a745;
+        }
+
+        .notification.error {
+            background: #dc3545;
+        }
+
+        .notification.info {
+            background: #17a2b8;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .empty-cart i {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+    </style>
+
+</body>
+
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <img src="./img/Sans titre.png" alt="Travelo Logo" class="footer-logo" />
+                <p>Discover the magic of Morocco with our expert guides and curated experiences.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="about.php">About Us</a></li>
+                    <li><a href="excursions.php">Tours & Excursions</a></li>
+                    <li><a href="destinations.php">Destinations</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <p><i class="fa fa-phone"></i> +212 524 43 34 51</p>
+                <p><i class="fa fa-envelope"></i> reservationrak@sti.ma</p>
+                <p><i class="fa fa-map-marker-alt"></i> Marrakech, Morocco</p>
+            </div>
+            <div class="footer-col">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <p class="copyright">
+            &copy; <?php echo date('Y'); ?> Travol Morocco. All rights reserved.
+        </p>
+    </div>
+</footer>
+
+</html>
+<?php
+ob_end_flush();
+?>
