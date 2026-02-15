@@ -1,0 +1,1479 @@
+{
+  "zones": {
+    "A": {
+      "name": "Zone A - Medina North",
+      "pickup_points": [
+        "BAB LAKSOUR",
+        "COLLEGE MOHAMED V RIAD LAAROUS",
+        "DAR MOHA",
+        "PHARMACIE BAB DOUKKALA",
+        "parking porte bab doukkala",
+        "PARKING BAB TAGHZOUT",
+        "BAB YACOUT"
+      ],
+      "hotels": [
+        {
+          "id": 1,
+          "name": "Riad el ghali & spa",
+          "pickup_point": "BAB LAKSOUR",
+          "pickup_times": {
+            "agafay": "13H00",
+            "souk_medina": "16H30",
+            "diner_nejjarine": "20H00",
+            "cooking_class": "09H00",
+            "essaouira": "08H00",
+            "diner_nouba": "19H00",
+            "ourika": "09H00"
+          }
+        },
+        {
+          "id": 2,
+          "name": "Riad ABAKA BY GHALI BOUTIQUE",
+          "pickup_point": "BAB LAKSOUR",
+          "pickup_times": {
+            "agafay": "13H00",
+            "souk_medina": "16H30",
+            "diner_nejjarine": "20H00",
+            "cooking_class": "09H00",
+            "essaouira": "08H00",
+            "diner_nouba": "19H00",
+            "ourika": "09H00"
+          }
+        },
+        {
+          "id": 3,
+          "name": "Riad la croix berbere",
+          "pickup_point": "BAB LAKSOUR",
+          "pickup_times": {
+            "agafay": "13H00",
+            "souk_medina": "16H30",
+            "diner_nejjarine": "20H00",
+            "cooking_class": "09H00",
+            "essaouira": "08H00",
+            "diner_nouba": "19H00",
+            "ourika": "09H00"
+          }
+        },
+        {
+          "id": 4,
+          "name": "Riad la croix berbere du luxe",
+          "pickup_point": "BAB LAKSOUR",
+          "pickup_times": {
+            "agafay": "13H00",
+            "souk_medina": "16H30",
+            "diner_nejjarine": "20H00",
+            "cooking_class": "09H00",
+            "essaouira": "08H00",
+            "diner_nouba": "19H00",
+            "ourika": "09H00"
+          }
+        },
+        {
+          "id": 5,
+          "name": "Riad NUIT D' ORIENT",
+          "pickup_point": "COLLEGE MOHAMED V RIAD LAAROUS",
+          "pickup_times": {
+            "agafay": "13H00",
+            "souk_medina": "16H30",
+            "diner_nejjarine": "20H00",
+            "cooking_class": "09H00",
+            "essaouira": "08H00",
+            "diner_nouba": "19H00",
+            "ourika": "09H00"
+          }
+        },
+        {
+          "id": 6,
+          "name": "Riad Jardin des reves",
+          "pickup_point": "DAR MOHA",
+          "pickup_times": {
+            "agafay": "13H00",
+            "souk_medina": "16H30",
+            "diner_nejjarine": "20H00",
+            "cooking_class": "09H00",
+            "essaouira": "08H00",
+            "diner_nouba": "19H00",
+            "ourika": "09H00"
+          }
+        },
+        {
+          "id": 7,
+          "name": "RIAD STELLA CADENTE",
+          "pickup_point": "DAR MOHA",
+          "pickup_times": {
+            "agafay": "13H00",
+            "souk_medina": "16H30",
+            "diner_nejjarine": "20H00",
+            "cooking_class": "09H00",
+            "essaouira": "08H00",
+            "diner_nouba": "19H00",
+            "ourika": "09H00"
+          }
+        },
+        {
+          "id": 8,
+          "name": "RIAD LA ROSE DU DESER",
+          "pickup_point": "DAR MOHA",
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        },
+        {
+          "id": 9,
+          "name": "AMBRE ET JASSMINE",
+          "pickup_point": "PHARMACIE BAB DOUKKALA",
+          "pickup_times": {
+            "agafay": "13H00",
+            "souk_medina": "16H30",
+            "diner_nejjarine": "20H00",
+            "cooking_class": "09H00",
+            "essaouira": "08H00",
+            "diner_nouba": "19H00",
+            "ourika": "09H00"
+          }
+        },
+        {
+          "id": 10,
+          "name": "Riad Atlas Mejbar",
+          "pickup_point": "PHARMACIE BAB DOUKKALA",
+          "pickup_times": {
+            "agafay": "13H00",
+            "souk_medina": "16H30",
+            "diner_nejjarine": "20H00",
+            "cooking_class": "09H00",
+            "essaouira": "08H00",
+            "diner_nouba": "19H00",
+            "ourika": "09H00"
+          }
+        },
+        {
+          "id": 11,
+          "name": "Riad Ekla",
+          "pickup_point": "PHARMACIE BAB DOUKKALA",
+          "pickup_times": {
+            "agafay": "13H00",
+            "souk_medina": "16H30",
+            "diner_nejjarine": "20H00",
+            "cooking_class": "09H00",
+            "essaouira": "08H00",
+            "diner_nouba": "19H00",
+            "ourika": "09H00"
+          }
+        },
+        {
+          "id": 12,
+          "name": "Riad Kniza Marrakech",
+          "pickup_point": "parking porte bab doukkala",
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        },
+        {
+          "id": 13,
+          "name": "Riad 7 SIANTS",
+          "pickup_point": "PARKING BAB TAGHZOUT",
+          "pickup_times": {
+            "agafay": "13H00",
+            "souk_medina": "16H30",
+            "diner_nejjarine": "20H00",
+            "cooking_class": "09H00",
+            "essaouira": "08H00",
+            "diner_nouba": "19H00",
+            "ourika": "09H00"
+          }
+        },
+        {
+          "id": 14,
+          "name": "Riad DAR Khalti",
+          "pickup_point": "PARKING BAB TAGHZOUT",
+          "pickup_times": {
+            "agafay": "13H00",
+            "souk_medina": "16H30",
+            "diner_nejjarine": "20H00",
+            "cooking_class": "09H00",
+            "essaouira": "08H00",
+            "diner_nouba": "19H00",
+            "ourika": "09H00"
+          }
+        },
+        {
+          "id": 15,
+          "name": "BAB YACOUT",
+          "pickup_point": "BAB YACOUT",
+          "pickup_times": {
+            "agafay": "13H00",
+            "souk_medina": "16H30",
+            "diner_nejjarine": "20H00",
+            "cooking_class": "09H00",
+            "essaouira": "08H00",
+            "diner_nouba": "19H00",
+            "ourika": "09H00"
+          }
+        },
+        {
+          "id": 16,
+          "name": "RIAD PALAIS DELIA",
+          "pickup_point": "BAB YACOUT",
+          "pickup_times": {
+            "agafay": "13H00",
+            "souk_medina": "16H30",
+            "diner_nejjarine": "20H00",
+            "cooking_class": "09H00",
+            "essaouira": "08H00",
+            "diner_nouba": "19H00",
+            "ourika": "09H00"
+          }
+        }
+      ]
+    },
+    "B": {
+      "name": "Zone B - Medina South",
+      "pickup_points": [
+        "BAB AYLAN",
+        "LYCEE MOHAMED V",
+        "COLLEGE ABDELMOUMEN",
+        "POSTE BAB LAKHMIS",
+        "PARKING DOUAR GRAOUA",
+        "KSAR ANIKA",
+        "LYCEE LALLA AOUDA SAADIA"
+      ],
+      "hotels": [
+        {
+          "id": 17,
+          "name": "Riad Davia",
+          "pickup_point": "BAB AYLAN",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 18,
+          "name": "Riad Medjad",
+          "pickup_point": "BAB AYLAN",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 19,
+          "name": "Riad Tchina",
+          "pickup_point": "BAB AYLAN",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 20,
+          "name": "Riad Etoilles Berberes",
+          "pickup_point": "BAB AYLAN",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 21,
+          "name": "Riad soleil d' hiver",
+          "pickup_point": "BAB AYLAN",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 22,
+          "name": "RIAD SAMIR PRIVILEGE",
+          "pickup_point": "BAB AYLAN",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 23,
+          "name": "Riad Soleil D'Hiver Boutique and Spa",
+          "pickup_point": "BAB AYLAN",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 24,
+          "name": "Riad Les Etoiles Berberes \" Ex riad MedJad & Spa \"",
+          "pickup_point": "BAB AYLAN",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 25,
+          "name": "SAMIR PRIVILEGE & SPA",
+          "pickup_point": "BAB AYLAN",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 26,
+          "name": "Riad Cornes de gazelle",
+          "pickup_point": "LYCEE MOHAMED V",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 27,
+          "name": "RIAD NOWARA",
+          "pickup_point": "LYCEE MOHAMED V",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 28,
+          "name": "FABIOLA",
+          "pickup_point": "LYCEE MOHAMED V",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 29,
+          "name": "Riad Oriental Medina",
+          "pickup_point": "COLLEGE ABDELMOUMEN",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 30,
+          "name": "RIAD HAFSSA",
+          "pickup_point": "COLLEGE ABDELMOUMEN",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 31,
+          "name": "Riad Oasis du Desert",
+          "pickup_point": "COLLEGE ABDELMOUMEN",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 32,
+          "name": "Riad tibibt",
+          "pickup_point": "COLLEGE ABDELMOUMEN",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 33,
+          "name": "Riad Assouel",
+          "pickup_point": "POSTE BAB LAKHMIS",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 34,
+          "name": "riad le voile d'orient",
+          "pickup_point": "PARKING DOUAR GRAOUA",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 35,
+          "name": "RIAD IMILCHIL",
+          "pickup_point": "KSAR ANIKA",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 36,
+          "name": "Riad Moulaty Lalla Khadija",
+          "pickup_point": "LYCEE LALLA AOUDA SAADIA",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        },
+        {
+          "id": 37,
+          "name": "Riad tarba",
+          "pickup_point": "LYCEE LALLA AOUDA SAADIA",
+          "pickup_times": {
+            "agafay": "13H15",
+            "souk_medina": "16H45",
+            "diner_nejjarine": "20H15",
+            "cooking_class": "09H15",
+            "essaouira": "08H15",
+            "diner_nouba": "19H15",
+            "ourika": "09H15"
+          }
+        }
+      ]
+    },
+    "C": {
+      "name": "Zone C - Medina Central",
+      "pickup_points": [
+        "BAB AHMAR",
+        "SAADIENS PLACE",
+        "BAB KSSIBA",
+        "MELLAH PLACE",
+        "LYCEE MED 5",
+        "PLACE MELLAH",
+        "HOTEL TAZI",
+        "DAR AL MAKHZEN",
+        "MOSQUEE BERIMA",
+        "BAB SIDI MIMOUN",
+        "Malah square"
+      ],
+      "hotels": [
+        {
+          "id": 38,
+          "name": "LA porte rouge",
+          "pickup_point": "BAB AHMAR",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 39,
+          "name": "Riad citrus",
+          "pickup_point": "BAB AHMAR",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 40,
+          "name": "Riad dar Massai",
+          "pickup_point": "SAADIENS PLACE",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 41,
+          "name": "RIAD CLE D'OR",
+          "pickup_point": "SAADIENS PLACE",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 42,
+          "name": "Riad Massai Annexe",
+          "pickup_point": "BAB KSSIBA",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 43,
+          "name": "Riad El grably",
+          "pickup_point": "MELLAH PLACE",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 44,
+          "name": "RIAD LAURENCE OLIVIER",
+          "pickup_point": "LYCEE MED 5",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 45,
+          "name": "Riad Terra Bahia",
+          "pickup_point": "MELLAH PLACE",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 46,
+          "name": "Riad cologne",
+          "pickup_point": "PLACE MELLAH",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 47,
+          "name": "Riad Terrasses de Zwen Zwen",
+          "pickup_point": "HOTEL TAZI",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 48,
+          "name": "Riad mama",
+          "pickup_point": "HOTEL TAZI",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 49,
+          "name": "Riad Dar Arwa",
+          "pickup_point": "HOTEL TAZI",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 50,
+          "name": "Riad bo Riad",
+          "pickup_point": "HOTEL TAZI",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 51,
+          "name": "Riad Terrasses de jemaa el fna",
+          "pickup_point": "HOTEL TAZI",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 52,
+          "name": "Riad Miel et citron",
+          "pickup_point": "HOTEL TAZI",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 53,
+          "name": "Riad Hidden",
+          "pickup_point": "HOTEL TAZI",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 54,
+          "name": "Riad Zarka",
+          "pickup_point": "HOTEL TAZI",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 55,
+          "name": "Riad aymane",
+          "pickup_point": "HOTEL TAZI",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 56,
+          "name": "Riad FLAMME D'ORENT AND SPA",
+          "pickup_point": "HOTEL TAZI",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 57,
+          "name": "Riad Mokha Mokha",
+          "pickup_point": "HOTEL TAZI",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 58,
+          "name": "Riad Francine",
+          "pickup_point": "HOTEL TAZI",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 59,
+          "name": "Riad Faraj & Spa",
+          "pickup_point": "HOTEL TAZI",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 60,
+          "name": "Riad Tzizwit",
+          "pickup_point": "HOTEL TAZI",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 61,
+          "name": "Riad berta",
+          "pickup_point": "DAR AL MAKHZEN",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 62,
+          "name": "Riad khabia",
+          "pickup_point": "MOSQUEE BERIMA",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 63,
+          "name": "Riad cologne &spa",
+          "pickup_point": "BAB SIDI MIMOUN",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 64,
+          "name": "Riad agdal",
+          "pickup_point": "Malah square",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        },
+        {
+          "id": 65,
+          "name": "PALAIS MOULAY SAID",
+          "pickup_point": "PLACE MELLAH",
+          "pickup_times": {
+            "agafay": "13H30",
+            "souk_medina": "17H00",
+            "diner_nejjarine": "20H30",
+            "cooking_class": "09H30",
+            "essaouira": "08H30",
+            "diner_nouba": "19H30",
+            "ourika": "09H30"
+          }
+        }
+      ]
+    },
+    "HOTEL": {
+      "name": "Zone Hotels - Outside Medina",
+      "pickup_points": ["RECEPTION", "Madrasa Ben Youssef", "PARKING DOUAR GRAOUA", "BAB GHMAT", "COLLEGE ABDELMOUMEN", "CAFE FRANCE", "BAB SIDI MIMOUN"],
+      "hotels": [
+        {
+          "id": 66,
+          "name": "Palais Mirage d'Atlas Hotel &",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 67,
+          "name": "BARCELÓ PALMERAIE OASIS RESOR",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 68,
+          "name": "KENZI MENARA PALACE",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 69,
+          "name": "JAAL RESORT MARRAKECH",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 70,
+          "name": "Pickalbatros Hôtel Du Golf",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 71,
+          "name": "Aqua fun club Marrakech",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 72,
+          "name": "Palm Menara",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 73,
+          "name": "TIGMIZA BOUTIQUE HOTEL & SPA",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 74,
+          "name": "Domaine Des Remparts Hôtel &",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 75,
+          "name": "MOVENPICK MANSOUR MARRAKECH",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 76,
+          "name": "GRAND PLAZA MARRAKECH",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 77,
+          "name": "SUMAHAN SUITEAS & SPA",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 78,
+          "name": "PALM PLAZA HOTEL & SPA",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 79,
+          "name": "HOTEL TEMPOO",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 80,
+          "name": "LAWRENCE D ARABIE HOTEL",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 81,
+          "name": "AQUA MIRAGE CLUB & AQUA PARC",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 82,
+          "name": "BARCELO PALMERAIE",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 83,
+          "name": "MEDINA GARDENS",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 84,
+          "name": "AL MAADEN VILLA HOTEL & SPA",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 85,
+          "name": "NOBU HOTEL MARRAKECH",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 86,
+          "name": "CLUB PARADISIO",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 87,
+          "name": "Riad Villa Bleue",
+          "pickup_point": "RECEPTION",
+          "pickup_times": {
+            "agafay": "Reception",
+            "souk_medina": "Reception",
+            "diner_nejjarine": "Reception",
+            "cooking_class": "Reception",
+            "essaouira": "Reception",
+            "diner_nouba": "Reception",
+            "ourika": "Reception"
+          }
+        },
+        {
+          "id": 88,
+          "name": "EDEN ANDALOU SUITES",
+          "pickup_point": "Madrasa Ben Youssef",
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        },
+        {
+          "id": 89,
+          "name": "CLUB PARADISIO (MARRAKECH)",
+          "pickup_point": null,
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        },
+        {
+          "id": 90,
+          "name": "HÔTEL CENTRAL PALACE",
+          "pickup_point": null,
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        },
+        {
+          "id": 91,
+          "name": "Hôtel Du Golf Rotana Palmerai",
+          "pickup_point": null,
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        },
+        {
+          "id": 92,
+          "name": "PALAIS TARA & SPA",
+          "pickup_point": null,
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        },
+        {
+          "id": 93,
+          "name": "BE LIVE COLLECTION MARRAKECH",
+          "pickup_point": null,
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        },
+        {
+          "id": 94,
+          "name": "RIAD DAR ASSIYA",
+          "pickup_point": null,
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        },
+        {
+          "id": 95,
+          "name": "RIAD MINORISA (MARRAKECH)",
+          "pickup_point": "Madrasa Ben Youssef",
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        },
+        {
+          "id": 96,
+          "name": "RIAD ANDALLA SPA",
+          "pickup_point": "PARKING DOUAR GRAOUA",
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        },
+        {
+          "id": 97,
+          "name": "RIAD LAURENCE OLIVIER",
+          "pickup_point": "BAB GHMAT",
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        },
+        {
+          "id": 98,
+          "name": "Riad Lalla Zineb & Spa",
+          "pickup_point": "COLLEGE ABDELMOUMEN",
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        },
+        {
+          "id": 99,
+          "name": "RIAD MARRAKECH DOORS",
+          "pickup_point": "CAFE FRANCE",
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        },
+        {
+          "id": 100,
+          "name": "Riad Art & Emotions Boutique H",
+          "pickup_point": "CAFE FRANCE",
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        },
+        {
+          "id": 101,
+          "name": "RIAD ATRIUM & SPA",
+          "pickup_point": "BAB SIDI MIMOUN",
+          "pickup_times": {
+            "agafay": null,
+            "souk_medina": null,
+            "diner_nejjarine": null,
+            "cooking_class": null,
+            "essaouira": null,
+            "diner_nouba": null,
+            "ourika": null
+          }
+        }
+      ]
+    }
+  },
+  "activities": {
+    "agafay": "RAK-AGAFAY",
+    "souk_medina": "SOUK ET MEDINA",
+    "diner_nejjarine": "DINER NEJJARINE",
+    "cooking_class": "COURS DE CUISINE",
+    "essaouira": "ESSAOUIRA",
+    "diner_nouba": "DINER NOUBA COMPTOIR / DAR ZELLIJ",
+    "ourika": "OURIKA"
+  }
+}

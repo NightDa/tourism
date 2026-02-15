@@ -264,6 +264,37 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
             color: #667eea;
             font-weight: 700;
         }
+
+        /* Hotel Suggestions Box */
+        .suggestions-box {
+            position: absolute;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 5px;
+        }
+
+        .suggestion-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.3s;
+        }
+
+        .suggestion-item:hover {
+            background: #f8f9fa;
+        }
+
+        .suggestion-item i {
+            margin-right: 10px;
+            width: 20px;
+            color: #667eea;
+        }
     </style>
 </head>
 
@@ -527,11 +558,28 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                             <label><i class="fas fa-phone"></i> WhatsApp/Phone *</label>
                             <input type="tel" id="customerPhone" class="form-control" placeholder="+212 XXX XXXXXX" required>
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label><i class="fas fa-map-marker-alt"></i> Pickup Location</label>
-                            <input type="text" id="pickupLocation" class="form-control" value="Your Marrakech Riad/Hotel">
-                        </div>
+                    <!-- Hotel Search -->
+                    <div class="form-group" style="position: relative;">
+                        <label><i class="fas fa-hotel"></i> Your Hotel/Riad in Marrakech</label>
+                        <input type="text" id="hotelSearch" class="form-control"
+                            placeholder="Search for your hotel or riad..."
+                            autocomplete="off">
+                        <small style="display: block; margin-top: 5px; color: #666; font-size: 12px;">
+                            <i class="fas fa-info-circle"></i> Start typing your hotel name
+                        </small>
+                        <div id="hotelSuggestions" class="suggestions-box" style="display: none;"></div>
+                    </div>
+
+                    <!-- Selected Hotel Info (appears after selection) -->
+                    <div id="selectedHotelInfo" style="display: none; background: #f0f3ff; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                        <h4 style="margin: 0 0 10px 0; color: #333;"><i class="fas fa-check-circle" style="color: #28a745;"></i> Selected Pickup</h4>
+                        <p><strong id="selectedHotelName"></strong></p>
+                        <p><i class="fas fa-map-marker-alt"></i> Meeting Point: <strong id="selectedPickupPoint"></strong></p>
+                        <p><i class="fas fa-clock"></i> Pickup Time: <strong id="selectedPickupTime"></strong></p>
+                        <p><i class="fas fa-tag"></i> <strong id="selectedZone"></strong></p>
+                        <input type="hidden" id="pickupLocation" name="pickupLocation">
                     </div>
                 </div>
 
@@ -1074,10 +1122,164 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
 
             // ========== BOOKING CART CODE ==========
             let cart = [];
+            // ========== HOTEL PICKUP SYSTEM ==========
+            let hotelsData = null;
+            let hotelsList = [];
             let selectedTourId = null;
             let currentAdultPrice = 0;
             let currentChildPrice = 0;
+            // Load hotels from JSON
+            $.ajax({
+                url: 'data/hotels.json',
+                method: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    hotelsData = data;
+                    // Flatten hotels list for search
+                    Object.keys(data.zones).forEach(zoneKey => {
+                        const zone = data.zones[zoneKey];
+                        zone.hotels.forEach(hotel => {
+                            hotelsList.push({
+                                ...hotel,
+                                zone: zone.name,
+                                zoneKey: zoneKey
+                            });
+                        });
+                    });
+                    console.log('Hotels loaded:', hotelsList.length); // Debug
+                },
+                error: function() {
+                    console.log('Failed to load hotels data');
+                }
+            });
 
+            // Hotel search
+            let hotelTimer;
+            $('#hotelSearch').on('input', function() {
+                const search = $(this).val().toLowerCase();
+
+                clearTimeout(hotelTimer);
+
+                if (search.length < 2) {
+                    $('#hotelSuggestions').hide();
+                    return;
+                }
+
+                hotelTimer = setTimeout(() => {
+                    const matches = hotelsList.filter(hotel =>
+                        hotel.name.toLowerCase().includes(search)
+                    ).slice(0, 8); // Show max 8 results
+
+                    displayHotelSuggestions(matches);
+                }, 300);
+            });
+
+            function displayHotelSuggestions(hotels) {
+                const box = $('#hotelSuggestions');
+                box.empty();
+
+                if (hotels.length === 0) {
+                    box.html('<div class="suggestion-item" style="color: #999;">No hotels found</div>');
+                    box.show();
+                    return;
+                }
+
+                hotels.forEach(hotel => {
+                    // Safely stringify the hotel object
+                    const hotelJson = JSON.stringify(hotel).replace(/'/g, "&#39;");
+
+                    const item = $(`
+            <div class="suggestion-item" data-hotel='${hotelJson}'>
+                <i class="fas fa-hotel" style="color: #667eea;"></i>
+                <span style="font-weight: 500;">${hotel.name}</span>
+                <br>
+                <span style="font-size: 12px; color: #666; margin-left: 25px;">
+                    <i class="fas fa-map-marker-alt"></i> Pickup: ${hotel.pickup_point}
+                    <i class="fas fa-tag" style="margin-left: 10px;"></i> ${hotel.zone}
+                </span>
+            </div>
+        `);
+
+                    item.on('click', function() {
+                        try {
+                            const hotelData = $(this).data('hotel');
+                            selectHotel(hotelData);
+                        } catch (e) {
+                            console.log('Error selecting hotel:', e);
+                        }
+                    });
+
+                    box.append(item);
+                });
+
+                box.show();
+            }
+
+            function selectHotel(hotel) {
+                // Get selected tour info
+                const selectedTourId = $('#modalTourSelect').val();
+                const tourTitle = $('#modalTourSelect option:selected').text().toLowerCase();
+
+                // Map tour to activity key
+                let activityKey = '';
+                if (tourTitle.includes('agafay') || tourTitle.includes('quad') || tourTitle.includes('desert')) {
+                    activityKey = 'agafay';
+                } else if (tourTitle.includes('souk') || tourTitle.includes('medina')) {
+                    activityKey = 'souk_medina';
+                } else if (tourTitle.includes('diner nejjarine')) {
+                    activityKey = 'diner_nejjarine';
+                } else if (tourTitle.includes('cooking') || tourTitle.includes('cuisine')) {
+                    activityKey = 'cooking_class';
+                } else if (tourTitle.includes('essaouira')) {
+                    activityKey = 'essaouira';
+                } else if (tourTitle.includes('diner nouba') || tourTitle.includes('comptoir') || tourTitle.includes('dar zellij')) {
+                    activityKey = 'diner_nouba';
+                } else if (tourTitle.includes('ourika')) {
+                    activityKey = 'ourika';
+                }
+
+                // Get pickup time for this hotel and activity
+                const pickupTime = hotel.pickup_times ? hotel.pickup_times[activityKey] : null;
+
+                if (pickupTime) {
+                    // Show selected hotel info
+                    $('#selectedHotelName').text(hotel.name);
+                    $('#selectedPickupPoint').text(hotel.pickup_point);
+                    $('#selectedPickupTime').text(pickupTime);
+                    $('#selectedZone').text(hotel.zone);
+
+                    // Set the actual pickup location value
+                    $('#pickupLocation').val(`${hotel.pickup_point} at ${pickupTime}`);
+
+                    // Show the info panel
+                    $('#selectedHotelInfo').slideDown();
+
+                    // Clear and hide suggestions
+                    $('#hotelSearch').val(hotel.name);
+                    $('#hotelSuggestions').hide();
+
+                    showNotification('Hotel selected! Pickup time: ' + pickupTime, 'success');
+                } else {
+                    // No pickup time for this activity
+                    if (confirm('This hotel may not offer this tour. Would you like to select anyway?')) {
+                        $('#selectedHotelName').text(hotel.name);
+                        $('#selectedPickupPoint').text(hotel.pickup_point);
+                        $('#selectedPickupTime').text('Please confirm with us');
+                        $('#selectedZone').text(hotel.zone);
+                        $('#pickupLocation').val(`${hotel.pickup_point} (time to confirm)`);
+                        $('#selectedHotelInfo').slideDown();
+                        $('#hotelSearch').val(hotel.name);
+                        $('#hotelSuggestions').hide();
+                    }
+                }
+            }
+
+            // Hide suggestions when clicking outside
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('#hotelSearch, #hotelSuggestions').length) {
+                    $('#hotelSuggestions').hide();
+                }
+            });
             // Load cart from localStorage
             if (localStorage.getItem('bookingCart')) {
                 cart = JSON.parse(localStorage.getItem('bookingCart'));
@@ -1343,6 +1545,10 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                 }
                 if (!$('#customerPhone').val()) {
                     showNotification('Please enter your phone number', 'error');
+                    return false;
+                }
+                if (!$('#pickupLocation').val()) {
+                    showNotification('Please select your hotel', 'error');
                     return false;
                 }
                 return true;

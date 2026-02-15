@@ -1,3 +1,58 @@
 {
-    "bookings": []
+    "bookings": [
+        {
+            "customer": {
+                "name": "Test User",
+                "email": "test@example.com",
+                "phone": "+212600000000",
+                "pickup": "Test Location"
+            },
+            "items": [
+                {
+                    "title": "Test Tour",
+                    "date": "2025-02-15",
+                    "time": "09:00",
+                    "adults": 2,
+                    "children": 0,
+                    "tourType": "group",
+                    "totalPrice": 700
+                }
+            ],
+            "total": 700,
+            "created_at": "2026-02-15 22:23:46",
+            "booking_id": "BK1771194226358",
+            "status": "confirmed",
+            "assigned_to": "khalid",
+            "updated_at": "2026-02-15 22:36:35"
+        },
+        {
+            "customer": {
+                "name": "Mhamed Elouardani",
+                "email": "mhamed.elouardani@gmail.com",
+                "phone": "+212664410052",
+                "pickup": "PARKING BAB TAGHZOUT (time to confirm)"
+            },
+            "items": [
+                {
+                    "id": 1771193971514.4287,
+                    "tourId": "8",
+                    "title": "\n                                    Road of the Kasbahs",
+                    "date": "2026-02-17",
+                    "time": "09:00",
+                    "adults": 1,
+                    "children": 1,
+                    "tourType": "private",
+                    "adultPrice": 900,
+                    "childPrice": 450,
+                    "specialRequests": "",
+                    "totalPrice": 1350
+                }
+            ],
+            "total": 1350,
+            "date": "2026-02-15T22:24:33.658Z",
+            "status": "pending",
+            "created_at": "2026-02-15 22:24:33",
+            "booking_id": "BK1771194273283"
+        }
+    ]
 }

@@ -100,6 +100,8 @@ if (isset($_GET['edit'])) {
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .navbar h1 {
@@ -108,6 +110,29 @@ if (isset($_GET['edit'])) {
 
         .navbar h1 i {
             margin-right: 10px;
+        }
+
+        /* Navigation Links - FIXED */
+        .nav-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .user-info {
@@ -129,6 +154,9 @@ if (isset($_GET['edit'])) {
             border-radius: 5px;
             text-decoration: none;
             transition: background 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .logout-btn:hover {
@@ -214,10 +242,15 @@ if (isset($_GET['edit'])) {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .card-header h2 {
             font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .card-header h2 i {
@@ -299,6 +332,11 @@ if (isset($_GET['edit'])) {
             transition: all 0.3s;
         }
 
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+
         .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -339,6 +377,7 @@ if (isset($_GET['edit'])) {
             text-align: left;
             font-weight: 600;
             color: #333;
+            white-space: nowrap;
         }
 
         td {
@@ -378,9 +417,49 @@ if (isset($_GET['edit'])) {
             color: #00796b;
         }
 
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-completed {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .assignment-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            background: #e3f2fd;
+            color: #1976d2;
+            white-space: nowrap;
+        }
+
         .action-buttons {
             display: flex;
             gap: 5px;
+            flex-wrap: wrap;
         }
 
         .action-buttons .btn {
@@ -394,18 +473,93 @@ if (isset($_GET['edit'])) {
             color: #666;
             font-size: 14px;
         }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .user-info {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 10px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+
+            .price-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            td,
+            th {
+                padding: 8px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Utility classes */
+        small {
+            color: #666;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar">
         <h1><i class="fas fa-cog"></i> Travol Morocco Admin</h1>
+        <div class="nav-links">
+            <a href="index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+            <a href="bookings.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'bookings.php' ? 'active' : ''; ?>">
+                <i class="fas fa-calendar-check"></i> Bookings
+            </a>
+            <a href="analytics.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'analytics.php' ? 'active' : ''; ?>">
+                <i class="fas fa-chart-bar"></i> Analytics
+            </a>
+        </div>
         <div class="user-info">
             <span><i class="fas fa-user"></i> <?php echo $_SESSION['admin_username']; ?></span>
             <a href="logout.php" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
     </nav>
-
     <div class="container">
         <?php if ($message): ?>
             <div class="message <?php echo $message['type']; ?>">
@@ -629,52 +783,99 @@ if (isset($_GET['edit'])) {
                 </div>
             </div>
         </div>
-        <!-- Bookings section -->
+        <!-- Recent Bookings Section -->
         <div class="card">
             <div class="card-header">
                 <h2><i class="fas fa-calendar-check"></i> Recent Bookings</h2>
+                <a href="bookings.php" class="btn btn-primary btn-sm">View All</a>
             </div>
             <div class="card-body">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tour</th>
-                            <th>Customer</th>
-                            <th>Date</th>
-                            <th>People</th>
-                            <th>Phone</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $bookings = json_decode(file_get_contents('../data/bookings.json'), true);
-                        foreach (array_slice($bookings['bookings'] ?? [], 0, 10) as $booking):
-                        ?>
-                            <tr>
-                                <td><?php echo $booking['id']; ?></td>
-                                <td><?php echo $booking['tour_name']; ?></td>
-                                <td><?php echo $booking['customer_name']; ?></td>
-                                <td><?php echo $booking['date']; ?></td>
-                                <td><?php echo $booking['people']; ?></td>
-                                <td>
-                                    <a href="https://wa.me/<?php echo $booking['phone']; ?>" target="_blank">
-                                        <i class="fab fa-whatsapp"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <select class="booking-status" data-id="<?php echo $booking['id']; ?>">
-                                        <option <?php echo $booking['status'] == 'pending' ? 'selected' : ''; ?>>Pending</option>
-                                        <option <?php echo $booking['status'] == 'confirmed' ? 'selected' : ''; ?>>Confirmed</option>
-                                        <option <?php echo $booking['status'] == 'completed' ? 'selected' : ''; ?>>Completed</option>
-                                        <option <?php echo $booking['status'] == 'cancelled' ? 'selected' : ''; ?>>Cancelled</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                <?php
+                $bookingsFile = __DIR__ . '/../data/bookings.json';
+                if (file_exists($bookingsFile)) {
+                    $bookings = json_decode(file_get_contents($bookingsFile), true);
+                    $recentBookings = array_slice($bookings['bookings'] ?? [], 0, 5);
+
+                    if (!empty($recentBookings)):
+                ?>
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; min-width: 800px;">
+                                <thead>
+                                    <tr>
+                                        <th>Booking ID</th>
+                                        <th>Customer</th>
+                                        <th>Contact</th>
+                                        <th>Tours</th>
+                                        <th>Date</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Assigned</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($recentBookings as $booking):
+                                        $status = $booking['status'] ?? 'pending';
+                                        $assignedTo = $booking['assigned_to'] ?? '';
+                                    ?>
+                                        <tr>
+                                            <td><strong><?php echo $booking['booking_id']; ?></strong></td>
+                                            <td>
+                                                <?php echo htmlspecialchars($booking['customer']['name']); ?><br>
+                                                <small><?php echo htmlspecialchars($booking['customer']['email']); ?></small>
+                                            </td>
+                                            <td>
+                                                <a href="https://wa.me/<?php echo preg_replace('/[^0-9]/', '', $booking['customer']['phone']); ?>" target="_blank">
+                                                    <i class="fab fa-whatsapp"></i>
+                                                </a>
+                                                <a href="mailto:<?php echo $booking['customer']['email']; ?>">
+                                                    <i class="fas fa-envelope"></i>
+                                                </a>
+                                                <small><?php echo htmlspecialchars($booking['customer']['phone']); ?></small>
+                                            </td>
+                                            <td>
+                                                <?php echo count($booking['items']); ?> tour(s)<br>
+                                                <small>
+                                                    <?php
+                                                    $firstItem = $booking['items'][0] ?? null;
+                                                    if ($firstItem) {
+                                                        echo $firstItem['date'] . ' ' . $firstItem['time'];
+                                                    }
+                                                    ?>
+                                                </small>
+                                            </td>
+                                            <td><?php echo date('d/m/Y', strtotime($booking['created_at'])); ?></td>
+                                            <td><strong><?php echo $booking['total']; ?> MAD</strong></td>
+                                            <td>
+                                                <span class="status-badge status-<?php echo $status; ?>">
+                                                    <?php echo ucfirst($status); ?>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <?php if ($assignedTo): ?>
+                                                    <span class="assignment-badge"><?php echo ucfirst($assignedTo); ?></span>
+                                                <?php else: ?>
+                                                    <span style="color: #999;">-</span>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <a href="bookings.php?view=<?php echo $booking['booking_id']; ?>" class="btn btn-sm btn-primary">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php else: ?>
+                        <p style="text-align: center; padding: 30px;">No bookings yet.</p>
+                <?php
+                    endif;
+                } else {
+                    echo '<p style="text-align: center; padding: 30px;">Bookings file not found.</p>';
+                }
+                ?>
             </div>
         </div>
     </div>

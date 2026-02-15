@@ -1,5 +1,5 @@
 <?php
-// Enable error reporting for debugging (remove in production)
+// Enable error reporting for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -9,6 +9,12 @@ header('Content-Type: application/json');
 // Get booking data
 if (isset($_POST['booking'])) {
     $bookingData = json_decode($_POST['booking'], true);
+
+    // Check if booking data is valid
+    if (!$bookingData) {
+        echo json_encode(['success' => false, 'error' => 'Invalid booking data']);
+        exit;
+    }
 
     // Add timestamp and booking ID
     $bookingData['created_at'] = date('Y-m-d H:i:s');
@@ -22,94 +28,71 @@ if (isset($_POST['booking'])) {
         mkdir(__DIR__ . '/data', 0777, true);
     }
 
-    // Create file if it doesn't exist
-    if (!file_exists($bookingsFile)) {
-        $bookings = ['bookings' => []];
-        file_put_contents($bookingsFile, json_encode($bookings, JSON_PRETTY_PRINT));
-    }
+    // Initialize bookings array
+    $bookings = ['bookings' => []];
 
-    // Read existing bookings
-    $bookings = json_decode(file_get_contents($bookingsFile), true);
+    // Read existing bookings if file exists
+    if (file_exists($bookingsFile)) {
+        $existingContent = file_get_contents($bookingsFile);
+        if (!empty($existingContent)) {
+            $bookings = json_decode($existingContent, true);
+            if (!$bookings) {
+                $bookings = ['bookings' => []];
+            }
+        }
+    }
 
     // Add new booking
     $bookings['bookings'][] = $bookingData;
 
     // Save back to file
-    file_put_contents($bookingsFile, json_encode($bookings, JSON_PRETTY_PRINT));
+    $jsonOptions = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
+    if (file_put_contents($bookingsFile, json_encode($bookings, $jsonOptions))) {
 
-    // Prepare email content
-    $to = "mhamed.elouardani@gmail.com";
-    $subject = "New Booking - " . $bookingData['booking_id'];
+        // Prepare email content (optional - comment out if you don't want emails)
+        $to = "mhamed.elouardani@gmail.com";
+        $subject = "New Booking - " . $bookingData['booking_id'];
 
-    $message = "NEW BOOKING RECEIVED!\n\n";
-    $message .= "==================================\n";
-    $message .= "Booking ID: " . $bookingData['booking_id'] . "\n";
-    $message .= "Date: " . $bookingData['created_at'] . "\n";
-    $message .= "==================================\n\n";
+        $message = "NEW BOOKING RECEIVED!\n\n";
+        $message .= "==================================\n";
+        $message .= "Booking ID: " . $bookingData['booking_id'] . "\n";
+        $message .= "Date: " . $bookingData['created_at'] . "\n";
+        $message .= "==================================\n\n";
 
-    $message .= "CUSTOMER INFORMATION:\n";
-    $message .= "----------------------\n";
-    $message .= "Name: " . $bookingData['customer']['name'] . "\n";
-    $message .= "Email: " . $bookingData['customer']['email'] . "\n";
-    $message .= "Phone: " . $bookingData['customer']['phone'] . "\n";
-    $message .= "Pickup: " . ($bookingData['customer']['pickup'] ?? 'Your Marrakech Riad/Hotel') . "\n\n";
+        $message .= "CUSTOMER INFORMATION:\n";
+        $message .= "----------------------\n";
+        $message .= "Name: " . ($bookingData['customer']['name'] ?? 'N/A') . "\n";
+        $message .= "Email: " . ($bookingData['customer']['email'] ?? 'N/A') . "\n";
+        $message .= "Phone: " . ($bookingData['customer']['phone'] ?? 'N/A') . "\n";
+        $message .= "Pickup: " . ($bookingData['customer']['pickup'] ?? 'N/A') . "\n\n";
 
-    $message .= "BOOKED TOURS:\n";
-    $message .= "--------------\n";
-    foreach ($bookingData['items'] as $index => $item) {
-        $message .= ($index + 1) . ". " . $item['title'] . "\n";
-        $message .= "   Date: " . $item['date'] . " at " . $item['time'] . "\n";
-        $message .= "   " . $item['adults'] . " Adults, " . $item['children'] . " Children\n";
-        $message .= "   " . ucfirst($item['tourType']) . " Tour\n";
-        $message .= "   Price: " . $item['totalPrice'] . " MAD\n";
-        if (!empty($item['specialRequests'])) {
-            $message .= "   Special Requests: " . $item['specialRequests'] . "\n";
+        $message .= "BOOKED TOURS:\n";
+        $message .= "--------------\n";
+        if (isset($bookingData['items']) && is_array($bookingData['items'])) {
+            foreach ($bookingData['items'] as $index => $item) {
+                $message .= ($index + 1) . ". " . ($item['title'] ?? 'Unknown') . "\n";
+                $message .= "   Date: " . ($item['date'] ?? 'N/A') . " at " . ($item['time'] ?? 'N/A') . "\n";
+                $message .= "   " . ($item['adults'] ?? 0) . " Adults, " . ($item['children'] ?? 0) . " Children\n";
+                $message .= "   " . ucfirst($item['tourType'] ?? 'group') . " Tour\n";
+                $message .= "   Price: " . ($item['totalPrice'] ?? 0) . " MAD\n\n";
+            }
         }
-        $message .= "\n";
+
+        $message .= "TOTAL AMOUNT: " . ($bookingData['total'] ?? 0) . " MAD\n";
+        $message .= "Payment Method: Cash on Arrival\n";
+
+        // Try to send email but don't fail if it doesn't work
+        @mail($to, $subject, $message);
+
+        // Return success response
+        echo json_encode([
+            'success' => true,
+            'booking_id' => $bookingData['booking_id'],
+            'message' => 'Booking confirmed!'
+        ]);
+    } else {
+        echo json_encode(['success' => false, 'error' => 'Failed to save booking']);
     }
-
-    $message .= "PAYMENT SUMMARY:\n";
-    $message .= "----------------\n";
-    $message .= "Total Amount: " . $bookingData['total'] . " MAD\n";
-    $message .= "Payment Method: Cash on Arrival\n\n";
-
-    $message .= "QUICK ACTIONS:\n";
-    $message .= "--------------\n";
-    $message .= "WhatsApp: https://wa.me/" . str_replace(['+', ' '], '', $bookingData['customer']['phone']) . "\n";
-    $message .= "Email: mailto:" . $bookingData['customer']['email'] . "\n\n";
-
-    $message .= "Admin Dashboard: http://localhost:8000/admin/index.php\n";
-
-    $headers = "From: bookings@travolmorocco.com\r\n";
-    $headers .= "Reply-To: " . $bookingData['customer']['email'] . "\r\n";
-    $headers .= "X-Mailer: PHP/" . phpversion();
-
-    // Send email
-    mail($to, $subject, $message, $headers);
-
-    // Also send a copy to customer (optional)
-    $customer_subject = "Your Booking Confirmation - Travol Morocco";
-    $customer_message = "Dear " . $bookingData['customer']['name'] . ",\n\n";
-    $customer_message .= "Thank you for booking with Travol Morocco! We have received your booking request.\n\n";
-    $customer_message .= "Booking ID: " . $bookingData['booking_id'] . "\n";
-    $customer_message .= "Total Amount: " . $bookingData['total'] . " MAD\n";
-    $customer_message .= "Payment: Cash on arrival\n\n";
-    $customer_message .= "We will contact you shortly on WhatsApp to confirm your booking.\n\n";
-    $customer_message .= "Best regards,\nTravol Morocco Team\n";
-    $customer_message .= "Phone: +212 524 43 34 51";
-
-    $customer_headers = "From: reservations@travolmorocco.com\r\n";
-    mail($bookingData['customer']['email'], $customer_subject, $customer_message, $customer_headers);
-
-    // Return success response
-    echo json_encode([
-        'success' => true,
-        'booking_id' => $bookingData['booking_id'],
-        'message' => 'Booking confirmed!'
-    ]);
 } else {
-    echo json_encode([
-        'success' => false,
-        'error' => 'No booking data received'
-    ]);
+    echo json_encode(['success' => false, 'error' => 'No booking data received']);
 }
