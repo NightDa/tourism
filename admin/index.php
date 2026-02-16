@@ -548,6 +548,12 @@ if (isset($_GET['edit'])) {
             <a href="index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
                 <i class="fas fa-home"></i> Dashboard
             </a>
+            <a href="packages.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'packages.php' ? 'active' : ''; ?>">
+                <i class="fas fa-box"></i> Packages
+            </a>
+            <a href="destinations.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'destinations.php' ? 'active' : ''; ?>">
+                <i class="fas fa-map-marked-alt"></i> Destinations
+            </a>
             <a href="bookings.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'bookings.php' ? 'active' : ''; ?>">
                 <i class="fas fa-calendar-check"></i> Bookings
             </a>

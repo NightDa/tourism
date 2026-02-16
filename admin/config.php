@@ -71,3 +71,32 @@ function verifyCSRF($token)
 {
     return isset($_SESSION['csrf_token']) && $_SESSION['csrf_token'] === $token;
 }
+// Load destinations data
+function loadDestinations()
+{
+    $file = __DIR__ . '/../data/destinations.json';
+    if (file_exists($file)) {
+        return json_decode(file_get_contents($file), true);
+    }
+    return ['destinations' => []];
+}
+
+// Save destinations data
+function saveDestinations($data)
+{
+    $file = __DIR__ . '/../data/destinations.json';
+    $data['last_updated'] = date('Y-m-d H:i:s');
+    return file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT));
+}
+
+// Get next destination ID
+function getNextDestinationId($data)
+{
+    $maxId = 0;
+    foreach ($data['destinations'] as $dest) {
+        if ($dest['id'] > $maxId) {
+            $maxId = $dest['id'];
+        }
+    }
+    return $maxId + 1;
+}

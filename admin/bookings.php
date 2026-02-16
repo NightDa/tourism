@@ -539,9 +539,21 @@ usort($bookings['bookings'], function ($a, $b) {
     <div class="navbar">
         <h1><i class="fas fa-calendar-check"></i> Manage Bookings</h1>
         <div class="nav-links">
-            <a href="index.php"><i class="fas fa-home"></i> Dashboard</a>
-            <a href="bookings.php" class="active"><i class="fas fa-calendar-check"></i> Bookings</a>
-            <a href="analytics.php"><i class="fas fa-chart-bar"></i> Analytics</a>
+            <a href="index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+            <a href="packages.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'packages.php' ? 'active' : ''; ?>">
+                <i class="fas fa-box"></i> Packages
+            </a>
+            <a href="destinations.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'destinations.php' ? 'active' : ''; ?>">
+                <i class="fas fa-map-marked-alt"></i> Destinations
+            </a>
+            <a href="bookings.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'bookings.php' ? 'active' : ''; ?>">
+                <i class="fas fa-calendar-check"></i> Bookings
+            </a>
+            <a href="analytics.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'analytics.php' ? 'active' : ''; ?>">
+                <i class="fas fa-chart-bar"></i> Analytics
+            </a>
         </div>
         <div class="user-info">
             <span><i class="fas fa-user"></i> <?php echo $_SESSION['admin_username']; ?></span>

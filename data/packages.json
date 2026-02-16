@@ -1,0 +1,1009 @@
+{
+    "packages": [
+        {
+            "id": 1,
+            "name": "ATLAS CANYON & CHEGAGA DESERT",
+            "duration": "6 days / 5 nights",
+            "code": "VPFR",
+            "overview": "From the High Atlas mountains to the golden dunes of Chegaga, experience the best of southern Morocco on this 6-day journey through ancient kasbahs, desert camps, and Hollywood film locations.",
+            "price_from": "Price on request",
+            "featured": true,
+            "image": "https://i.ibb.co/your-image.jpg",
+            "gallery": [],
+            "itineraire": [
+                {
+                    "day": 1,
+                    "title": "Arrival in Marrakech",
+                    "description": "Welcome at the airport. Transfer to your riad. Overnight at your accommodation."
+                },
+                {
+                    "day": 2,
+                    "title": "Marrakech – Tizi n'Tichka – Ouarzazate",
+                    "description": "Cross the High Atlas mountains via the Tichka pass (2260m). Visit Atlas Studios. Dinner and overnight at hotel."
+                },
+                {
+                    "day": 3,
+                    "title": "Ouarzazate – Zagora – Mhamid – Chegaga",
+                    "description": "Journey to Mhamid by 4x4 through the Draa Valley. Arrive at Chegaga dunes. Camel ride at sunset. Dinner and overnight at desert camp."
+                },
+                {
+                    "day": 4,
+                    "title": "Chegaga – Mhamid – Ouarzazate – Aït Benhaddou",
+                    "description": "Sunrise camel ride. Visit Aït Benhaddou Kasbah (UNESCO site). Dinner and overnight at riad."
+                },
+                {
+                    "day": 5,
+                    "title": "Aït Benhaddou – Telouet – Marrakech",
+                    "description": "Visit the Pacha's Palace in Telouet. Return to Marrakech. Lunch included. Overnight at hotel."
+                },
+                {
+                    "day": 6,
+                    "title": "Marrakech – Departure",
+                    "description": "Breakfast and transfer to airport for your return flight."
+                }
+            ],
+            "included": [
+                "5 nights accommodation",
+                "Breakfasts",
+                "Dinners on days 2, 3, and 4",
+                "Lunch on day 5",
+                "Air-conditioned transport",
+                "Airport transfers",
+                "French-speaking driver-guide",
+                "Camel ride at Chegaga",
+                "Visits mentioned in itinerary"
+            ],
+            "not_included": [
+                "Lunches not mentioned",
+                "Drinks",
+                "Tips",
+                "Personal expenses",
+                "Local tourist taxes"
+            ],
+            "practical_info": {
+                "pickup": "Our representative will wait outside the terminal, left side, near the Voyage Privé banner.",
+                "medina_access": "Riads in the medina are not accessible by car. Porters available (2-5€).",
+                "emergency": "Emergency contact available from 08:00 to 22:00",
+                "notes": "This itinerary may be modified up to 48h before arrival."
+            }
+        },
+        {
+            "id": 2,
+            "name": "THE ESSENCE OF MARRAKECH & MOROCCAN SPA - 3 NIGHTS",
+            "duration": "3 nights / 4 days",
+            "code": "VPUK",
+            "overview": "Experience the magic of Marrakech with this short but rich package combining cultural exploration, relaxation, and a desert adventure.",
+            "price_from": "Price on request",
+            "featured": true,
+            "image": "https://i.ibb.co/your-image.jpg",
+            "gallery": [],
+            "itineraire": [
+                {
+                    "day": 1,
+                    "title": "Arrival in Marrakech",
+                    "description": "Welcome at the airport. Transfer to your riad. Free day to rest or explore. Overnight at your riad."
+                },
+                {
+                    "day": 2,
+                    "title": "Marrakech Discovery & Spa",
+                    "description": "Breakfast at the riad. Free day to explore the Medina: Koutoubia Mosque, Jemaa El-Fna Square, Ben Youssef Madrasa. Evening pick-up for a traditional hammam, scrub, and massage at a Moroccan spa."
+                },
+                {
+                    "day": 3,
+                    "title": "Hot-Air Balloon & Agafay Desert",
+                    "description": "Early pick-up for sunrise hot-air balloon flight with panoramic views. Traditional breakfast after the flight. Return to riad, check-out, then transfer to Agafay Desert camp. Traditional dinner and overnight at the camp."
+                },
+                {
+                    "day": 4,
+                    "title": "Departure",
+                    "description": "Breakfast at the camp. Transfer to airport for your return flight."
+                }
+            ],
+            "included": [
+                "3 nights accommodation (riad + desert camp)",
+                "Breakfasts",
+                "Dinner at Agafay camp",
+                "Hot-air balloon flight",
+                "Hammam and massage treatment",
+                "Air-conditioned transport",
+                "Airport transfers"
+            ],
+            "not_included": [
+                "Lunches",
+                "Drinks",
+                "Tips",
+                "Personal expenses",
+                "Local tourist taxes"
+            ],
+            "practical_info": {
+                "pickup": "Representative outside terminal, left side near Voyage Privé banner.",
+                "medina_access": "Riads not accessible by car - porters available (2-5€).",
+                "emergency": "Emergency contact available 08:00-22:00",
+                "notes": "Local taxes payable on arrival in dirhams."
+            }
+        },
+        {
+            "id": 3,
+            "name": "THE ESSENCE OF MARRAKECH & MOROCCAN SPA - 5 NIGHTS",
+            "duration": "5 nights / 6 days",
+            "code": "VPFR",
+            "overview": "Immerse yourself in Marrakech with this 5-night package featuring medina exploration, spa relaxation, a special dinner, and a desert adventure.",
+            "price_from": "Price on request",
+            "featured": true,
+            "image": "https://i.ibb.co/your-image.jpg",
+            "gallery": [],
+            "itineraire": [
+                {
+                    "day": 1,
+                    "title": "Arrival in Marrakech",
+                    "description": "Welcome at the airport. Transfer to your riad. Free day to rest. Overnight at riad."
+                },
+                {
+                    "day": 2,
+                    "title": "Marrakech Medina & Spa",
+                    "description": "Breakfast at the riad. Free day to explore the Medina. Evening pick-up for hammam, scrub, and massage at a Moroccan spa."
+                },
+                {
+                    "day": 3,
+                    "title": "Free Day & Dar Zellij Dinner",
+                    "description": "Free day at leisure. Evening pick-up for dinner at the traditional restaurant Dar Zellij. Overnight at riad."
+                },
+                {
+                    "day": 4,
+                    "title": "Free Day",
+                    "description": "Free day at leisure to explore more of Marrakech. Overnight at riad."
+                },
+                {
+                    "day": 5,
+                    "title": "Hot-Air Balloon & Agafay Desert",
+                    "description": "Early pick-up for sunrise hot-air balloon flight. Breakfast after flight. Return to riad, check-out, then transfer to Agafay Desert camp. Traditional dinner and overnight at camp."
+                },
+                {
+                    "day": 6,
+                    "title": "Departure",
+                    "description": "Breakfast at camp. Transfer to airport for return flight."
+                }
+            ],
+            "included": [
+                "5 nights accommodation (riad + desert camp)",
+                "Breakfasts",
+                "Dinner at Dar Zellij",
+                "Dinner at Agafay camp",
+                "Hot-air balloon flight",
+                "Hammam and massage treatment",
+                "Air-conditioned transport",
+                "Airport transfers"
+            ],
+            "not_included": [
+                "Lunches",
+                "Drinks",
+                "Tips",
+                "Personal expenses",
+                "Local tourist taxes"
+            ],
+            "practical_info": {
+                "pickup": "Representative outside terminal, left side near Voyage Privé banner.",
+                "medina_access": "Riads not accessible by car - porters available.",
+                "emergency": "Emergency contact available 08:00-22:00",
+                "notes": "Local taxes payable on arrival in dirhams. Pick-up times in medina may vary due to traffic."
+            }
+        },
+        {
+            "id": 4,
+            "name": "THE ESSENCE OF MARRAKECH & MOROCCAN SPA - 7 NIGHTS",
+            "duration": "7 nights / 8 days",
+            "code": "VPUK",
+            "overview": "The ultimate Marrakech experience combining culture, relaxation, nature, and desert adventure over 8 days.",
+            "price_from": "Price on request",
+            "featured": true,
+            "image": "https://i.ibb.co/your-image.jpg",
+            "gallery": [],
+            "itineraire": [
+                {
+                    "day": 1,
+                    "title": "Arrival in Marrakech",
+                    "description": "Welcome at airport. Transfer to riad. Free day. Overnight at riad."
+                },
+                {
+                    "day": 2,
+                    "title": "Marrakech Medina & Spa",
+                    "description": "Free day to explore Medina. Evening pick-up for hammam, scrub, and massage."
+                },
+                {
+                    "day": 3,
+                    "title": "Free Day & Dar Zellij Dinner",
+                    "description": "Free day at leisure. Evening dinner at Dar Zellij restaurant."
+                },
+                {
+                    "day": 4,
+                    "title": "Free Day",
+                    "description": "Free day at leisure."
+                },
+                {
+                    "day": 5,
+                    "title": "Ourika Valley Excursion",
+                    "description": "Guided hike to the first waterfall of Ourika Valley. Berber lunch with river view. Optional visit to argan oil cooperative. Return to Marrakech."
+                },
+                {
+                    "day": 6,
+                    "title": "Free Day",
+                    "description": "Free day at leisure."
+                },
+                {
+                    "day": 7,
+                    "title": "Hot-Air Balloon & Agafay Desert",
+                    "description": "Sunrise hot-air balloon flight. Breakfast after flight. Check-out from riad. Transfer to Agafay camp. Traditional dinner and overnight at camp."
+                },
+                {
+                    "day": 8,
+                    "title": "Departure",
+                    "description": "Breakfast at camp. Transfer to airport for return flight."
+                }
+            ],
+            "included": [
+                "7 nights accommodation",
+                "Breakfasts",
+                "Dinner at Dar Zellij",
+                "Dinner at Agafay camp",
+                "Hot-air balloon flight",
+                "Ourika Valley excursion with lunch",
+                "Hammam and massage",
+                "Airport transfers",
+                "Air-conditioned transport"
+            ],
+            "not_included": [
+                "Lunches (except day 5)",
+                "Drinks",
+                "Tips",
+                "Personal expenses",
+                "Local tourist taxes"
+            ],
+            "practical_info": {
+                "pickup": "Representative outside terminal, left side near Voyage Privé banner.",
+                "medina_access": "Riads not accessible by car - porters available.",
+                "emergency": "Emergency contact available 08:00-22:00",
+                "notes": "Local taxes payable on arrival. Pick-up times may vary due to traffic."
+            }
+        },
+        {
+            "id": 5,
+            "name": "MARRAKECH AND SURROUNDINGS ESSENTIALS - 3 NIGHTS",
+            "duration": "3 nights / 4 days",
+            "code": "VPUK",
+            "overview": "Discover the highlights of Marrakech and the Agafay Desert in this compact but complete package.",
+            "price_from": "Price on request",
+            "featured": false,
+            "image": "https://i.ibb.co/your-image.jpg",
+            "gallery": [],
+            "itineraire": [
+                {
+                    "day": 1,
+                    "title": "Arrival in Marrakech",
+                    "description": "Welcome at airport. Transfer to riad. Free day. Overnight at riad."
+                },
+                {
+                    "day": 2,
+                    "title": "Marrakech Medina Guided Tour & Hot Air Balloon",
+                    "description": "Early pick-up for sunrise hot-air balloon flight. Breakfast after flight. Return to riad, check-out. Transfer to Agafay camp. Dinner and overnight at camp."
+                },
+                {
+                    "day": 3,
+                    "title": "Agafay Desert – Marrakech Medina",
+                    "description": "Breakfast at camp. Return to Marrakech. Guided tour of the Medina including Koutoubia Mosque, Jemaa El-Fna Square, souks, and Ben Youssef Madrasa. Return to riad. Evening dinner at traditional restaurant."
+                },
+                {
+                    "day": 4,
+                    "title": "Departure",
+                    "description": "Breakfast. Transfer to airport for return flight."
+                }
+            ],
+            "included": [
+                "3 nights accommodation",
+                "Breakfasts",
+                "Dinner at Agafay camp",
+                "Dinner at traditional restaurant",
+                "Hot-air balloon flight",
+                "Guided medina tour",
+                "Airport transfers"
+            ],
+            "not_included": [
+                "Lunches",
+                "Drinks",
+                "Tips",
+                "Personal expenses",
+                "Local taxes"
+            ],
+            "practical_info": {
+                "pickup": "Representative outside terminal, left side near Voyage Privé banner.",
+                "medina_access": "Riads not accessible by car - porters available.",
+                "emergency": "Emergency contact available 08:00-22:00",
+                "notes": "Local taxes payable on arrival."
+            }
+        },
+        {
+            "id": 6,
+            "name": "MARRAKECH AND SURROUNDINGS ESSENTIALS - 5 NIGHTS",
+            "duration": "5 nights / 6 days",
+            "code": "VPUK",
+            "overview": "A perfect blend of culture, cuisine, and desert adventure in and around Marrakech.",
+            "price_from": "Price on request",
+            "featured": false,
+            "image": "https://i.ibb.co/your-image.jpg",
+            "gallery": [],
+            "itineraire": [
+                {
+                    "day": 1,
+                    "title": "Arrival in Marrakech",
+                    "description": "Welcome at airport. Transfer to riad. Free day. Overnight at riad."
+                },
+                {
+                    "day": 2,
+                    "title": "Marrakech Medina Guided Tour",
+                    "description": "Guided tour of the Medina: Koutoubia Mosque, Jemaa El-Fna Square, souks, and Ben Youssef Madrasa. Overnight at riad."
+                },
+                {
+                    "day": 3,
+                    "title": "Moroccan Cooking Class",
+                    "description": "Discover Moroccan cuisine with a local chef. Prepare a salad, tagine, and dessert. Enjoy your creation for lunch. Overnight at riad."
+                },
+                {
+                    "day": 4,
+                    "title": "Hot Air Balloon & Agafay Desert",
+                    "description": "Sunrise hot-air balloon flight. Breakfast after flight. Return to riad. Evening pick-up for dinner with live entertainment. Overnight at riad."
+                },
+                {
+                    "day": 5,
+                    "title": "Agafay Desert Overnight",
+                    "description": "Check-out from riad. Transfer to Agafay camp. Traditional dinner and overnight under the stars."
+                },
+                {
+                    "day": 6,
+                    "title": "Departure",
+                    "description": "Breakfast at camp. Transfer to airport for return flight."
+                }
+            ],
+            "included": [
+                "5 nights accommodation",
+                "Breakfasts",
+                "Cooking class with lunch",
+                "Dinner with live show",
+                "Dinner at Agafay camp",
+                "Hot-air balloon flight",
+                "Guided medina tour",
+                "Airport transfers"
+            ],
+            "not_included": [
+                "Lunches (except day 3)",
+                "Drinks",
+                "Tips",
+                "Personal expenses",
+                "Local taxes"
+            ],
+            "practical_info": {
+                "pickup": "Representative outside terminal, left side near Voyage Privé banner.",
+                "medina_access": "Riads not accessible by car - porters available.",
+                "emergency": "Emergency contact available 08:00-22:00",
+                "notes": "Local taxes payable on arrival."
+            }
+        },
+        {
+            "id": 7,
+            "name": "MARRAKECH AND SURROUNDINGS ESSENTIALS - 7 NIGHTS",
+            "duration": "7 nights / 8 days",
+            "code": "VPUK",
+            "overview": "The complete Marrakech experience with cooking class, Essaouira excursion, and desert adventure.",
+            "price_from": "Price on request",
+            "featured": true,
+            "image": "https://i.ibb.co/your-image.jpg",
+            "gallery": [],
+            "itineraire": [
+                {
+                    "day": 1,
+                    "title": "Arrival in Marrakech",
+                    "description": "Welcome at airport. Transfer to riad. Free day. Overnight at riad."
+                },
+                {
+                    "day": 2,
+                    "title": "Marrakech Medina Guided Tour",
+                    "description": "Guided tour of the Medina. Overnight at riad."
+                },
+                {
+                    "day": 3,
+                    "title": "Moroccan Cooking Class",
+                    "description": "Cooking class with lunch. Overnight at riad."
+                },
+                {
+                    "day": 4,
+                    "title": "Hot Air Balloon & Evening Show",
+                    "description": "Sunrise hot-air balloon flight. Evening dinner with live entertainment. Overnight at riad."
+                },
+                {
+                    "day": 5,
+                    "title": "Essaouira Excursion",
+                    "description": "Full-day excursion to Essaouira: port, Skala, medina, Mellah, and souks. Free time for lunch. Return to Marrakech. Overnight at riad."
+                },
+                {
+                    "day": 6,
+                    "title": "Free Day",
+                    "description": "Free day at leisure. Overnight at riad."
+                },
+                {
+                    "day": 7,
+                    "title": "Agafay Desert Overnight",
+                    "description": "Check-out from riad. Transfer to Agafay camp. Traditional dinner and overnight at camp."
+                },
+                {
+                    "day": 8,
+                    "title": "Departure",
+                    "description": "Breakfast at camp. Transfer to airport."
+                }
+            ],
+            "included": [
+                "7 nights accommodation",
+                "Breakfasts",
+                "Cooking class with lunch",
+                "Dinner with live show",
+                "Dinner at Agafay camp",
+                "Hot-air balloon flight",
+                "Essaouira excursion",
+                "Guided medina tour",
+                "Airport transfers"
+            ],
+            "not_included": [
+                "Lunches (except day 3 and 5)",
+                "Drinks",
+                "Tips",
+                "Personal expenses",
+                "Local taxes"
+            ],
+            "practical_info": {
+                "pickup": "Representative outside terminal, left side near Voyage Privé banner.",
+                "medina_access": "Riads not accessible by car - porters available.",
+                "emergency": "Emergency contact available 08:00-22:00",
+                "notes": "Local taxes payable on arrival."
+            }
+        },
+        {
+            "id": 8,
+            "name": "ROYAL CITIES OF MOROCCO",
+            "duration": "7 nights / 8 days",
+            "code": "VPUK",
+            "overview": "Discover Morocco's imperial cities: Marrakech, Casablanca, Rabat, Meknes, and Fes on this comprehensive cultural journey.",
+            "price_from": "Price on request",
+            "featured": true,
+            "image": "https://i.ibb.co/your-image.jpg",
+            "gallery": [],
+            "itineraire": [
+                {
+                    "day": 1,
+                    "title": "Arrival in Marrakech",
+                    "description": "Welcome at airport. Transfer to riad. Free day. Overnight at riad."
+                },
+                {
+                    "day": 2,
+                    "title": "Marrakech – Casablanca",
+                    "description": "Departure to Casablanca. Visit Arab League Park, Notre-Dame de Lourdes Church, Habous district, and exterior of Hassan II Mosque. Lunch at local restaurant. Overnight at hotel."
+                },
+                {
+                    "day": 3,
+                    "title": "Casablanca – Rabat – Meknes – Fes",
+                    "description": "Visit Rabat: Royal Palace (exterior), Hassan Tower, Mohammed V Mausoleum. Continue to Meknes: El Hedim Square, Moulay Ismail Mausoleum, Sahrij Souani. Continue to Fes. Overnight at hotel."
+                },
+                {
+                    "day": 4,
+                    "title": "Fes",
+                    "description": "Full day exploring Fes medina, Andalusian quarter, Al Quaraouiyine Mosque, Bou Inania Madrasa, and traditional tanneries. Lunch at traditional Fassi restaurant. Overnight at hotel."
+                },
+                {
+                    "day": 5,
+                    "title": "Fes – Ifrane – Beni Mellal – Marrakech",
+                    "description": "Cross the Middle Atlas through Ifrane and Azrou. Lunch in Beni Mellal. Continue to Marrakech with stop at the palm grove. Overnight at hotel."
+                },
+                {
+                    "day": 6,
+                    "title": "Marrakech Guided Tour",
+                    "description": "Half-day guided tour of Marrakech: Ben Youssef Madrasa, Dar El Bacha district, souks, Rahba Kedima Square. Free time at Jemaa El-Fna Square. Lunch at panoramic restaurant. Overnight at hotel."
+                },
+                {
+                    "day": 7,
+                    "title": "Free Day & Farewell Dinner",
+                    "description": "Free day at leisure. Evening farewell dinner at Dar Essalam Palace with traditional music and dance show. Overnight at hotel."
+                },
+                {
+                    "day": 8,
+                    "title": "Departure",
+                    "description": "Breakfast. Transfer to airport for return flight."
+                }
+            ],
+            "included": [
+                "7 nights accommodation",
+                "Breakfasts",
+                "Lunches on days 2, 3, 4, 6",
+                "Farewell dinner with show",
+                "Guided tours in each city",
+                "Air-conditioned transport",
+                "Airport transfers"
+            ],
+            "not_included": [
+                "Lunches on days 5 and 7",
+                "Dinners (except farewell dinner)",
+                "Drinks",
+                "Tips",
+                "Personal expenses",
+                "Local taxes"
+            ],
+            "practical_info": {
+                "pickup": "Representative outside terminal, left side near Voyage Privé banner.",
+                "medina_access": "Riads not accessible by car - porters available.",
+                "emergency": "Emergency contact available 08:00-22:00",
+                "notes": "This itinerary may be modified up to 48h before arrival."
+            }
+        },
+        {
+            "id": 9,
+            "name": "LES INCONTOURNABLES MARRAKECH ET SES ENVIRONS - 3 NIGHTS",
+            "duration": "3 nights / 4 days",
+            "code": "VPUK",
+            "overview": "Experience the must-sees of Marrakech and its surroundings with hot air balloon and desert camp.",
+            "price_from": "Price on request",
+            "featured": false,
+            "image": "https://i.ibb.co/your-image.jpg",
+            "gallery": [],
+            "itineraire": [
+                {
+                    "day": 1,
+                    "title": "Arrival in Marrakech",
+                    "description": "Welcome at airport. Transfer to Riad Dar Massai. Free day. Overnight at riad."
+                },
+                {
+                    "day": 2,
+                    "title": "Hot Air Balloon & Agafay Desert",
+                    "description": "04:45 pick-up from Place Saadian Tombs for sunrise hot-air balloon flight. Breakfast after flight. Return to riad, check-out. 13:30 pick-up from Place Saadian Tombs. Transfer to White Camel Camp in Agafay. Dinner and overnight at camp."
+                },
+                {
+                    "day": 3,
+                    "title": "Agafay Desert – Marrakech Medina",
+                    "description": "Breakfast at camp. Morning at leisure by the pool. 14:45 return to Marrakech. Guided tour of the Medina starting at Koutoubia Mosque. Return to riad at 18:30. 20:30 dinner at traditional Moroccan restaurant. Overnight at Riad Dar Massai."
+                },
+                {
+                    "day": 4,
+                    "title": "Departure",
+                    "description": "Early breakfast. 06:05 pick-up from Place Saadian Tombs. Transfer to airport for flight U21254 at 09:05."
+                }
+            ],
+            "included": [
+                "3 nights accommodation",
+                "Breakfasts",
+                "Dinner at Agafay camp",
+                "Dinner at traditional restaurant",
+                "Hot-air balloon flight",
+                "Guided medina tour",
+                "Airport transfers"
+            ],
+            "not_included": [
+                "Lunches",
+                "Drinks",
+                "Tips",
+                "Personal expenses",
+                "Local taxes"
+            ],
+            "practical_info": {
+                "pickup": "Representative outside terminal, left side near Voyage Privé banner.",
+                "medina_access": "Riads not accessible by car - porters available.",
+                "emergency": "Emergency contact available 08:00-22:00",
+                "notes": "Local taxes payable on arrival. Pick-up times may vary due to traffic."
+            }
+        },
+        {
+            "id": 10,
+            "name": "LES INCONTOURNABLES MARRAKECH ET SES ENVIRONS - 5 NIGHTS",
+            "duration": "5 nights / 6 days",
+            "code": "VPUK",
+            "overview": "The complete Marrakech experience with hot air balloon, cooking class, and night shows.",
+            "price_from": "Price on request",
+            "featured": false,
+            "image": "https://i.ibb.co/your-image.jpg",
+            "gallery": [],
+            "itineraire": [
+                {
+                    "day": 1,
+                    "title": "Arrival in Marrakech",
+                    "description": "Welcome at airport. Transfer to Riad Dar Massai. Free day. Overnight at riad."
+                },
+                {
+                    "day": 2,
+                    "title": "Hot Air Balloon & Agafay Desert",
+                    "description": "04:45 pick-up from Place Saadian Tombs for hot-air balloon. Breakfast after flight. Return to riad, check-out. 13:30 transfer to White Camel Camp. Dinner and overnight at camp."
+                },
+                {
+                    "day": 3,
+                    "title": "Agafay Desert – Marrakech Medina",
+                    "description": "Breakfast at camp. Morning by the pool. 14:45 return to Marrakech. Guided medina tour. Return to riad at 18:30. Check-in at Riad Dar Massai."
+                },
+                {
+                    "day": 4,
+                    "title": "Moroccan Cooking Class",
+                    "description": "10:30 pick-up from Place Saadian Tombs. Cooking class and lunch at traditional riad. Learn to prepare salad, tagine, and dessert. 15:00 return to riad. Overnight at Riad Dar Massai."
+                },
+                {
+                    "day": 5,
+                    "title": "Free Day & Dinner Show",
+                    "description": "Free day at leisure. 19:30 pick-up for dinner at Comptoir Darna or Nouba restaurant with live entertainment (drinks not included). Overnight at Riad Dar Massai."
+                },
+                {
+                    "day": 6,
+                    "title": "Departure",
+                    "description": "Early breakfast. 06:05 pick-up from Place Saadian Tombs. Transfer to airport for flight U21254 at 09:05."
+                }
+            ],
+            "included": [
+                "5 nights accommodation",
+                "Breakfasts",
+                "Dinner at Agafay camp",
+                "Dinner with live show",
+                "Cooking class with lunch",
+                "Hot-air balloon flight",
+                "Guided medina tour",
+                "Airport transfers"
+            ],
+            "not_included": [
+                "Lunches (except day 4)",
+                "Drinks",
+                "Tips",
+                "Personal expenses",
+                "Local taxes"
+            ],
+            "practical_info": {
+                "pickup": "Representative outside terminal, left side near Voyage Privé banner.",
+                "medina_access": "Riads not accessible by car - porters available.",
+                "emergency": "Emergency contact available 08:00-22:00",
+                "notes": "Children not allowed at Nouba/Comptoir Darna. Alternative restaurants arranged."
+            }
+        },
+        {
+            "id": 11,
+            "name": "LES INCONTOURNABLES MARRAKECH ET SES ENVIRONS - 7 NIGHTS",
+            "duration": "7 nights / 8 days",
+            "code": "VPUK",
+            "overview": "The ultimate Marrakech experience with hot air balloon, Essaouira excursion, cooking class, and more.",
+            "price_from": "Price on request",
+            "featured": true,
+            "image": "https://i.ibb.co/your-image.jpg",
+            "gallery": [],
+            "itineraire": [
+                {
+                    "day": 1,
+                    "title": "Arrival in Marrakech",
+                    "description": "Welcome at airport. Transfer to Riad Dar Massai. Free day. Overnight at riad."
+                },
+                {
+                    "day": 2,
+                    "title": "Hot Air Balloon & Agafay Desert",
+                    "description": "04:45 pick-up for hot-air balloon. Breakfast after flight. Return to riad, check-out. 13:30 transfer to White Camel Camp. Dinner and overnight at camp."
+                },
+                {
+                    "day": 3,
+                    "title": "Agafay Desert – Marrakech Medina",
+                    "description": "Breakfast at camp. Morning by the pool. 14:45 return to Marrakech. Guided medina tour. Return to riad at 18:30. Check-in at Riad Dar Massai."
+                },
+                {
+                    "day": 4,
+                    "title": "Moroccan Cooking Class",
+                    "description": "10:30 pick-up for cooking class and lunch. Learn Moroccan cuisine. 15:00 return to riad. Overnight at Riad Dar Massai."
+                },
+                {
+                    "day": 5,
+                    "title": "Essaouira Excursion",
+                    "description": "08:30 pick-up for full-day Essaouira excursion. Visit port, Sqala, medina, Mellah, and souks. Free time for lunch. 16:00 return to Marrakech. Overnight at Riad Dar Massai."
+                },
+                {
+                    "day": 6,
+                    "title": "Free Day",
+                    "description": "Free day at leisure. Overnight at Riad Dar Massai."
+                },
+                {
+                    "day": 7,
+                    "title": "Free Day & Dinner Show",
+                    "description": "Free day. 19:30 pick-up for dinner at Comptoir Darna or Nouba with live entertainment. Overnight at Riad Dar Massai."
+                },
+                {
+                    "day": 8,
+                    "title": "Departure",
+                    "description": "Early breakfast. 06:05 pick-up from Place Saadian Tombs. Transfer to airport for flight U21254 at 09:05."
+                }
+            ],
+            "included": [
+                "7 nights accommodation",
+                "Breakfasts",
+                "Dinner at Agafay camp",
+                "Dinner with live show",
+                "Cooking class with lunch",
+                "Essaouira excursion",
+                "Hot-air balloon flight",
+                "Guided medina tour",
+                "Airport transfers"
+            ],
+            "not_included": [
+                "Lunches (except day 4 and 5)",
+                "Drinks",
+                "Tips",
+                "Personal expenses",
+                "Local taxes"
+            ],
+            "practical_info": {
+                "pickup": "Representative outside terminal, left side near Voyage Privé banner.",
+                "medina_access": "Riads not accessible by car - porters available.",
+                "emergency": "Emergency contact available 08:00-22:00",
+                "notes": "Children not allowed at Nouba/Comptoir Darna. Alternative restaurants arranged."
+            }
+        },
+        {
+            "id": 12,
+            "name": "REVERIE DANS LE DESERT D'AGAFAY, MARRAKECH ET MONTGOLFIERE",
+            "duration": "5 nights / 6 days",
+            "code": "VI uk",
+            "overview": "A dream journey combining Marrakech culture, hot air balloon adventure, and the magical Agafay Desert.",
+            "price_from": "Price on request",
+            "featured": false,
+            "image": "https://i.ibb.co/your-image.jpg",
+            "gallery": [],
+            "itineraire": [
+                {
+                    "day": 1,
+                    "title": "Arrival in Marrakech",
+                    "description": "Welcome at airport. Transfer to Riad Bab Yacout. Free day. Overnight at riad."
+                },
+                {
+                    "day": 2,
+                    "title": "Discovering Marrakech",
+                    "description": "Breakfast at riad. Free day to explore medina, souks, and bazaars. Overnight at Riad Bab Yacout."
+                },
+                {
+                    "day": 3,
+                    "title": "Free Day & Dar Zellij Dinner",
+                    "description": "Free day. 19:30 pick-up for dinner at Dar Zellij. Overnight at Riad Bab Yacout."
+                },
+                {
+                    "day": 4,
+                    "title": "Free Day",
+                    "description": "Free day at leisure. Overnight at Riad Bab Yacout."
+                },
+                {
+                    "day": 5,
+                    "title": "Hot Air Balloon & Agafay Desert",
+                    "description": "04:40 pick-up from Pharmacy Bab Doukala for hot-air balloon flight. Breakfast after flight. Return to riad, check-out. 13:00 transfer to White Camel Camp. Dinner and overnight at camp."
+                },
+                {
+                    "day": 6,
+                    "title": "Departure",
+                    "description": "Breakfast at camp. 15:30 transfer to airport for flight W95754 at 18:30."
+                }
+            ],
+            "included": [
+                "5 nights accommodation",
+                "Breakfasts",
+                "Dinner at Dar Zellij",
+                "Dinner at Agafay camp",
+                "Hot-air balloon flight",
+                "Airport transfers"
+            ],
+            "not_included": [
+                "Lunches",
+                "Drinks",
+                "Tips",
+                "Personal expenses",
+                "Local taxes"
+            ],
+            "practical_info": {
+                "pickup": "Representative outside terminal, left side near Voyage Privé banner.",
+                "medina_access": "Riads not accessible by car - porters available.",
+                "emergency": "Emergency contact available 08:00-22:00",
+                "notes": "Local taxes payable on arrival. Optional excursions available - contact representative on Day 1."
+            }
+        },
+        {
+            "id": 13,
+            "name": "THE IMPERIAL CITIES OF MOROCCO",
+            "duration": "5 nights / 6 days",
+            "code": "VPUK",
+            "overview": "Journey through Morocco's imperial cities: Marrakech, Casablanca, Rabat, Meknes, and Fes.",
+            "price_from": "Price on request",
+            "featured": true,
+            "image": "https://i.ibb.co/your-image.jpg",
+            "gallery": [],
+            "itineraire": [
+                {
+                    "day": 1,
+                    "title": "Arrival in Marrakech",
+                    "description": "Welcome at airport. Transfer to riad. Free day. Overnight at riad."
+                },
+                {
+                    "day": 2,
+                    "title": "Marrakech – Casablanca",
+                    "description": "08:30 departure to Casablanca. Visit Arab League Park, Notre-Dame de Lourdes Church, Habous district, and Hassan II Mosque (exterior). Lunch at local restaurant. Overnight at hotel."
+                },
+                {
+                    "day": 3,
+                    "title": "Casablanca – Rabat – Meknes – Fes",
+                    "description": "Visit Rabat: Royal Palace (exterior), Hassan Tower, Mohammed V Mausoleum. Continue to Meknes. Lunch en route. Continue to Fes. Overnight at hotel."
+                },
+                {
+                    "day": 4,
+                    "title": "Fes",
+                    "description": "Full day exploring Fes medina, Andalusian quarter, Al Quaraouiyine Mosque, Bou Inania Madrasa, and tanneries. Lunch at traditional restaurant. Overnight at hotel."
+                },
+                {
+                    "day": 5,
+                    "title": "Fes – Ifrane – Beni Mellal – Marrakech",
+                    "description": "Cross Middle Atlas through Ifrane and Azrou. Lunch in Beni Mellal. Continue to Marrakech with stop at palm grove. Overnight at hotel."
+                },
+                {
+                    "day": 6,
+                    "title": "Departure",
+                    "description": "Breakfast. Transfer to airport for return flight."
+                }
+            ],
+            "included": [
+                "5 nights accommodation",
+                "Breakfasts",
+                "Lunches on days 2, 3, 4",
+                "Air-conditioned transport",
+                "Guided tours",
+                "Airport transfers"
+            ],
+            "not_included": [
+                "Dinners",
+                "Drinks",
+                "Tips",
+                "Personal expenses",
+                "Local taxes"
+            ],
+            "practical_info": {
+                "pickup": "Representative outside terminal, left side near Voyage Privé banner.",
+                "medina_access": "Riads not accessible by car - porters available.",
+                "emergency": "Emergency contact available 08:00-22:00",
+                "notes": "This itinerary may be modified up to 48h before arrival."
+            }
+        },
+        {
+            "id": 14,
+            "name": "THE IMPERIAL CITIES, CHEFCHAOUEN – 5 NIGHTS",
+            "duration": "5 nights / 6 days",
+            "code": "VPUK",
+            "overview": "Discover Morocco's imperial cities plus the blue pearl of Chefchaouen.",
+            "price_from": "Price on request",
+            "featured": true,
+            "image": "https://i.ibb.co/your-image.jpg",
+            "gallery": [],
+            "itineraire": [
+                {
+                    "day": 1,
+                    "title": "Arrival in Marrakech",
+                    "description": "Welcome at airport. Transfer to riad. Free day. Overnight at riad."
+                },
+                {
+                    "day": 2,
+                    "title": "Marrakech – Casablanca – Rabat",
+                    "description": "08:00 departure to Casablanca. Visit Arab League Park, Habous district, Hassan II Mosque (exterior). Continue to Rabat. Visit Hassan Tower and Mohammed V Mausoleum. Overnight at hotel."
+                },
+                {
+                    "day": 3,
+                    "title": "Rabat – Meknes – Fes",
+                    "description": "Departure to Meknes. Visit El Hedim Square, Dar Jamaï Museum, Moulay Ismail Mausoleum, Sahrij Souani. Lunch. Continue to Fes. Overnight at hotel."
+                },
+                {
+                    "day": 4,
+                    "title": "Fes – Chefchaouen",
+                    "description": "Early departure to Chefchaouen. Explore the blue city, visit Kasbah, and enjoy free time in the main square. Return to Fes in afternoon. Overnight at hotel."
+                },
+                {
+                    "day": 5,
+                    "title": "Fes – Ifrane – Beni Mellal – Marrakech",
+                    "description": "Departure via Azrou and cedar forests. Lunch in Beni Mellal. Continue to Marrakech with stop at palm grove. Overnight at hotel."
+                },
+                {
+                    "day": 6,
+                    "title": "Departure",
+                    "description": "Breakfast. Transfer to airport for return flight."
+                }
+            ],
+            "included": [
+                "5 nights accommodation",
+                "Breakfasts",
+                "Lunches",
+                "Air-conditioned transport",
+                "Guided tours",
+                "Airport transfers"
+            ],
+            "not_included": [
+                "Dinners",
+                "Drinks",
+                "Tips",
+                "Personal expenses",
+                "Local taxes"
+            ],
+            "practical_info": {
+                "pickup": "Representative outside terminal, left side near Voyage Privé banner.",
+                "medina_access": "Riads not accessible by car - porters available.",
+                "emergency": "Emergency contact available 08:00-22:00",
+                "notes": "This itinerary may be modified up to 48h before arrival."
+            }
+        },
+        {
+            "id": 15,
+            "name": "HIGH ATLAS & AGAFAY DESERT SAFARI",
+            "duration": "7 nights / 8 days",
+            "code": "VPUK",
+            "overview": "An adventurous journey through the High Atlas mountains and the Agafay Desert, combining trekking, Berber culture, and desert camping.",
+            "price_from": "Price on request",
+            "featured": true,
+            "image": "https://i.ibb.co/your-image.jpg",
+            "gallery": [],
+            "itineraire": [
+                {
+                    "day": 1,
+                    "title": "Arrival in Marrakech",
+                    "description": "Welcome at airport. Transfer to riad. Free day. Overnight at riad."
+                },
+                {
+                    "day": 2,
+                    "title": "Marrakech – Asni – Ouirgane",
+                    "description": "Departure through Haouz Plain, visit Aghmat, continue to Ighref and Jebel Yagour. Panoramic views of Berber villages. Discover Ghighaya Valley and Sidi Fares village. Descend to Asni and Ouirgane. Dinner and overnight at hotel in Ouirgane."
+                },
+                {
+                    "day": 3,
+                    "title": "Ouirgane – Aït Tirghuit – Anougal – Amizmiz",
+                    "description": "Journey south of High Atlas Plateau. Cross Asni Valley, Marigha Valley, and Kik Plateau. Visit Oued Nfiss Valley and Berber villages. Stop at Aït Terghuit, visit Imi n Tala springs. Optional lunch with local family. Arrive in Amizmiz for traditional Berber dinner. Overnight at guesthouse."
+                },
+                {
+                    "day": 4,
+                    "title": "Amizmiz – Azgour – Imi-ndounit Gorges – Taskourt – Agafay",
+                    "description": "Breakfast with mountain views. Journey through Tizguine Valleys with views of Mount Aberji and Tizgui Mountain. Visit Toulkine Plateau, optional walk. Lunch at traditional inn. Continue to Imi-ndounit Gorges. Short walk to river gorge. Continue to Agafay Desert. Traditional dinner at Canyon Lodge Camp. Overnight at camp."
+                },
+                {
+                    "day": 5,
+                    "title": "Agafay – Marrakech",
+                    "description": "Morning stroll to watch sunrise over Agafay hills and Atlas Mountains. Free morning for walks or pool. Early afternoon return to Marrakech. Check-in at riad. Dinner and overnight at riad."
+                },
+                {
+                    "day": 6,
+                    "title": "Marrakech",
+                    "description": "Free day at leisure to explore Marrakech. Overnight at riad."
+                },
+                {
+                    "day": 7,
+                    "title": "Marrakech",
+                    "description": "Free day. Optional activities: Majorelle Garden and YSL Museum visit, or Moroccan cooking class (supplement payable on site). Overnight at riad."
+                },
+                {
+                    "day": 8,
+                    "title": "Departure",
+                    "description": "Breakfast. Transfer to airport for return flight."
+                }
+            ],
+            "included": [
+                "7 nights accommodation",
+                "Breakfasts",
+                "Dinners on days 2, 3, 4",
+                "Air-conditioned transport",
+                "Mountain guides",
+                "Airport transfers"
+            ],
+            "not_included": [
+                "Lunches",
+                "Drinks",
+                "Tips",
+                "Personal expenses",
+                "Optional activities",
+                "Local taxes"
+            ],
+            "practical_info": {
+                "pickup": "Representative outside terminal, left side near Voyage Privé banner.",
+                "medina_access": "Riads not accessible by car - porters available.",
+                "emergency": "Emergency contact available 08:00-22:00",
+                "notes": "This itinerary involves walking and is recommended for active travelers. Local taxes payable on arrival."
+            }
+        }
+    ],
+    "last_updated": "2025-02-16"
+}

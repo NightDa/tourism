@@ -3,18 +3,195 @@
         {
             "id": 1,
             "name": "Marrakech",
-            "description": "The Red City",
+            "slug": "marrakech",
+            "short_description": "The Red City - Where tradition meets modernity",
+            "description": "Marrakech, known as the 'Red City', is a mesmerizing blend of ancient and modern. From the bustling Jemaa el-Fnaa square to the peaceful Majorelle Garden, every corner tells a story. Explore the souks, palaces, and gardens that make this city unforgettable.",
             "image": "./img/Marrakech-jamaa-lafna.webp",
-            "tours": 12,
-            "price": "From $400"
+            "gallery": [
+                "./img/marrakech-riad.jpg",
+                "./img/marrakech-desert.jpg",
+                "./img/marrakech-garden.jpg"
+            ],
+            "highlights": [
+                "Jemaa el-Fnaa Square",
+                "Koutoubia Mosque",
+                "Bahia Palace",
+                "Majorelle Garden",
+                "Saadian Tombs"
+            ],
+            "best_time": "March-May or September-November",
+            "tour_count": 12,
+            "price_from": 350,
+            "featured": true
         },
         {
             "id": 2,
             "name": "Sahara Desert",
-            "description": "Golden dunes experience",
+            "slug": "sahara-desert",
+            "short_description": "Experience the magic of golden dunes",
+            "description": "The Sahara Desert offers an unforgettable experience of a lifetime. Ride camels across golden dunes, sleep under a blanket of stars in luxury desert camps, and witness breathtaking sunsets over the endless sand sea.",
             "image": "./img/sahara.jfif",
-            "tours": 8,
-            "price": "From $600"
+            "gallery": [
+                "./img/sahara-camel.jpg",
+                "./img/sahara-camp.jpg",
+                "./img/sahara-sunset.jpg"
+            ],
+            "highlights": [
+                "Camel trekking",
+                "Luxury desert camps",
+                "Sunset over dunes",
+                "Berber music nights",
+                "Stargazing"
+            ],
+            "best_time": "October-April",
+            "tour_count": 8,
+            "price_from": 600,
+            "featured": true
+        },
+        {
+            "id": 3,
+            "name": "Essaouira",
+            "slug": "essaouira",
+            "short_description": "The windy city of arts and surf",
+            "description": "Essaouira is a charming coastal city where the Atlantic meets Moroccan culture. Known for its medina, fresh seafood, and world-class surfing, it's the perfect escape from the hustle of Marrakech.",
+            "image": "./img/essaouira-beach.jpg",
+            "gallery": [
+                "./img/essaouira-medina.jpg",
+                "./img/essaouira-port.jpg",
+                "./img/essaouira-beach2.jpg"
+            ],
+            "highlights": [
+                "Medina UNESCO site",
+                "Skala de la Ville",
+                "Fresh seafood port",
+                "Surfing spots",
+                "Gnawa music"
+            ],
+            "best_time": "April-October",
+            "tour_count": 5,
+            "price_from": 450,
+            "featured": true
+        },
+        {
+            "id": 4,
+            "name": "Fez",
+            "slug": "fez",
+            "short_description": "Morocco's spiritual and cultural heart",
+            "description": "Fez is the oldest of Morocco's imperial cities, home to the world's largest car-free urban area. Lose yourself in the medieval medina, visit ancient tanneries, and discover Islamic architecture at its finest.",
+            "image": "./img/fez-medina.jpg",
+            "gallery": [
+                "./img/fez-tanneries.jpg",
+                "./img/fez-palace.jpg",
+                "./img/fez-day-trip.jpg"
+            ],
+            "highlights": [
+                "Fez el-Bali Medina",
+                "Chouara Tannery",
+                "Al-Attarine Madrasa",
+                "Bou Inania Madrasa",
+                "Merenid Tombs"
+            ],
+            "best_time": "March-May or September-November",
+            "tour_count": 6,
+            "price_from": 420,
+            "featured": false
+        },
+        {
+            "id": 5,
+            "name": "Casablanca",
+            "slug": "casablanca",
+            "short_description": "Modern Morocco's economic capital",
+            "description": "Casablanca is Morocco's largest city and economic hub. Visit the magnificent Hassan II Mosque, stroll along the Corniche, and experience the vibrant modern side of Morocco.",
+            "image": "./img/casablanca-mosque.jpg",
+            "gallery": [
+                "./img/casablanca-corniche.jpg",
+                "./img/casablanca-habous.jpg",
+                "./img/casablanca-market.jpg"
+            ],
+            "highlights": [
+                "Hassan II Mosque",
+                "Corniche Ain Diab",
+                "Habous Quarter",
+                "Old Medina",
+                "Art Deco architecture"
+            ],
+            "best_time": "Year-round",
+            "tour_count": 4,
+            "price_from": 300,
+            "featured": false
+        },
+        {
+            "id": 6,
+            "name": "Chefchaouen",
+            "slug": "chefchaouen",
+            "short_description": "The blue pearl of Morocco",
+            "description": "Chefchaouen is a stunning city painted in shades of blue, nestled in the Rif Mountains. It's a photographer's paradise and a peaceful retreat from the busy cities.",
+            "image": "./img/chefchaouen.jpg",
+            "gallery": [
+                "./img/chefchaouen-street.jpg",
+                "./img/chefchaouen-mountain.jpg",
+                "./img/chefchaouen-market.jpg"
+            ],
+            "highlights": [
+                "Blue-washed streets",
+                "Ras Elma waterfall",
+                "Spanish Mosque view",
+                "Local handicrafts",
+                "Mountain trekking"
+            ],
+            "best_time": "April-October",
+            "tour_count": 4,
+            "price_from": 380,
+            "featured": true
+        },
+        {
+            "id": 7,
+            "name": "Agadir",
+            "slug": "agadir",
+            "short_description": "Beach paradise on the Atlantic",
+            "description": "Agadir is Morocco's premier beach resort destination. With its modern infrastructure, beautiful beaches, and year-round sunshine, it's perfect for relaxation and water sports.",
+            "image": "./img/agadir.jpg",
+            "gallery": [
+                "./img/agadir-beach.jpg",
+                "./img/agadir-marina.jpg",
+                "./img/agadir-souk.jpg"
+            ],
+            "highlights": [
+                "Agadir Beach",
+                "Marina",
+                "Souk El Had",
+                "Valley of Birds",
+                "Paradise Valley"
+            ],
+            "best_time": "Year-round",
+            "tour_count": 8,
+            "price_from": 400,
+            "featured": false
+        },
+        {
+            "id": 8,
+            "name": "Meknes",
+            "slug": "meknes",
+            "short_description": "The Ismaili capital",
+            "description": "Meknes is one of Morocco's four imperial cities, known for its impressive gates, vast granaries, and the sacred town of Moulay Idriss nearby.",
+            "image": "./img/meknes.jpg",
+            "gallery": [
+                "./img/meknes-gate.jpg",
+                "./img/meknes-granary.jpg",
+                "./img/meknes-mausoleum.jpg"
+            ],
+            "highlights": [
+                "Bab Mansour gate",
+                "Heri es-Souani",
+                "Moulay Ismail Mausoleum",
+                "Place El Hedim",
+                "Moulay Idriss Zerhoun"
+            ],
+            "best_time": "March-May or September-November",
+            "tour_count": 3,
+            "price_from": 280,
+            "featured": false
         }
-    ]
+    ],
+    "last_updated": "2025-02-15 12:00:00"
 }

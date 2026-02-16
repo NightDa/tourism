@@ -1,12 +1,16 @@
 {
     "page_views": {
-        "favicon.ico": 100,
-        "index.php": 5,
-        "excursions.php": 56,
+        "favicon.ico": 194,
+        "index.php": 9,
+        "excursions.php": 72,
         "index.html": 1,
         "login.php": 1,
-        "excursions.html": 2
+        "excursions.html": 2,
+        "destinations.php": 9,
+        "about.php": 10,
+        "packages.php": 16,
+        "com.chrome.devtools.json": 2
     },
-    "total_visits": 165,
+    "total_visits": 316,
     "last_reset": "2026-02-14 00:29:59"
 }
