@@ -53,6 +53,97 @@
             "status": "pending",
             "created_at": "2026-02-15 22:24:33",
             "booking_id": "BK1771194273283"
+        },
+        {
+            "customer": {
+                "name": "Mhamed Elouardani",
+                "email": "mhamed.elouardani@gmail.com",
+                "phone": "+212664410052",
+                "pickup": "RECEPTION (time to confirm)"
+            },
+            "items": [
+                {
+                    "id": 1771365751554.221,
+                    "tourId": "6",
+                    "title": "\n                                    Quad Biking in Agafay Desert",
+                    "date": "2026-02-18",
+                    "time": "09:00 (Fixed)",
+                    "adults": 1,
+                    "children": 1,
+                    "tourType": "group",
+                    "adultPrice": 550,
+                    "childPrice": 300,
+                    "specialRequests": "",
+                    "totalPrice": 850
+                }
+            ],
+            "total": 850,
+            "date": "2026-02-17T22:03:07.521Z",
+            "status": "confirmed",
+            "created_at": "2026-02-17 22:03:07",
+            "booking_id": "BK1771365787835",
+            "assigned_to": "rabii",
+            "updated_at": "2026-02-17 22:04:24"
+        },
+        {
+            "customer": {
+                "name": "Mhamed Elouardani",
+                "email": "mhamed.elouardani@gmail.com",
+                "phone": "+212664410052",
+                "pickup": "BAB YACOUT (time to confirm)"
+            },
+            "items": [
+                {
+                    "id": 1771538440789.2988,
+                    "tourId": "3",
+                    "title": "\n                                    The Berber Trails",
+                    "date": "2026-02-20",
+                    "time": "10:00",
+                    "adults": 1,
+                    "children": 0,
+                    "tourType": "private",
+                    "adultPrice": 800,
+                    "childPrice": 400,
+                    "specialRequests": "",
+                    "totalPrice": 800
+                }
+            ],
+            "total": 800,
+            "date": "2026-02-19T22:00:53.085Z",
+            "status": "pending",
+            "created_at": "2026-02-19 22:00:53",
+            "booking_id": "BK1771538453165"
+        },
+        {
+            "customer": {
+                "name": "Mhamed Elouardani",
+                "email": "mhamed.elouardani@gmail.com",
+                "phone": "+212664410052",
+                "pickup": "BAB YACOUT (time to confirm)"
+            },
+            "items": [
+                {
+                    "id": 1771538440789.2988,
+                    "tourId": "3",
+                    "title": "\n                                    The Berber Trails",
+                    "date": "2026-02-20",
+                    "time": "10:00",
+                    "adults": 1,
+                    "children": 0,
+                    "tourType": "private",
+                    "adultPrice": 800,
+                    "childPrice": 400,
+                    "specialRequests": "",
+                    "totalPrice": 800
+                }
+            ],
+            "total": 800,
+            "date": "2026-02-19T22:00:54.869Z",
+            "status": "confirmed",
+            "created_at": "2026-02-19 22:00:55",
+            "booking_id": "BK1771538455669",
+            "assigned_to": "",
+            "updated_at": "2026-02-19 22:01:23"
         }
     ]
 }
