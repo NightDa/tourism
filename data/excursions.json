@@ -161,7 +161,25 @@
                 "adult": 750,
                 "child": 375
             }
+        },
+        {
+            "id": 10,
+            "title": "mehdi",
+            "category": "mountain",
+            "image": "https:\/\/i.ibb.co\/vCK30F8t\/Medina-Tour.jpg",
+            "duration": "Full Day",
+            "location": "Marrakech",
+            "description": "dsdsddsd",
+            "priceTag": "From 10000dh ",
+            "groupPrice": {
+                "adult": 500,
+                "child": 250
+            },
+            "privatePrice": {
+                "adult": 1000,
+                "child": 450
+            }
         }
     ],
-    "last_updated": "2026-02-14 00:28:54"
+    "last_updated": "2026-02-20 01:11:46"
 }
