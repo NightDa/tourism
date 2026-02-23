@@ -6,11 +6,12 @@
 
             <!-- Logo & Description -->
             <div>
-                <img src="./img/Sans titre.png" alt="Travol Morocco" style="width: 120px; height: auto; margin-bottom: 20px; display: block;">
+                <!-- FIXED: Changed ./img/ to ../assets/img/ -->
+                <img src="../assets/img/Sans titre.png" alt="Travol Morocco" style="width: 120px; height: auto; margin-bottom: 20px; display: block;">
                 <p style="color: #ccc; line-height: 1.6; margin: 0; font-size: 14px;">Discover the magic of Morocco with our expert guides and curated experiences.</p>
             </div>
 
-            <!-- Quick Links -->
+            <!-- Quick Links - These are CORRECT (no pages/ prefix) -->
             <div>
                 <h3 style="color: #fff; margin-bottom: 20px; font-size: 18px; position: relative; padding-bottom: 10px;">Quick Links</h3>
                 <ul style="list-style: none; padding: 0; margin: 0;">
@@ -68,7 +69,3 @@
         </div>
     </div>
 </footer>
-
-<!-- Make sure Font Awesome is included in your page -->
-<!-- If not already in your head, add this: -->
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"> -->
