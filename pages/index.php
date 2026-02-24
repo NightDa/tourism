@@ -16,6 +16,21 @@ if (file_exists($data_file)) {
 } else {
   $featured_tours = [];
 }
+
+// Helper function to get clean price for labels
+function getSimplePrice($tour)
+{
+  $price = $tour['priceTag'] ?? '';
+  // Extract numbers followed by MAD or dh
+  if (preg_match('/(\d+)\s*(MAD|dh)/i', $price, $matches)) {
+    return $matches[1] . ' MAD';
+  }
+  // If no match, return first number found + MAD
+  if (preg_match('/(\d+)/', $price, $matches)) {
+    return $matches[1] . ' MAD';
+  }
+  return 'Price on request';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,8 +115,6 @@ if (file_exists($data_file)) {
           <li><a href="index.php" class="active">Home</a></li>
           <li><a href="about.php">About</a></li>
           <li><a href="excursions.php">Tours</a></li>
-          <li><a href="destinations.php">Destination</a></li>
-          <li><a href="packages.php">Packages</a></li>
           <li><a href="contact.php">Contact</a></li>
         </ul>
         <div class="btn">
@@ -148,7 +161,6 @@ if (file_exists($data_file)) {
           </div>
         </div>
       </div>
-      <!-- REMOVED navigation arrows -->
       <div class="swiper-pagination"></div>
     </div>
   </main>
@@ -290,13 +302,13 @@ if (file_exists($data_file)) {
             <li>
               <div class="icons">
                 <i class="fa fa-phone-volume"></i>
-                <p>Call Us: +212 524 43 34 51</p>
+                <p>Call Us: +212 655 23 71 96</p>
               </div>
             </li>
             <li>
               <div class="icons">
                 <i class="fa fa-envelope"></i>
-                <p>Email: reservationrak@sti.ma</p>
+                <p>Email: info@travolmorocco.com</p>
               </div>
             </li>
           </ul>
@@ -331,9 +343,6 @@ if (file_exists($data_file)) {
                 <span><i class="fa fa-location-dot"></i> Marrakech</span>
               </div>
             </div>
-            <div class="price-label">
-              <p>From $400</p>
-            </div>
           </div>
         </div>
         <div class="img-right-side">
@@ -346,9 +355,6 @@ if (file_exists($data_file)) {
                 <span><i class="fa fa-user"></i> 2-8+</span>
                 <span><i class="fa fa-location-dot"></i> Sahara</span>
               </div>
-            </div>
-            <div class="price-label">
-              <p>From $600</p>
             </div>
           </div>
         </div>
@@ -366,9 +372,6 @@ if (file_exists($data_file)) {
               <span><i class="fa fa-location-dot"></i> Casablanca</span>
             </div>
           </div>
-          <div class="price-label">
-            <p>From $300</p>
-          </div>
         </div>
 
         <div class="lg-img">
@@ -380,9 +383,6 @@ if (file_exists($data_file)) {
               <span><i class="fa fa-user"></i> 2-8+</span>
               <span><i class="fa fa-location-dot"></i> Tangier</span>
             </div>
-          </div>
-          <div class="price-label">
-            <p>From $350</p>
           </div>
         </div>
 
@@ -396,16 +396,7 @@ if (file_exists($data_file)) {
               <span><i class="fa fa-location-dot"></i> Rabat</span>
             </div>
           </div>
-          <div class="price-label">
-            <p>From $250</p>
-          </div>
         </div>
-      </div>
-
-      <div class="text-center">
-        <a href="destinations.php" class="primary-btn destinations-btn">
-          All Destinations <i class="fa fa-arrow-right"></i>
-        </a>
       </div>
     </div>
   </section>
@@ -425,7 +416,7 @@ if (file_exists($data_file)) {
           <?php foreach ($featured_tours as $tour): ?>
             <div class="tour-card">
               <div class="tour-img">
-                <img src="<?php echo htmlspecialchars($tour['image']); ?>" alt="<?php echo htmlspecialchars($tour['title']); ?>" />
+                <img src="<?php echo htmlspecialchars($tour['image']); ?>" alt="<?php echo htmlspecialchars($tour['title']); ?>" onerror="this.src='../assets/img/placeholder.jpg'" />
               </div>
               <div class="tour-content">
                 <h3><?php echo htmlspecialchars($tour['title']); ?></h3>
@@ -440,7 +431,7 @@ if (file_exists($data_file)) {
                   <span class="tour-price">
                     <?php echo htmlspecialchars($tour['priceTag']); ?>
                   </span>
-                  <a href="excursions.php#tour-<?php echo $tour['id']; ?>" class="tour-link">
+                  <a href="excursions.php" class="tour-link">
                     Details <i class="fa fa-arrow-right"></i>
                   </a>
                 </div>
@@ -449,7 +440,6 @@ if (file_exists($data_file)) {
           <?php endforeach; ?>
         <?php else: ?>
           <!-- Fallback static tours if JSON not loaded -->
-          <!-- Tour 1 -->
           <div class="tour-card">
             <div class="tour-img">
               <img src="https://i.ibb.co/vCK30F8t/Medina-Tour.jpg" alt="Medina Tour" />
@@ -460,21 +450,13 @@ if (file_exists($data_file)) {
                 <span><i class="fa fa-clock"></i> Full Day</span>
                 <span><i class="fa fa-map-marker-alt"></i> Marrakech</span>
               </div>
-              <p>
-                Explore iconic monuments and wander through winding alleys of the Medina.
-              </p>
+              <p>Explore iconic monuments and wander through winding alleys of the Medina.</p>
               <div class="tour-footer">
-                <span class="tour-price">
-                  From 350 MAD
-                </span>
-                <a href="excursions.php#medina" class="tour-link">
-                  Details <i class="fa fa-arrow-right"></i>
-                </a>
+                <span class="tour-price">From 350 MAD</span>
+                <a href="excursions.php" class="tour-link">Details <i class="fa fa-arrow-right"></i></a>
               </div>
             </div>
           </div>
-
-          <!-- Tour 2 -->
           <div class="tour-card">
             <div class="tour-img">
               <img src="https://i.ibb.co/BHdLd3Gh/Ourika-Valley.jpg" alt="Ourika Valley" />
@@ -485,21 +467,13 @@ if (file_exists($data_file)) {
                 <span><i class="fa fa-clock"></i> Full Day</span>
                 <span><i class="fa fa-map-marker-alt"></i> Atlas Mountains</span>
               </div>
-              <p>
-                Spectacular landscapes, Berber villages, and seven waterfalls.
-              </p>
+              <p>Spectacular landscapes, Berber villages, and seven waterfalls.</p>
               <div class="tour-footer">
-                <span class="tour-price">
-                  From 350 MAD
-                </span>
-                <a href="excursions.php#ourika" class="tour-link">
-                  Details <i class="fa fa-arrow-right"></i>
-                </a>
+                <span class="tour-price">From 350 MAD</span>
+                <a href="excursions.php" class="tour-link">Details <i class="fa fa-arrow-right"></i></a>
               </div>
             </div>
           </div>
-
-          <!-- Tour 3 -->
           <div class="tour-card">
             <div class="tour-img">
               <img src="https://i.ibb.co/cWN5ZMD/Quad-Biking-in-Agafay-Desert.jpg" alt="Quad Biking" />
@@ -510,16 +484,10 @@ if (file_exists($data_file)) {
                 <span><i class="fa fa-clock"></i> Half Day</span>
                 <span><i class="fa fa-map-marker-alt"></i> Agafay Desert</span>
               </div>
-              <p>
-                Exhilarating desert adventure with Berber culture immersion.
-              </p>
+              <p>Exhilarating desert adventure with Berber culture immersion.</p>
               <div class="tour-footer">
-                <span class="tour-price">
-                  550 MAD
-                </span>
-                <a href="excursions.php#quad" class="tour-link">
-                  Details <i class="fa fa-arrow-right"></i>
-                </a>
+                <span class="tour-price">550 MAD</span>
+                <a href="excursions.php" class="tour-link">Details <i class="fa fa-arrow-right"></i></a>
               </div>
             </div>
           </div>
@@ -579,8 +547,9 @@ if (file_exists($data_file)) {
                   <h2><i class="fa fa-location-dot"></i> JEMAA EL-FNAA</h2>
                   <div class="hidden-content-carousel">
                     <span>6 tours packages</span>
-                    <a href="destinations.php#marrakech">
-                      <span>Explore Now</span><i class="fa fa-arrow-right"></i></a>
+                    <a href="javascript:void(0)" onclick="alert('Coming soon!')">
+                      <span>Explore Now</span><i class="fa fa-arrow-right"></i>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -595,8 +564,9 @@ if (file_exists($data_file)) {
                   <h2><i class="fa fa-location-dot"></i> SAHARA DESERT</h2>
                   <div class="hidden-content-carousel">
                     <span>5 tours packages</span>
-                    <a href="destinations.php#sahara">
-                      <span>Explore Now</span><i class="fa fa-arrow-right"></i></a>
+                    <a href="javascript:void(0)" onclick="alert('Coming soon!')">
+                      <span>Explore Now</span><i class="fa fa-arrow-right"></i>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -611,8 +581,9 @@ if (file_exists($data_file)) {
                   <h2><i class="fa fa-location-dot"></i> CHEFCHAOUEN</h2>
                   <div class="hidden-content-carousel">
                     <span>4 tours packages</span>
-                    <a href="destinations.php#chefchaouen">
-                      <span>Explore Now</span><i class="fa fa-arrow-right"></i></a>
+                    <a href="javascript:void(0)" onclick="alert('Coming soon!')">
+                      <span>Explore Now</span><i class="fa fa-arrow-right"></i>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -627,8 +598,9 @@ if (file_exists($data_file)) {
                   <h2><i class="fa fa-location-dot"></i> AGADIR</h2>
                   <div class="hidden-content-carousel">
                     <span>8 tours packages</span>
-                    <a href="destinations.php#agadir">
-                      <span>Explore Now</span><i class="fa fa-arrow-right"></i></a>
+                    <a href="javascript:void(0)" onclick="alert('Coming soon!')">
+                      <span>Explore Now</span><i class="fa fa-arrow-right"></i>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -643,8 +615,9 @@ if (file_exists($data_file)) {
                   <h2><i class="fa fa-location-dot"></i> MEKNES</h2>
                   <div class="hidden-content-carousel">
                     <span>3 tours packages</span>
-                    <a href="destinations.php#meknes">
-                      <span>Explore Now</span><i class="fa fa-arrow-right"></i></a>
+                    <a href="javascript:void(0)" onclick="alert('Coming soon!')">
+                      <span>Explore Now</span><i class="fa fa-arrow-right"></i>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -659,8 +632,9 @@ if (file_exists($data_file)) {
                   <h2><i class="fa fa-location-dot"></i> ESSAOUIRA</h2>
                   <div class="hidden-content-carousel">
                     <span>5 tours packages</span>
-                    <a href="destinations.php#essaouira">
-                      <span>Explore Now</span><i class="fa fa-arrow-right"></i></a>
+                    <a href="javascript:void(0)" onclick="alert('Coming soon!')">
+                      <span>Explore Now</span><i class="fa fa-arrow-right"></i>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -671,8 +645,7 @@ if (file_exists($data_file)) {
           </div>
         </div>
         <!-- Swiper Navigation -->
-        <div class="swiper-button-next swiper2-next"></div>
-        <div class="swiper-button-prev swiper2-prev"></div>
+
         <div class="swiper-pagination swiper2-pagination"></div>
       </div>
     </div>
@@ -702,219 +675,133 @@ if (file_exists($data_file)) {
   </section>
   <!-- =========== Video background ==================Close-->
 
-  <!-- =========== Travel citys ==================Start-->
+  <!-- =========== Most Popular Excursions ==================Start-->
   <section id="travel-citys">
     <div class="container">
       <p class="heading-normal-txt">MOST POPULAR</p>
-      <h2 class="headings">TRAVEL <span>CITIES</span></h2>
+      <h2 class="headings">EXCURSIONS <span>& TOURS</span></h2>
 
-      <!--marrakech-->
+      <?php
+      // Get all excursions (already loaded in $all_tours)
+      $all_excursions = $all_tours ?? [];
+
+      // Take first 8 excursions for this section
+      $featured_excursions = array_slice($all_excursions, 0, 8);
+
+      // First block: first 4 excursions
+      $block1_excursions = array_slice($featured_excursions, 0, 4);
+      // Second block: next 4 excursions
+      $block2_excursions = array_slice($featured_excursions, 4, 4);
+      ?>
+
+      <!-- First Excursion Block -->
       <div class="travel-citys-wrapper">
-        <div class="citys-content">
-          <h2 class="secondary-headings">Marrakech</h2>
-          <p class="lead">
-            The "Red City" offers a vibrant mix of history, culture, and excitement.
-            From historic palaces to lively souks, we guide you through Marrakech's
-            most unforgettable places.
-          </p>
-          <ul>
-            <div class="citys-famous-location">
-              <li><i class="fa fa-location-dot"></i> Jemaa el-Fnaa Square</li>
-              <li><i class="fa fa-location-dot"></i> Koutoubia Mosque</li>
-              <li><i class="fa fa-location-dot"></i> Majorelle Garden</li>
-            </div>
-            <div class="citys-famous-location">
-              <li><i class="fa fa-location-dot"></i> El Badi Palace</li>
-              <li><i class="fa fa-location-dot"></i> Medina & Souks</li>
-              <li><i class="fa fa-location-dot"></i> Bahia Palace</li>
-            </div>
-            <div class="citys-famous-location">
-              <li><i class="fa fa-location-dot"></i> Saadian Tombs</li>
-              <li><i class="fa fa-location-dot"></i> Menara Gardens</li>
-              <li><i class="fa fa-location-dot"></i> Ben Youssef Madrasa</li>
-            </div>
-          </ul>
-          <a href="destinations.php#marrakech" class="primary-btn">
-            Explore Marrakech <i class="fa fa-arrow-right"></i>
-          </a>
-        </div>
-        <div class="slider-content-wrapper">
-          <div class="city-swiper swiper3">
-            <div class="swiper-wrapper">
-              <div class="carousel swiper-slide">
-                <img src="../assets/img/marrakech-riad.jpg" alt="Marrakech Riad" />
-                <div class="carousel-img-overlay">
-                  <div class="img-content">
-                    <h2><i class="fa fa-location-dot"></i> Marrakech</h2>
-                    <div class="hidden-content-carousel">
-                      <span><i class="fa fa-clock"></i> 3 days</span>
-                      <span><i class="fa fa-user"></i> 2-10+</span>
-                      <span><i class="fa fa-location-dot"></i> Marrakech</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="price-label">
-                  <p>$450</p>
-                </div>
+        <?php if (!empty($block1_excursions)):
+          $first = $block1_excursions[0];
+        ?>
+          <div class="citys-content">
+            <h2 class="secondary-headings"><?php echo htmlspecialchars($first['title']); ?></h2>
+            <p class="lead">
+              <?php echo htmlspecialchars(substr($first['description'], 0, 180)) . '...'; ?>
+            </p>
+            <ul>
+              <div class="citys-famous-location">
+                <li><i class="fa fa-clock"></i> <?php echo htmlspecialchars($first['duration']); ?></li>
+                <li><i class="fa fa-map-marker-alt"></i> <?php echo htmlspecialchars($first['location']); ?></li>
+                <li><i class="fa fa-tag"></i> <?php echo htmlspecialchars($first['priceTag']); ?></li>
               </div>
-              <div class="carousel swiper-slide">
-                <img src="../assets/img/marrakech-desert.jpg" alt="Marrakech Desert" />
-                <div class="carousel-img-overlay">
-                  <div class="img-content">
-                    <h2><i class="fa fa-location-dot"></i> Agafay Desert</h2>
-                    <div class="hidden-content-carousel">
-                      <span><i class="fa fa-clock"></i> 1 day</span>
-                      <span><i class="fa fa-user"></i> 2-8+</span>
-                      <span><i class="fa fa-location-dot"></i> Marrakech</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="price-label">
-                  <p>$280</p>
-                </div>
-              </div>
-              <div class="carousel swiper-slide">
-                <img src="../assets/img/atlas-mountains.jpg" alt="Atlas Mountains" />
-                <div class="carousel-img-overlay">
-                  <div class="img-content">
-                    <h2><i class="fa fa-location-dot"></i> Atlas Mountains</h2>
-                    <div class="hidden-content-carousel">
-                      <span><i class="fa fa-clock"></i> 2 days</span>
-                      <span><i class="fa fa-user"></i> 2-6+</span>
-                      <span><i class="fa fa-location-dot"></i> Marrakech</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="price-label">
-                  <p>$380</p>
-                </div>
-              </div>
-              <div class="carousel swiper-slide">
-                <img src="../assets/img/marrakech-garden.jpg" alt="Marrakech Garden" />
-                <div class="carousel-img-overlay">
-                  <div class="img-content">
-                    <h2><i class="fa fa-location-dot"></i> Gardens Tour</h2>
-                    <div class="hidden-content-carousel">
-                      <span><i class="fa fa-clock"></i> 1 day</span>
-                      <span><i class="fa fa-user"></i> 2-8+</span>
-                      <span><i class="fa fa-location-dot"></i> Marrakech</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="price-label">
-                  <p>$220</p>
-                </div>
-              </div>
-            </div>
+            </ul>
+            <a href="excursions.php" class="primary-btn">
+              View Details <i class="fa fa-arrow-right"></i>
+            </a>
           </div>
-        </div>
-      </div>
-      <!--marrakech close-->
+        <?php endif; ?>
 
-      <!--fez-->
-      <div class="rabat-content">
         <div class="slider-content-wrapper">
           <div class="city-swiper swiper3">
             <div class="swiper-wrapper">
-              <div class="carousel swiper-slide">
-                <img src="../assets/img/fez-medina.jpg" alt="Fez Medina" />
-                <div class="carousel-img-overlay">
-                  <div class="img-content">
-                    <h2><i class="fa fa-location-dot"></i> Fez Medina</h2>
-                    <div class="hidden-content-carousel">
-                      <span><i class="fa fa-clock"></i> 3 days</span>
-                      <span><i class="fa fa-user"></i> 2-8+</span>
-                      <span><i class="fa fa-location-dot"></i> Fez</span>
+              <?php foreach ($block1_excursions as $exc): ?>
+                <div class="carousel swiper-slide">
+                  <img src="<?php echo htmlspecialchars($exc['image']); ?>"
+                    alt="<?php echo htmlspecialchars($exc['title']); ?>"
+                    onerror="this.src='../assets/img/placeholder.jpg'">
+                  <div class="carousel-img-overlay">
+                    <div class="img-content">
+                      <h2><i class="fa fa-location-dot"></i> <?php echo htmlspecialchars($exc['title']); ?></h2>
+                      <div class="hidden-content-carousel">
+                        <span><i class="fa fa-clock"></i> <?php echo htmlspecialchars($exc['duration']); ?></span>
+                        <span><i class="fa fa-user"></i> <?php echo htmlspecialchars($exc['location']); ?></span>
+                        <span><i class="fa fa-tag"></i> <?php echo htmlspecialchars(getSimplePrice($exc)); ?></span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="price-label">
-                  <p>$420</p>
-                </div>
-              </div>
-              <div class="carousel swiper-slide">
-                <img src="../assets/img/fez-tanneries.jpg" alt="Fez Tanneries" />
-                <div class="carousel-img-overlay">
-                  <div class="img-content">
-                    <h2><i class="fa fa-location-dot"></i> Tanneries Tour</h2>
-                    <div class="hidden-content-carousel">
-                      <span><i class="fa fa-clock"></i> 1 day</span>
-                      <span><i class="fa fa-user"></i> 2-6+</span>
-                      <span><i class="fa fa-location-dot"></i> Fez</span>
-                    </div>
+                  <div class="price-label">
+                    <p><?php echo htmlspecialchars(getSimplePrice($exc)); ?></p>
                   </div>
                 </div>
-                <div class="price-label">
-                  <p>$180</p>
-                </div>
-              </div>
-              <div class="carousel swiper-slide">
-                <img src="../assets/img/fez-palace.jpg" alt="Fez Royal Palace" />
-                <div class="carousel-img-overlay">
-                  <div class="img-content">
-                    <h2><i class="fa fa-location-dot"></i> Royal Palace</h2>
-                    <div class="hidden-content-carousel">
-                      <span><i class="fa fa-clock"></i> 2 days</span>
-                      <span><i class="fa fa-user"></i> 2-6+</span>
-                      <span><i class="fa fa-location-dot"></i> Fez</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="price-label">
-                  <p>$320</p>
-                </div>
-              </div>
-              <div class="carousel swiper-slide">
-                <img src="../assets/img/fez-day-trip.jpg" alt="Fez Day Trip" />
-                <div class="carousel-img-overlay">
-                  <div class="img-content">
-                    <h2><i class="fa fa-location-dot"></i> Day Trips</h2>
-                    <div class="hidden-content-carousel">
-                      <span><i class="fa fa-clock"></i> 1 day</span>
-                      <span><i class="fa fa-user"></i> 2-8+</span>
-                      <span><i class="fa fa-location-dot"></i> Fez Area</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="price-label">
-                  <p>$250</p>
-                </div>
-              </div>
+              <?php endforeach; ?>
             </div>
           </div>
         </div>
-        <div class="citys-content">
-          <h2 class="secondary-headings">Fez</h2>
-          <p class="lead">
-            Morocco's spiritual and cultural capital, Fez is home to the world's
-            largest car-free urban area and one of the most extensive medieval cities.
-          </p>
-          <ul>
-            <div class="citys-famous-location">
-              <li><i class="fa fa-location-dot"></i> Fez el-Bali (Old Medina)</li>
-              <li><i class="fa fa-location-dot"></i> Chouara Tannery</li>
-              <li><i class="fa fa-location-dot"></i> Al-Attarine Madrasa</li>
-            </div>
-            <div class="citys-famous-location">
-              <li><i class="fa fa-location-dot"></i> Royal Palace (Dar el-Makhzen)</li>
-              <li><i class="fa fa-location-dot"></i> Bou Inania Madrasa</li>
-              <li><i class="fa fa-location-dot"></i> Nejjarine Museum</li>
-            </div>
-            <div class="citys-famous-location">
-              <li><i class="fa fa-location-dot"></i> Bab Bou Jeloud</li>
-              <li><i class="fa fa-location-dot"></i> University of Al Quaraouiyine</li>
-              <li><i class="fa fa-location-dot"></i> Merenid Tombs</li>
-            </div>
-          </ul>
-          <a href="destinations.php#fez" class="primary-btn">
-            Explore Fez <i class="fa fa-arrow-right"></i>
-          </a>
-        </div>
       </div>
-      <!--fez close-->
+      <!-- First Excursion Block close -->
+
+      <!-- Second Excursion Block -->
+      <?php if (!empty($block2_excursions)):
+        $first2 = $block2_excursions[0];
+      ?>
+        <div class="rabat-content">
+          <div class="slider-content-wrapper">
+            <div class="city-swiper swiper3">
+              <div class="swiper-wrapper">
+                <?php foreach ($block2_excursions as $exc): ?>
+                  <div class="carousel swiper-slide">
+                    <img src="<?php echo htmlspecialchars($exc['image']); ?>"
+                      alt="<?php echo htmlspecialchars($exc['title']); ?>"
+                      onerror="this.src='../assets/img/placeholder.jpg'">
+                    <div class="carousel-img-overlay">
+                      <div class="img-content">
+                        <h2><i class="fa fa-location-dot"></i> <?php echo htmlspecialchars($exc['title']); ?></h2>
+                        <div class="hidden-content-carousel">
+                          <span><i class="fa fa-clock"></i> <?php echo htmlspecialchars($exc['duration']); ?></span>
+                          <span><i class="fa fa-user"></i> <?php echo htmlspecialchars($exc['location']); ?></span>
+                          <span><i class="fa fa-tag"></i> <?php echo htmlspecialchars(getSimplePrice($exc)); ?></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="price-label">
+                      <p><?php echo htmlspecialchars(getSimplePrice($exc)); ?></p>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
+              </div>
+            </div>
+          </div>
+          <div class="citys-content">
+            <h2 class="secondary-headings"><?php echo htmlspecialchars($first2['title']); ?></h2>
+            <p class="lead">
+              <?php echo htmlspecialchars(substr($first2['description'], 0, 180)) . '...'; ?>
+            </p>
+            <ul>
+              <div class="citys-famous-location">
+                <li><i class="fa fa-clock"></i> <?php echo htmlspecialchars($first2['duration']); ?></li>
+                <li><i class="fa fa-map-marker-alt"></i> <?php echo htmlspecialchars($first2['location']); ?></li>
+                <li><i class="fa fa-tag"></i> <?php echo htmlspecialchars($first2['priceTag']); ?></li>
+              </div>
+            </ul>
+            <a href="excursions.php" class="primary-btn">
+              View Details <i class="fa fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      <?php endif; ?>
+
+      <?php if (empty($block1_excursions) && empty($block2_excursions)): ?>
+        <p class="text-center" style="padding: 50px;">No excursions available at the moment.</p>
+      <?php endif; ?>
     </div>
   </section>
-  <!-- =========== Travel citys ==================Close-->
+  <!-- =========== Most Popular Excursions ==================Close-->
 
   <!-- =========== Call to Action ==================Start-->
   <section id="call-to-action">
@@ -932,8 +819,8 @@ if (file_exists($data_file)) {
         </a>
       </div>
       <div class="cta-contact-info">
-        <p><i class="fa fa-phone"></i> +212 524 43 34 51</p>
-        <p><i class="fa fa-envelope"></i> reservationrak@sti.ma</p>
+        <p><i class="fa fa-phone"></i> +212 655 23 71 96</p>
+        <p><i class="fa fa-envelope"></i> info@travolmorocco.com</p>
       </div>
     </div>
   </section>
@@ -951,15 +838,15 @@ if (file_exists($data_file)) {
   <script>
     // Simple booking functions
     function bookFlight(destination) {
-      alert('Flight booking to ' + destination + ' - Please contact us at +212 524 43 34 51');
+      alert('Flight booking to ' + destination + ' - Please contact us on WhatsApp at +212 655 23 71 96');
     }
 
     function bookHotel(destination) {
-      alert('Hotel booking in ' + destination + ' - Please contact us at +212 524 43 34 51');
+      alert('Hotel booking in ' + destination + ' - Please contact us on WhatsApp at +212 655 23 71 96');
     }
 
     function bookTour(tour) {
-      alert(tour + ' tour booking - Please visit our Tours page or call +212 524 43 34 51');
+      alert(tour + ' tour booking - Please visit our Tours page or WhatsApp +212 655 23 71 96');
     }
   </script>
 </body>

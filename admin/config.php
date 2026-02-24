@@ -43,7 +43,7 @@ function loadData()
 function saveData($data)
 {
     $data['last_updated'] = date('Y-m-d H:i:s');
-    return file_put_contents(DATA_FILE, json_encode($data, JSON_PRETTY_PRINT));
+    return file_put_contents(DATA_FILE, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 }
 
 // Get next ID
@@ -71,6 +71,7 @@ function verifyCSRF($token)
 {
     return isset($_SESSION['csrf_token']) && $_SESSION['csrf_token'] === $token;
 }
+
 // Load destinations data
 function loadDestinations()
 {
@@ -99,4 +100,29 @@ function getNextDestinationId($data)
         }
     }
     return $maxId + 1;
+}
+
+// Get pricing types for dropdown
+function getPricingTypes()
+{
+    return [
+        'standard' => 'Standard (Group/Private + Adult/Child)',
+        'quad' => 'Quad (Driver/Passenger)',
+        'balloon' => 'Hot Air Balloon (4 Flight Classes)',
+        'perBuggy' => 'Per Buggy (Fixed Price)',
+        'perPerson' => 'Per Person (Fixed Price)',
+        'scooter' => 'Electric Scooter (2 Options)',
+        'adultChild' => 'Adult/Child Only (No Group/Private)'
+    ];
+}
+
+// Get categories
+function getCategories()
+{
+    return [
+        'cultural' => 'Cultural',
+        'mountain' => 'Mountain',
+        'desert' => 'Desert',
+        'coastal' => 'Coastal'
+    ];
 }

@@ -110,8 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // ========== Travel Cities Sliders ==========
   const citySliders = document.querySelectorAll(".city-swiper");
   if (citySliders.length > 0) {
-    console.log(`Found ${citySliders.length} city slider(s), initializing...`);
-
     citySliders.forEach((swiperEl) => {
       new Swiper(swiperEl, {
         slidesPerView: 2,

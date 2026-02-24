@@ -295,6 +295,19 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
             width: 20px;
             color: #667eea;
         }
+
+        /* Price display directly under inputs */
+        .price-under-input {
+            margin-top: 8px;
+            padding: 8px 12px;
+            background: #f0f3ff;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #667eea;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
     </style>
 </head>
 
@@ -329,8 +342,6 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                     <li><a href="index.php">Home</a></li>
                     <li><a href="about.php">About</a></li>
                     <li><a href="excursions.php" class="active">Tours</a></li>
-                    <li><a href="destinations.php">Destination</a></li>
-                    <li><a href="packages.php">Packages</a></li>
                     <li><a href="contact.php">Contact</a></li>
                 </ul>
                 <div class="btn">
@@ -416,7 +427,7 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                 <div class="info-card">
                     <i class="fas fa-phone-alt"></i>
                     <h3>Contact Us</h3>
-                    <p>+212 524 43 34 51<br>reservationrak@sti.ma</p>
+                    <p>+212 655 23 71 96 (WhatsApp)</p>
                 </div>
             </div>
         </div>
@@ -492,25 +503,6 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                     </div>
 
                     <div class="booking-form" id="bookingForm" style="display: none;">
-                        <!-- Current Prices Display - Dynamic -->
-                        <div class="current-prices" id="currentPrices">
-                            <div id="priceDisplay">
-                                <!-- Dynamic content will be inserted here -->
-                            </div>
-                        </div>
-
-                        <!-- Standard Pricing (Group/Private with Adult/Child) -->
-                        <div id="standardPricing" style="display: none;">
-                            <div class="price-row">
-                                <span class="price-label">Adult Price:</span>
-                                <span class="price-value" id="displayAdultPrice">0 MAD</span>
-                            </div>
-                            <div class="price-row">
-                                <span class="price-label">Child Price:</span>
-                                <span class="price-value" id="displayChildPrice">0 MAD</span>
-                            </div>
-                        </div>
-
                         <!-- Balloon Pricing -->
                         <div id="balloonPricing" style="display: none;">
                             <div class="form-group">
@@ -529,12 +521,7 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
 
                         <!-- Simple Pricing (for perPerson, perBuggy, quad, adultChild) -->
                         <div id="simplePricing" style="display: none;">
-                            <!-- Price will be shown in priceDisplay above -->
-                        </div>
-
-                        <!-- Quad specific info (shown in simplePricing) -->
-                        <div id="quadPricingInfo" style="display: none;">
-                            <!-- Handled in priceDisplay -->
+                            <div id="priceDisplay"></div>
                         </div>
 
                         <!-- Date Selection -->
@@ -562,11 +549,13 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                             <div class="form-group" id="adultGroup">
                                 <label><i class="fas fa-user"></i> <span id="adultLabel">Adults</span></label>
                                 <input type="number" id="adults" class="form-control" min="1" value="1">
+                                <div class="price-under-input" id="displayAdultPrice">0 MAD</div>
                             </div>
 
                             <div class="form-group" id="childGroup">
                                 <label><i class="fas fa-child"></i> <span id="childLabel">Children (under 12)</span></label>
                                 <input type="number" id="children" class="form-control" min="0" value="0">
+                                <div class="price-under-input" id="displayChildPrice">0 MAD</div>
                             </div>
                         </div>
 
@@ -619,19 +608,20 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                         </div>
                     </div>
 
-                    <!-- Hotel Search -->
+                    <!-- Hotel Search - IMPROVED VERSION -->
                     <div class="form-group" style="position: relative;">
-                        <label><i class="fas fa-hotel"></i> Your Hotel/Riad in Marrakech</label>
+                        <label><i class="fas fa-hotel"></i> Your Hotel/Riad in Marrakech *</label>
                         <input type="text" id="hotelSearch" class="form-control"
-                            placeholder="Search for your hotel or riad..."
-                            autocomplete="off">
+                            placeholder="Enter your hotel or riad name..."
+                            autocomplete="off"
+                            value="Your Marrakech Riad/Hotel">
                         <small style="display: block; margin-top: 5px; color: #666; font-size: 12px;">
-                            <i class="fas fa-info-circle"></i> Start typing your hotel name
+                            <i class="fas fa-info-circle"></i> Start typing to see suggestions, or enter your hotel name manually
                         </small>
                         <div id="hotelSuggestions" class="suggestions-box" style="display: none;"></div>
                     </div>
 
-                    <!-- Selected Hotel Info (appears after selection) -->
+                    <!-- Selected Hotel Info (appears after selection from suggestions) -->
                     <div id="selectedHotelInfo" style="display: none; background: #f0f3ff; padding: 15px; border-radius: 8px; margin-top: 10px;">
                         <h4 style="margin: 0 0 10px 0; color: #333;"><i class="fas fa-check-circle" style="color: #28a745;"></i> Selected Pickup</h4>
                         <p><strong id="selectedHotelName"></strong></p>
@@ -1051,6 +1041,7 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
             let allTours = [];
             let currentFilter = 'all';
             let currentSearch = '';
+            let selectedTourId = null;
 
             // Load tours via AJAX
             function loadTours() {
@@ -1102,19 +1093,18 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
             }
 
             // Display tours in grid
-            // Display tours in grid
             function displayTours(tours) {
                 const grid = $('#excursionsGrid');
                 grid.empty();
 
                 if (tours.length === 0) {
                     grid.append(`
-            <div class="no-results">
-                <i class="fas fa-map-marked-alt"></i>
-                <h3>No Tours Found</h3>
-                <p>Try adjusting your search or filter to find what you're looking for.</p>
-            </div>
-        `);
+                        <div class="no-results">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <h3>No Tours Found</h3>
+                            <p>Try adjusting your search or filter to find what you're looking for.</p>
+                        </div>
+                    `);
                     grid.removeClass('loading');
                     return;
                 }
@@ -1126,83 +1116,83 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                     switch (tour.pricingType) {
                         case 'standard':
                             pricingHtml = `
-                    <div class="price-group">
-                        <h4>Group Tour</h4>
-                        <p>Adult: ${tour.groupPrice.adult} MAD</p>
-                        <p>Child: ${tour.groupPrice.child} MAD</p>
-                    </div>
-                    <div class="price-group">
-                        <h4>Private Tour</h4>
-                        <p>Adult: ${tour.privatePrice.adult} MAD</p>
-                        <p>Child: ${tour.privatePrice.child} MAD</p>
-                    </div>
-                `;
+                                <div class="price-group">
+                                    <h4>Group Tour</h4>
+                                    <p>Adult: ${tour.groupPrice.adult} MAD</p>
+                                    <p>Child: ${tour.groupPrice.child} MAD</p>
+                                </div>
+                                <div class="price-group">
+                                    <h4>Private Tour</h4>
+                                    <p>Adult: ${tour.privatePrice.adult} MAD</p>
+                                    <p>Child: ${tour.privatePrice.child} MAD</p>
+                                </div>
+                            `;
                             break;
 
                         case 'quad':
                             pricingHtml = `
-                    <div class="pricing single-price">
-                        <h4>Quad Biking</h4>
-                        <p><strong>Driver:</strong> ${tour.groupPrice.adult} MAD</p>
-                        <p><strong>Passenger:</strong> ${tour.groupPrice.child} MAD</p>
-                        <p><small class="text-muted">No private option available</small></p>
-                    </div>
-                `;
+                                <div class="pricing single-price">
+                                    <h4>Quad Biking</h4>
+                                    <p><strong>Driver:</strong> ${tour.groupPrice.adult} MAD</p>
+                                    <p><strong>Passenger:</strong> ${tour.groupPrice.child} MAD</p>
+                                    <p><small class="text-muted">No private option available</small></p>
+                                </div>
+                            `;
                             break;
 
                         case 'balloon':
                             pricingHtml = `
-                    <div class="price-options">
-                        <h4>Hot Air Balloon Flights</h4>
-                        <p><strong>Classic Flight:</strong> ${tour.flightClasses.classic} MAD</p>
-                        <p><strong>Premium Flight:</strong> ${tour.flightClasses.premium} MAD</p>
-                        <p><strong>VIP Flight:</strong> ${tour.flightClasses.vip} MAD</p>
-                        <p><strong>Royal Flight:</strong> ${tour.flightClasses.royal} MAD</p>
-                        <p><small class="text-muted">Price per person - all ages</small></p>
-                    </div>
-                `;
+                                <div class="price-options">
+                                    <h4>Hot Air Balloon Flights</h4>
+                                    <p><strong>Classic Flight:</strong> ${tour.flightClasses.classic} MAD</p>
+                                    <p><strong>Premium Flight:</strong> ${tour.flightClasses.premium} MAD</p>
+                                    <p><strong>VIP Flight:</strong> ${tour.flightClasses.vip} MAD</p>
+                                    <p><strong>Royal Flight:</strong> ${tour.flightClasses.royal} MAD</p>
+                                    <p><small class="text-muted">Price per person - all ages</small></p>
+                                </div>
+                            `;
                             break;
 
                         case 'perBuggy':
                             pricingHtml = `
-                    <div class="pricing single-price">
-                        <h4>Buggy Adventure</h4>
-                        <p><strong>${tour.pricePerBuggy} MAD per buggy</strong></p>
-                        <p><small class="text-muted">Up to 2 people per buggy</small></p>
-                    </div>
-                `;
+                                <div class="pricing single-price">
+                                    <h4>Buggy Adventure</h4>
+                                    <p><strong>${tour.pricePerBuggy} MAD per buggy</strong></p>
+                                    <p><small class="text-muted">Up to 2 people per buggy</small></p>
+                                </div>
+                            `;
                             break;
 
                         case 'perPerson':
                             pricingHtml = `
-                    <div class="pricing single-price">
-                        <h4>Price</h4>
-                        <p><strong>${tour.pricePerPerson} MAD per person</strong></p>
-                        <p><small class="text-muted">All ages same price</small></p>
-                    </div>
-                `;
+                                <div class="pricing single-price">
+                                    <h4>Price</h4>
+                                    <p><strong>${tour.pricePerPerson} MAD per person</strong></p>
+                                    <p><small class="text-muted">All ages same price</small></p>
+                                </div>
+                            `;
                             break;
 
                         case 'scooter':
                             pricingHtml = `
-                    <div class="price-options">
-                        <h4>Scooter Options</h4>
-                        ${tour.options.map(opt => 
-                            `<p><strong>${opt.name}:</strong> ${opt.price} MAD</p>`
-                        ).join('')}
-                        <p><small class="text-muted">Price per scooter</small></p>
-                    </div>
-                `;
+                                <div class="price-options">
+                                    <h4>Scooter Options</h4>
+                                    ${tour.options.map(opt => 
+                                        `<p><strong>${opt.name}:</strong> ${opt.price} MAD</p>`
+                                    ).join('')}
+                                    <p><small class="text-muted">Price per scooter</small></p>
+                                </div>
+                            `;
                             break;
 
                         case 'adultChild':
                             pricingHtml = `
-                    <div class="pricing single-price">
-                        <h4>Price</h4>
-                        <p><strong>Adult:</strong> ${tour.prices.adult} MAD</p>
-                        <p><strong>Child:</strong> ${tour.prices.child} MAD</p>
-                    </div>
-                `;
+                                <div class="pricing single-price">
+                                    <h4>Price</h4>
+                                    <p><strong>Adult:</strong> ${tour.prices.adult} MAD</p>
+                                    <p><strong>Child:</strong> ${tour.prices.child} MAD</p>
+                                </div>
+                            `;
                             break;
 
                         default:
@@ -1210,25 +1200,25 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                     }
 
                     const tourCard = `
-            <div class="excursion-card" data-category="${tour.category}" data-tour-id="${tour.id}" data-pricing-type="${tour.pricingType}">
-                <div class="excursion-image">
-                    <img src="${tour.image}" alt="${tour.title}" onerror="this.src='../assets/img/placeholder.jpg'">
-                    <div class="price-tag">${tour.priceTag}</div>
-                </div>
-                <div class="excursion-content">
-                    <h3>${tour.title}</h3>
-                    <div class="excursion-meta">
-                        <span><i class="fas fa-clock"></i> ${tour.duration}</span>
-                        <span><i class="fas fa-map-marker-alt"></i> ${tour.location}</span>
-                    </div>
-                    <p>${tour.description.substring(0, 150)}...</p>
-                    <div class="pricing">
-                        ${pricingHtml}
-                    </div>
-                    <a href="#" class="book-btn" data-tour-id="${tour.id}" data-pricing-type="${tour.pricingType}">Book Now</a>
-                </div>
-            </div>
-        `;
+                        <div class="excursion-card" data-category="${tour.category}" data-tour-id="${tour.id}" data-pricing-type="${tour.pricingType}">
+                            <div class="excursion-image">
+                                <img src="${tour.image}" alt="${tour.title}" onerror="this.src='../assets/img/placeholder.jpg'">
+                                <div class="price-tag">${tour.priceTag}</div>
+                            </div>
+                            <div class="excursion-content">
+                                <h3>${tour.title}</h3>
+                                <div class="excursion-meta">
+                                    <span><i class="fas fa-clock"></i> ${tour.duration}</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> ${tour.location}</span>
+                                </div>
+                                <p>${tour.description.substring(0, 150)}...</p>
+                                <div class="pricing">
+                                    ${pricingHtml}
+                                </div>
+                                <a href="#" class="book-btn" data-tour-id="${tour.id}" data-pricing-type="${tour.pricingType}">Book Now</a>
+                            </div>
+                        </div>
+                    `;
 
                     grid.append(tourCard);
                 });
@@ -1241,9 +1231,7 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
             // ========== HOTEL PICKUP SYSTEM ==========
             let hotelsData = null;
             let hotelsList = [];
-            let selectedTourId = null;
-            let currentAdultPrice = 0;
-            let currentChildPrice = 0;
+
             // Load hotels from JSON
             $.ajax({
                 url: '../data/hotels.json',
@@ -1262,17 +1250,24 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                             });
                         });
                     });
-                    console.log('Hotels loaded:', hotelsList.length); // Debug
+                    console.log('Hotels loaded:', hotelsList.length);
                 },
                 error: function() {
                     console.log('Failed to load hotels data');
                 }
             });
 
-            // Hotel search
+            // Initialize hotel field
+            $('#hotelSearch').val('Your Marrakech Riad/Hotel');
+            $('#pickupLocation').val('Your Marrakech Riad/Hotel');
+
+            // Hotel search - IMPROVED VERSION
             let hotelTimer;
             $('#hotelSearch').on('input', function() {
                 const search = $(this).val().toLowerCase();
+
+                // Always update the pickup location with what user typed
+                $('#pickupLocation').val($(this).val());
 
                 clearTimeout(hotelTimer);
 
@@ -1295,26 +1290,25 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                 box.empty();
 
                 if (hotels.length === 0) {
-                    box.html('<div class="suggestion-item" style="color: #999;">No hotels found</div>');
+                    box.html('<div class="suggestion-item" style="color: #999;">No matching hotels found - you can continue typing</div>');
                     box.show();
                     return;
                 }
 
                 hotels.forEach(hotel => {
-                    // Safely stringify the hotel object
                     const hotelJson = JSON.stringify(hotel).replace(/'/g, "&#39;");
 
                     const item = $(`
-            <div class="suggestion-item" data-hotel='${hotelJson}'>
-                <i class="fas fa-hotel" style="color: #667eea;"></i>
-                <span style="font-weight: 500;">${hotel.name}</span>
-                <br>
-                <span style="font-size: 12px; color: #666; margin-left: 25px;">
-                    <i class="fas fa-map-marker-alt"></i> Pickup: ${hotel.pickup_point}
-                    <i class="fas fa-tag" style="margin-left: 10px;"></i> ${hotel.zone}
-                </span>
-            </div>
-        `);
+                        <div class="suggestion-item" data-hotel='${hotelJson}'>
+                            <i class="fas fa-hotel" style="color: #667eea;"></i>
+                            <span style="font-weight: 500;">${hotel.name}</span>
+                            <br>
+                            <span style="font-size: 12px; color: #666; margin-left: 25px;">
+                                <i class="fas fa-map-marker-alt"></i> Pickup: ${hotel.pickup_point}
+                                <i class="fas fa-clock"></i> ${hotel.pickup_times ? Object.values(hotel.pickup_times)[0] : 'Time TBD'}
+                            </span>
+                        </div>
+                    `);
 
                     item.on('click', function() {
                         try {
@@ -1332,13 +1326,11 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
             }
 
             function selectHotel(hotel) {
-                // Get selected tour info
-                const selectedTourId = $('#modalTourSelect').val();
                 const tourTitle = $('#modalTourSelect option:selected').text().toLowerCase();
 
                 // Map tour to activity key
                 let activityKey = '';
-                if (tourTitle.includes('agafay') || tourTitle.includes('quad') || tourTitle.includes('desert')) {
+                if (tourTitle.includes('agafay') || tourTitle.includes('quad') || tourTitle.includes('desert') || tourTitle.includes('buggy') || tourTitle.includes('dromedary')) {
                     activityKey = 'agafay';
                 } else if (tourTitle.includes('souk') || tourTitle.includes('medina')) {
                     activityKey = 'souk_medina';
@@ -1350,7 +1342,7 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                     activityKey = 'essaouira';
                 } else if (tourTitle.includes('diner nouba') || tourTitle.includes('comptoir') || tourTitle.includes('dar zellij')) {
                     activityKey = 'diner_nouba';
-                } else if (tourTitle.includes('ourika')) {
+                } else if (tourTitle.includes('ourika') || tourTitle.includes('valley')) {
                     activityKey = 'ourika';
                 }
 
@@ -1358,35 +1350,36 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                 const pickupTime = hotel.pickup_times ? hotel.pickup_times[activityKey] : null;
 
                 if (pickupTime) {
-                    // Show selected hotel info
+                    // Show selected hotel info with pickup time
                     $('#selectedHotelName').text(hotel.name);
                     $('#selectedPickupPoint').text(hotel.pickup_point);
                     $('#selectedPickupTime').text(pickupTime);
                     $('#selectedZone').text(hotel.zone);
 
                     // Set the actual pickup location value
-                    $('#pickupLocation').val(`${hotel.pickup_point} at ${pickupTime}`);
-
-                    // Show the info panel
-                    $('#selectedHotelInfo').slideDown();
-
-                    // Clear and hide suggestions
+                    const pickupValue = `${hotel.name} - ${hotel.pickup_point} at ${pickupTime}`;
+                    $('#pickupLocation').val(pickupValue);
                     $('#hotelSearch').val(hotel.name);
+
+                    $('#selectedHotelInfo').slideDown();
                     $('#hotelSuggestions').hide();
 
-                    showNotification('Hotel selected! Pickup time: ' + pickupTime, 'success');
+                    showNotification('Hotel selected! Pickup: ' + hotel.pickup_point + ' at ' + pickupTime, 'success');
                 } else {
-                    // No pickup time for this activity
-                    if (confirm('This hotel may not offer this tour. Would you like to select anyway?')) {
-                        $('#selectedHotelName').text(hotel.name);
-                        $('#selectedPickupPoint').text(hotel.pickup_point);
-                        $('#selectedPickupTime').text('Please confirm with us');
-                        $('#selectedZone').text(hotel.zone);
-                        $('#pickupLocation').val(`${hotel.pickup_point} (time to confirm)`);
-                        $('#selectedHotelInfo').slideDown();
-                        $('#hotelSearch').val(hotel.name);
-                        $('#hotelSuggestions').hide();
-                    }
+                    // No pickup time for this activity - still allow selection
+                    $('#selectedHotelName').text(hotel.name);
+                    $('#selectedPickupPoint').text(hotel.pickup_point);
+                    $('#selectedPickupTime').text('Please confirm with us');
+                    $('#selectedZone').text(hotel.zone || 'Medina');
+
+                    const pickupValue = `${hotel.name} - ${hotel.pickup_point} (time to confirm)`;
+                    $('#pickupLocation').val(pickupValue);
+                    $('#hotelSearch').val(hotel.name);
+
+                    $('#selectedHotelInfo').slideDown();
+                    $('#hotelSuggestions').hide();
+
+                    showNotification('Hotel selected! Pickup time to be confirmed', 'info');
                 }
             }
 
@@ -1396,13 +1389,13 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                     $('#hotelSuggestions').hide();
                 }
             });
+
             // Load cart from localStorage
             if (localStorage.getItem('bookingCart')) {
                 cart = JSON.parse(localStorage.getItem('bookingCart'));
                 updateCartCount();
             }
 
-            // Function to update price display
             // Function to update price display based on selected tour
             function updatePriceDisplay() {
                 if (!selectedTourId) return;
@@ -1410,18 +1403,23 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                 const tourOption = $('#modalTourSelect option:selected');
                 const pricingType = tourOption.data('pricing-type');
 
+                // Store current selections before hiding
+                const currentBalloonClass = $('#balloonClass').val();
+                const currentScooterOption = $('#scooterOption').val();
+
                 // Hide all dynamic sections first
-                $('#standardPricing').hide();
                 $('#balloonPricing').hide();
-                $('#simplePricing').hide();
                 $('#scooterPricing').hide();
+                $('#simplePricing').hide();
                 $('#tourTypeSection').hide();
                 $('#timeSelectionGroup').hide();
 
-                // Show appropriate pricing section based on tour type
+                // Get current values
+                const adults = parseInt($('#adults').val()) || 1;
+                const children = parseInt($('#children').val()) || 0;
+
                 switch (pricingType) {
                     case 'standard':
-                        $('#standardPricing').show();
                         $('#tourTypeSection').show();
 
                         const tourType = $('input[name="tourType"]:checked').val();
@@ -1437,10 +1435,14 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                             $('#timeSelectionGroup').hide();
                         }
 
-                        $('#displayAdultPrice').text(adultPrice + ' MAD');
-                        $('#displayChildPrice').text(childPrice + ' MAD');
-                        $('#adultPriceValue').text(adultPrice);
-                        $('#childPriceValue').text(childPrice);
+                        // Calculate totals
+                        const adultTotal = adults * adultPrice;
+                        const childTotal = children * childPrice;
+
+                        // Update under-input displays
+                        $('#displayAdultPrice').text(adultTotal + ' MAD');
+                        $('#displayChildPrice').text(childTotal + ' MAD');
+
                         $('#adultLabel').text('Adults');
                         $('#childLabel').text('Children');
                         $('#childGroup').show();
@@ -1452,16 +1454,13 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                         const driverPrice = parseInt(tourOption.data('price-group'));
                         const passengerPrice = parseInt(tourOption.data('child-group'));
 
-                        $('#priceDisplay').html(`
-                <div class="price-row">
-                    <span class="price-label">Driver:</span>
-                    <span class="price-value">${driverPrice} MAD</span>
-                </div>
-                <div class="price-row">
-                    <span class="price-label">Passenger:</span>
-                    <span class="price-value">${passengerPrice} MAD</span>
-                </div>
-            `);
+                        const driverTotal = adults * driverPrice;
+                        const passengerTotal = children * passengerPrice;
+
+                        // Update under-input displays for Quad
+                        $('#displayAdultPrice').text(driverTotal + ' MAD');
+                        $('#displayChildPrice').text(passengerTotal + ' MAD');
+
                         $('#adultLabel').text('Number of Drivers');
                         $('#childLabel').text('Number of Passengers');
                         $('#childGroup').show();
@@ -1475,14 +1474,28 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                         const vip = parseInt(tourOption.data('vip'));
                         const royal = parseInt(tourOption.data('royal'));
 
-                        $('#balloonOptions').html(`
-                <select id="balloonClass" class="form-control">
-                    <option value="classic">Classic Flight - ${classic} MAD</option>
-                    <option value="premium">Premium Flight - ${premium} MAD</option>
-                    <option value="vip">VIP Flight - ${vip} MAD</option>
-                    <option value="royal">Royal Flight - ${royal} MAD</option>
-                </select>
-            `);
+                        // Create the dropdown with all options and preserve selection
+                        let balloonHtml = `<select id="balloonClass" class="form-control">`;
+                        balloonHtml += `<option value="classic" data-price="${classic}" ${currentBalloonClass === 'classic' ? 'selected' : ''}>Classic Flight - ${classic} MAD</option>`;
+                        balloonHtml += `<option value="premium" data-price="${premium}" ${currentBalloonClass === 'premium' ? 'selected' : ''}>Premium Flight - ${premium} MAD</option>`;
+                        balloonHtml += `<option value="vip" data-price="${vip}" ${currentBalloonClass === 'vip' ? 'selected' : ''}>VIP Flight - ${vip} MAD</option>`;
+                        balloonHtml += `<option value="royal" data-price="${royal}" ${currentBalloonClass === 'royal' ? 'selected' : ''}>Royal Flight - ${royal} MAD</option>`;
+                        balloonHtml += `</select>`;
+
+                        $('#balloonOptions').html(balloonHtml);
+
+                        // Get selected price (use current selection or default to classic)
+                        let selectedPrice = classic;
+                        if (currentBalloonClass === 'premium') selectedPrice = premium;
+                        else if (currentBalloonClass === 'vip') selectedPrice = vip;
+                        else if (currentBalloonClass === 'royal') selectedPrice = royal;
+
+                        const balloonTotal = adults * selectedPrice;
+
+                        // Update under-input display
+                        $('#displayAdultPrice').text(balloonTotal + ' MAD');
+                        $('#displayChildPrice').text('0 MAD');
+
                         $('#adultLabel').text('Number of People');
                         $('#childGroup').hide();
                         break;
@@ -1491,12 +1504,12 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                         $('#simplePricing').show();
 
                         const buggyPrice = parseInt(tourOption.data('price'));
-                        $('#priceDisplay').html(`
-                <div class="price-row">
-                    <span class="price-label">Price per Buggy:</span>
-                    <span class="price-value">${buggyPrice} MAD</span>
-                </div>
-            `);
+                        const buggyTotal = adults * buggyPrice;
+
+                        // Update under-input display for Buggy
+                        $('#displayAdultPrice').text(buggyTotal + ' MAD');
+                        $('#displayChildPrice').text('0 MAD');
+
                         $('#adultLabel').text('Number of Buggies');
                         $('#childGroup').hide();
                         break;
@@ -1505,12 +1518,12 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                         $('#simplePricing').show();
 
                         const personPrice = parseInt(tourOption.data('price'));
-                        $('#priceDisplay').html(`
-                <div class="price-row">
-                    <span class="price-label">Price per Person:</span>
-                    <span class="price-value">${personPrice} MAD</span>
-                </div>
-            `);
+                        const personTotal = adults * personPrice;
+
+                        // Update under-input display for Per Person
+                        $('#displayAdultPrice').text(personTotal + ' MAD');
+                        $('#displayChildPrice').text('0 MAD');
+
                         $('#adultLabel').text('Number of People');
                         $('#childGroup').hide();
                         break;
@@ -1521,12 +1534,23 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                         const medinaPrice = parseInt(tourOption.data('price-medina'));
                         const palmPrice = parseInt(tourOption.data('price-palm'));
 
-                        $('#scooterOptions').html(`
-                <select id="scooterOption" class="form-control">
-                    <option value="medina">Medina Tour - ${medinaPrice} MAD</option>
-                    <option value="palm">Palm Grove Tour - ${palmPrice} MAD</option>
-                </select>
-            `);
+                        // Create the dropdown with all options and preserve selection
+                        let scooterHtml = `<select id="scooterOption" class="form-control">`;
+                        scooterHtml += `<option value="medina" data-price="${medinaPrice}" ${currentScooterOption === 'medina' ? 'selected' : ''}>Medina Tour - ${medinaPrice} MAD</option>`;
+                        scooterHtml += `<option value="palm" data-price="${palmPrice}" ${currentScooterOption === 'palm' ? 'selected' : ''}>Palm Grove Tour - ${palmPrice} MAD</option>`;
+                        scooterHtml += `</select>`;
+
+                        $('#scooterOptions').html(scooterHtml);
+
+                        // Get selected price
+                        let scooterPrice = medinaPrice;
+                        if (currentScooterOption === 'palm') scooterPrice = palmPrice;
+
+                        const scooterTotal = adults * scooterPrice;
+
+                        $('#displayAdultPrice').text(scooterTotal + ' MAD');
+                        $('#displayChildPrice').text('0 MAD');
+
                         $('#adultLabel').text('Number of Scooters');
                         $('#childGroup').hide();
                         break;
@@ -1537,46 +1561,19 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                         const adultPriceAC = parseInt(tourOption.data('adult-price'));
                         const childPriceAC = parseInt(tourOption.data('child-price'));
 
-                        $('#priceDisplay').html(`
-                <div class="price-row">
-                    <span class="price-label">Adult:</span>
-                    <span class="price-value">${adultPriceAC} MAD</span>
-                </div>
-                <div class="price-row">
-                    <span class="price-label">Child:</span>
-                    <span class="price-value">${childPriceAC} MAD</span>
-                </div>
-            `);
+                        const adultTotalAC = adults * adultPriceAC;
+                        const childTotalAC = children * childPriceAC;
+
+                        // Update under-input displays for Adult/Child
+                        $('#displayAdultPrice').text(adultTotalAC + ' MAD');
+                        $('#displayChildPrice').text(childTotalAC + ' MAD');
+
                         $('#adultLabel').text('Adults');
                         $('#childLabel').text('Children');
                         $('#childGroup').show();
                         break;
                 }
             }
-
-            // Tour select change
-            $('#modalTourSelect').on('change', function() {
-                const tourId = $(this).val();
-                if (tourId) {
-                    selectedTourId = tourId;
-                    const pricingType = $(this).find('option:selected').data('pricing-type');
-
-                    $('#bookingForm').slideDown();
-                    const today = new Date().toISOString().split('T')[0];
-                    $('#tourDate').attr('min', today);
-
-                    updatePriceDisplay();
-                } else {
-                    $('#bookingForm').slideUp();
-                }
-            });
-
-            // Show/hide time selection based on tour type
-            $('input[name="tourType"]').on('change', function() {
-                if (selectedTourId) {
-                    updatePriceDisplay();
-                }
-            });
 
             // Book Now button click
             $(document).on('click', '.book-btn', function(e) {
@@ -1604,16 +1601,17 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
 
             // Show/hide time selection based on tour type
             $('input[name="tourType"]').on('change', function() {
-                if ($(this).val() === 'private') {
-                    $('#timeSelectionGroup').slideDown();
-                } else {
-                    $('#timeSelectionGroup').slideUp();
-                    $('#tourTime').val(''); // Clear time selection
+                if (selectedTourId) {
+                    if ($(this).val() === 'private') {
+                        $('#timeSelectionGroup').slideDown();
+                    } else {
+                        $('#timeSelectionGroup').slideUp();
+                        $('#tourTime').val('');
+                    }
+                    updatePriceDisplay();
                 }
-                updatePriceDisplay();
             });
 
-            // Add to Cart button
             // Add to Cart button
             $('#addToCartBtn').on('click', function() {
                 if (!validateBookingForm()) return;
@@ -1629,7 +1627,6 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                     pricingType: pricingType
                 };
 
-                // Calculate price based on pricing type
                 switch (pricingType) {
                     case 'standard':
                         const tourType = $('input[name="tourType"]:checked').val();
@@ -1744,7 +1741,6 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                 saveCart();
                 updateCartDisplay();
 
-                // Reset form
                 $('#bookingForm').slideUp();
                 $('#modalTourSelect').val('');
                 $('#tourDate, #tourTime, #specialRequests').val('');
@@ -1780,7 +1776,54 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
 
                     cart.forEach(item => {
                         subtotal += item.totalPrice;
+
+                        // Format time display
                         const timeDisplay = item.time === '09:00 (Fixed)' ? '9:00 AM (Fixed)' : item.time;
+
+                        // Handle different pricing types for display
+                        let peopleDisplay = '';
+                        let tourTypeDisplay = '';
+
+                        switch (item.pricingType) {
+                            case 'standard':
+                                peopleDisplay = `${item.adults || 0} Adults, ${item.children || 0} Children`;
+                                tourTypeDisplay = item.tourType || 'group';
+                                break;
+
+                            case 'quad':
+                                peopleDisplay = `${item.drivers || 0} Drivers, ${item.passengers || 0} Passengers`;
+                                tourTypeDisplay = 'quad';
+                                break;
+
+                            case 'balloon':
+                                peopleDisplay = `${item.people || 0} People`;
+                                tourTypeDisplay = item.flightClass ? item.flightClass + ' flight' : 'balloon';
+                                break;
+
+                            case 'perBuggy':
+                                peopleDisplay = `${item.buggies || 0} Buggies`;
+                                tourTypeDisplay = 'buggy';
+                                break;
+
+                            case 'perPerson':
+                                peopleDisplay = `${item.persons || 0} Persons`;
+                                tourTypeDisplay = 'per person';
+                                break;
+
+                            case 'scooter':
+                                peopleDisplay = `${item.scooters || 0} Scooters (${item.scooterOption || 'medina'} tour)`;
+                                tourTypeDisplay = 'scooter';
+                                break;
+
+                            case 'adultChild':
+                                peopleDisplay = `${item.adults || 0} Adults, ${item.children || 0} Children`;
+                                tourTypeDisplay = 'tour';
+                                break;
+
+                            default:
+                                peopleDisplay = `${item.adults || 0} Adults, ${item.children || 0} Children`;
+                                tourTypeDisplay = 'tour';
+                        }
 
                         html += `
                             <div class="cart-item">
@@ -1792,9 +1835,8 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                                 <div class="cart-item-details">
                                     <span><i class="fas fa-calendar"></i> ${item.date}</span>
                                     <span><i class="fas fa-clock"></i> ${timeDisplay}</span>
-                                    <span><i class="fas fa-user"></i> ${item.adults} Adults</span>
-                                    <span><i class="fas fa-child"></i> ${item.children} Children</span>
-                                    <span><i class="fas fa-users"></i> ${item.tourType} tour</span>
+                                    <span><i class="fas fa-users"></i> ${peopleDisplay}</span>
+                                    <span><i class="fas fa-tag"></i> ${tourTypeDisplay}</span>
                                 </div>
                             </div>
                         `;
@@ -1891,7 +1933,9 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                         alert('Booking confirmed! We will contact you shortly on WhatsApp.');
                         $('#bookingModal').fadeOut();
                         $('#customerName, #customerEmail, #customerPhone').val('');
+                        $('#hotelSearch').val('Your Marrakech Riad/Hotel');
                         $('#pickupLocation').val('Your Marrakech Riad/Hotel');
+                        $('#selectedHotelInfo').hide();
                     },
                     error: function() {
                         showNotification('Error processing booking. Please try again.', 'error');
@@ -1912,10 +1956,19 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
                     showNotification('Please enter your phone number', 'error');
                     return false;
                 }
-                if (!$('#pickupLocation').val()) {
-                    showNotification('Please select your hotel', 'error');
+
+                // Check if hotel field has ANY value (not empty)
+                const hotelValue = $('#hotelSearch').val();
+                if (!hotelValue || hotelValue.trim() === '') {
+                    showNotification('Please enter your hotel name', 'error');
                     return false;
                 }
+
+                // If no pickup location is set, use what user typed
+                if (!$('#pickupLocation').val()) {
+                    $('#pickupLocation').val(hotelValue);
+                }
+
                 return true;
             }
 
@@ -1943,6 +1996,26 @@ $is_admin = isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] 
             // Load tours on page load
             loadTours();
             updateCartDisplay();
+
+            // ====== FIXED EVENT LISTENERS FOR PRICE UPDATE ======
+            $('#adults, #children').on('input change', function() {
+                if (selectedTourId) {
+                    updatePriceDisplay();
+                }
+            });
+
+            // Use delegated event listeners for dynamically created elements
+            $(document).on('change', '#balloonClass', function() {
+                if (selectedTourId) {
+                    updatePriceDisplay();
+                }
+            });
+
+            $(document).on('change', '#scooterOption', function() {
+                if (selectedTourId) {
+                    updatePriceDisplay();
+                }
+            });
         });
     </script>
 

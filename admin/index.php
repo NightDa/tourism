@@ -4,6 +4,8 @@ requireLogin();
 
 $data = loadData();
 $message = '';
+$pricingTypes = getPricingTypes();
+$categories = getCategories();
 
 // Handle delete
 if (isset($_GET['delete'])) {
@@ -16,14 +18,17 @@ if (isset($_GET['delete'])) {
     }
     $data['excursions'] = array_values($data['excursions']);
     saveData($data);
-    $message = ['type' => 'success', 'text' => 'Excursion deleted successfully!'];
+    header('Location: index.php?deleted=1');
+    exit;
 }
 
 // Handle add/edit
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
         $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+        $pricingType = $_POST['pricing_type'];
 
+        // Base excursion data
         $excursion = [
             'id' => $id ?: getNextId($data),
             'title' => $_POST['title'],
@@ -33,19 +38,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'location' => $_POST['location'],
             'description' => $_POST['description'],
             'priceTag' => $_POST['priceTag'],
-            'groupPrice' => [
-                'adult' => (int)$_POST['group_adult'],
-                'child' => (int)$_POST['group_child']
-            ],
-            'privatePrice' => [
-                'adult' => (int)$_POST['private_adult'],
-                'child' => (int)$_POST['private_child']
-            ]
+            'pricingType' => $pricingType
         ];
+
+        // Add pricing based on type (only what's needed)
+        switch ($pricingType) {
+            case 'standard':
+                $excursion['groupPrice'] = [
+                    'adult' => (int)$_POST['group_adult'],
+                    'child' => (int)$_POST['group_child']
+                ];
+                $excursion['privatePrice'] = [
+                    'adult' => (int)$_POST['private_adult'],
+                    'child' => (int)$_POST['private_child']
+                ];
+                break;
+
+            case 'quad':
+                $excursion['groupPrice'] = [
+                    'adult' => (int)$_POST['driver_price'],
+                    'child' => (int)$_POST['passenger_price']
+                ];
+                break;
+
+            case 'balloon':
+                $excursion['flightClasses'] = [
+                    'classic' => (int)$_POST['classic_price'],
+                    'premium' => (int)$_POST['premium_price'],
+                    'vip' => (int)$_POST['vip_price'],
+                    'royal' => (int)$_POST['royal_price']
+                ];
+                break;
+
+            case 'perBuggy':
+                $excursion['pricePerBuggy'] = (int)$_POST['price_per_buggy'];
+                break;
+
+            case 'perPerson':
+                $excursion['pricePerPerson'] = (int)$_POST['price_per_person'];
+                break;
+
+            case 'scooter':
+                // Fixed pricing - no input needed
+                break;
+
+            case 'adultChild':
+                $excursion['prices'] = [
+                    'adult' => (int)$_POST['adult_price'],
+                    'child' => (int)$_POST['child_price']
+                ];
+                break;
+        }
 
         if ($_POST['action'] === 'add') {
             $data['excursions'][] = $excursion;
-            $message = ['type' => 'success', 'text' => 'Excursion added successfully!'];
+            $_SESSION['message'] = ['type' => 'success', 'text' => 'Excursion added successfully!'];
         } elseif ($_POST['action'] === 'edit') {
             foreach ($data['excursions'] as $key => $e) {
                 if ($e['id'] == $id) {
@@ -53,11 +100,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     break;
                 }
             }
-            $message = ['type' => 'success', 'text' => 'Excursion updated successfully!'];
+            $_SESSION['message'] = ['type' => 'success', 'text' => 'Excursion updated successfully!'];
         }
 
         saveData($data);
+        header('Location: index.php');
+        exit;
     }
+}
+
+// Get message from session
+if (isset($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+    unset($_SESSION['message']);
 }
 
 // Get excursion for editing
@@ -112,7 +167,6 @@ if (isset($_GET['edit'])) {
             margin-right: 10px;
         }
 
-        /* Navigation Links - FIXED */
         .nav-links {
             display: flex;
             gap: 10px;
@@ -141,26 +195,12 @@ if (isset($_GET['edit'])) {
             gap: 20px;
         }
 
-        .user-info span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
         .logout-btn {
             background: rgba(255, 255, 255, 0.2);
             color: white;
             padding: 8px 15px;
             border-radius: 5px;
             text-decoration: none;
-            transition: background 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
         }
 
         .container {
@@ -176,6 +216,19 @@ if (isset($_GET['edit'])) {
             display: flex;
             align-items: center;
             gap: 10px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .message.success {
@@ -224,7 +277,6 @@ if (isset($_GET['edit'])) {
 
         .stat-card .label {
             color: #666;
-            margin-top: 5px;
         }
 
         .card {
@@ -251,10 +303,6 @@ if (isset($_GET['edit'])) {
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-
-        .card-header h2 i {
-            margin-right: 10px;
         }
 
         .card-body {
@@ -300,22 +348,49 @@ if (isset($_GET['edit'])) {
             border-color: #667eea;
         }
 
-        .price-section {
+        .pricing-card {
             background: #f8f9fa;
+            border-radius: 10px;
             padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
+            margin-top: 20px;
+            border-left: 4px solid #667eea;
         }
 
-        .price-section h3 {
+        .pricing-card h3 {
             margin-bottom: 15px;
             color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pricing-card h3 i {
+            color: #667eea;
+        }
+
+        .pricing-card .info-text {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #1976d2;
+        }
+
+        .pricing-card .info-text i {
+            margin-right: 5px;
         }
 
         .price-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
+        }
+
+        .price-row-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
         }
 
         .btn {
@@ -377,7 +452,6 @@ if (isset($_GET['edit'])) {
             text-align: left;
             font-weight: 600;
             color: #333;
-            white-space: nowrap;
         }
 
         td {
@@ -417,54 +491,19 @@ if (isset($_GET['edit'])) {
             color: #00796b;
         }
 
-        .status-badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .status-pending {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .status-confirmed {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .status-completed {
-            background: #d1ecf1;
-            color: #0c5460;
-        }
-
-        .status-cancelled {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        .assignment-badge {
+        .pricing-badge {
             display: inline-block;
             padding: 3px 8px;
             border-radius: 4px;
             font-size: 11px;
-            background: #e3f2fd;
-            color: #1976d2;
-            white-space: nowrap;
+            background: #667eea;
+            color: white;
+            margin-left: 5px;
         }
 
         .action-buttons {
             display: flex;
             gap: 5px;
-            flex-wrap: wrap;
-        }
-
-        .action-buttons .btn {
-            padding: 5px 10px;
-            font-size: 12px;
         }
 
         .footer {
@@ -474,24 +513,16 @@ if (isset($_GET['edit'])) {
             font-size: 14px;
         }
 
-        /* Responsive Design */
+        .image-preview {
+            max-width: 200px;
+            max-height: 150px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            display: none;
+        }
+
         @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .nav-links {
-                width: 100%;
-                justify-content: flex-start;
-            }
-
-            .user-info {
-                width: 100%;
-                justify-content: space-between;
-                margin-top: 10px;
-            }
-
             .form-grid {
                 grid-template-columns: 1fr;
             }
@@ -500,43 +531,10 @@ if (isset($_GET['edit'])) {
                 grid-column: span 1;
             }
 
-            .price-row {
+            .price-row,
+            .price-row-4 {
                 grid-template-columns: 1fr;
-                gap: 10px;
             }
-
-            table {
-                font-size: 14px;
-            }
-
-            td,
-            th {
-                padding: 8px;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-            }
-        }
-
-        /* Utility classes */
-        small {
-            color: #666;
-            font-size: 12px;
-            display: block;
-            margin-top: 5px;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .mt-20 {
-            margin-top: 20px;
-        }
-
-        .mb-20 {
-            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -545,27 +543,18 @@ if (isset($_GET['edit'])) {
     <nav class="navbar">
         <h1><i class="fas fa-cog"></i> Travol Morocco Admin</h1>
         <div class="nav-links">
-            <a href="index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
-                <i class="fas fa-home"></i> Dashboard
-            </a>
-            <a href="packages.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'packages.php' ? 'active' : ''; ?>">
-                <i class="fas fa-box"></i> Packages
-            </a>
-            <a href="destinations.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'destinations.php' ? 'active' : ''; ?>">
-                <i class="fas fa-map-marked-alt"></i> Destinations
-            </a>
-            <a href="bookings.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'bookings.php' ? 'active' : ''; ?>">
-                <i class="fas fa-calendar-check"></i> Bookings
-            </a>
-            <a href="analytics.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'analytics.php' ? 'active' : ''; ?>">
-                <i class="fas fa-chart-bar"></i> Analytics
-            </a>
+            <a href="index.php" class="active"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="packages.php"><i class="fas fa-box"></i> Packages</a>
+            <a href="destinations.php"><i class="fas fa-map-marked-alt"></i> Destinations</a>
+            <a href="bookings.php"><i class="fas fa-calendar-check"></i> Bookings</a>
+            <a href="analytics.php"><i class="fas fa-chart-bar"></i> Analytics</a>
         </div>
         <div class="user-info">
             <span><i class="fas fa-user"></i> <?php echo $_SESSION['admin_username']; ?></span>
             <a href="logout.php" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
     </nav>
+
     <div class="container">
         <?php if ($message): ?>
             <div class="message <?php echo $message['type']; ?>">
@@ -584,33 +573,23 @@ if (isset($_GET['edit'])) {
             <div class="stat-card">
                 <i class="fas fa-tags"></i>
                 <div class="number">
-                    <?php
-                    $categories = array_unique(array_column($data['excursions'], 'category'));
-                    echo count($categories);
-                    ?>
+                    <?php echo count(array_unique(array_column($data['excursions'], 'category'))); ?>
                 </div>
                 <div class="label">Categories</div>
             </div>
             <div class="stat-card">
                 <i class="fas fa-clock"></i>
                 <div class="number">
-                    <?php
-                    echo count(array_filter($data['excursions'], function ($e) {
-                        return strpos($e['duration'], 'Full') !== false;
-                    }));
-                    ?>
+                    <?php echo count(array_filter($data['excursions'], fn($e) => strpos($e['duration'], 'Full') !== false)); ?>
                 </div>
                 <div class="label">Full Day Tours</div>
             </div>
             <div class="stat-card">
-                <i class="fas fa-sync-alt"></i>
+                <i class="fas fa-tag"></i>
                 <div class="number">
-                    <?php
-                    $lastUpdated = isset($data['last_updated']) ? date('H:i', strtotime($data['last_updated'])) : 'Now';
-                    echo $lastUpdated;
-                    ?>
+                    <?php echo count(array_unique(array_column($data['excursions'], 'pricingType'))); ?>
                 </div>
-                <div class="label">Last Updated</div>
+                <div class="label">Pricing Types</div>
             </div>
         </div>
 
@@ -620,9 +599,14 @@ if (isset($_GET['edit'])) {
                 <h2><i class="fas <?php echo $editExcursion ? 'fa-edit' : 'fa-plus-circle'; ?>"></i>
                     <?php echo $editExcursion ? 'Edit Excursion' : 'Add New Excursion'; ?>
                 </h2>
+                <?php if ($editExcursion): ?>
+                    <a href="index.php" class="btn" style="background: rgba(255,255,255,0.2); color: white;">
+                        <i class="fas fa-times"></i> Cancel Edit
+                    </a>
+                <?php endif; ?>
             </div>
             <div class="card-body">
-                <form method="POST" action="">
+                <form method="POST" action="" id="excursionForm" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="<?php echo $editExcursion ? 'edit' : 'add'; ?>">
                     <?php if ($editExcursion): ?>
                         <input type="hidden" name="id" value="<?php echo $editExcursion['id']; ?>">
@@ -630,98 +614,85 @@ if (isset($_GET['edit'])) {
 
                     <div class="form-grid">
                         <div class="form-group">
-                            <label>Title *</label>
-                            <input type="text" name="title" required value="<?php echo $editExcursion['title'] ?? ''; ?>">
+                            <label><i class="fas fa-heading"></i> Tour Title *</label>
+                            <input type="text" name="title" required value="<?php echo htmlspecialchars($editExcursion['title'] ?? ''); ?>" placeholder="e.g., Medina Tour">
                         </div>
 
                         <div class="form-group">
-                            <label>Category *</label>
+                            <label><i class="fas fa-tag"></i> Category *</label>
                             <select name="category" required>
-                                <option value="cultural" <?php echo ($editExcursion['category'] ?? '') === 'cultural' ? 'selected' : ''; ?>>Cultural</option>
-                                <option value="mountain" <?php echo ($editExcursion['category'] ?? '') === 'mountain' ? 'selected' : ''; ?>>Mountain</option>
-                                <option value="desert" <?php echo ($editExcursion['category'] ?? '') === 'desert' ? 'selected' : ''; ?>>Desert</option>
-                                <option value="coastal" <?php echo ($editExcursion['category'] ?? '') === 'coastal' ? 'selected' : ''; ?>>Coastal</option>
+                                <?php foreach ($categories as $key => $label): ?>
+                                    <option value="<?php echo $key; ?>" <?php echo ($editExcursion['category'] ?? '') === $key ? 'selected' : ''; ?>>
+                                        <?php echo $label; ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
 
-                        <div class="form-group full-width">
-                            <label>Image URL *</label>
-                            <input type="url" name="image" required value="<?php echo $editExcursion['image'] ?? ''; ?>">
+                        <div class="form-group">
+                            <label><i class="fas fa-clock"></i> Duration *</label>
+                            <input type="text" name="duration" required value="<?php echo htmlspecialchars($editExcursion['duration'] ?? 'Full Day'); ?>" placeholder="e.g., Full Day, Half Day, Evening">
                         </div>
 
                         <div class="form-group">
-                            <label>Duration *</label>
-                            <input type="text" name="duration" required value="<?php echo $editExcursion['duration'] ?? 'Full Day'; ?>">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Location *</label>
-                            <input type="text" name="location" required value="<?php echo $editExcursion['location'] ?? 'Marrakech'; ?>">
+                            <label><i class="fas fa-map-marker-alt"></i> Location *</label>
+                            <input type="text" name="location" required value="<?php echo htmlspecialchars($editExcursion['location'] ?? 'Marrakech'); ?>" placeholder="e.g., Marrakech, Atlas Mountains">
                         </div>
 
                         <div class="form-group full-width">
-                            <label>Description *</label>
-                            <textarea name="description" rows="3" required><?php echo $editExcursion['description'] ?? ''; ?></textarea>
+                            <label><i class="fas fa-image"></i> Image URL *</label>
+                            <div style="display: flex; gap: 10px;">
+                                <input type="url" name="image" id="imageUrl" required value="<?php echo htmlspecialchars($editExcursion['image'] ?? ''); ?>" placeholder="https://..." style="flex: 1;">
+                                <button type="button" class="btn btn-primary" onclick="document.getElementById('fileUpload').click();" style="white-space: nowrap;">
+                                    <i class="fas fa-upload"></i> Upload
+                                </button>
+                                <input type="file" id="fileUpload" accept="image/*" style="display: none;" onchange="uploadImage(this)">
+                            </div>
+                            <?php if (!empty($editExcursion['image'])): ?>
+                                <img src="<?php echo htmlspecialchars($editExcursion['image']); ?>" class="image-preview" style="display: block; max-width: 200px; margin-top: 10px;" onerror="this.style.display='none'">
+                            <?php endif; ?>
+                            <div id="imagePreview" style="margin-top: 10px;"></div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label><i class="fas fa-align-left"></i> Description *</label>
+                            <textarea name="description" rows="4" required placeholder="Describe the tour..."><?php echo htmlspecialchars($editExcursion['description'] ?? ''); ?></textarea>
                         </div>
 
                         <div class="form-group">
-                            <label>Price Tag Display *</label>
-                            <input type="text" name="priceTag" required value="<?php echo $editExcursion['priceTag'] ?? 'From 350 MAD'; ?>">
+                            <label><i class="fas fa-tag"></i> Price Tag Display *</label>
+                            <input type="text" name="priceTag" required value="<?php echo htmlspecialchars($editExcursion['priceTag'] ?? 'From 350 MAD'); ?>" placeholder="e.g., From 350 MAD, 450 MAD per person">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-calculator"></i> Pricing Type *</label>
+                            <select name="pricing_type" id="pricingType" required onchange="updatePricingFields()">
+                                <option value="">Select pricing type...</option>
+                                <?php foreach ($pricingTypes as $key => $label): ?>
+                                    <option value="<?php echo $key; ?>" data-description="<?php echo $label; ?>" <?php echo ($editExcursion['pricingType'] ?? '') === $key ? 'selected' : ''; ?>>
+                                        <?php echo $label; ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="price-section">
-                        <h3>Group Tour Prices (MAD)</h3>
-                        <div class="price-row">
-                            <div class="form-group">
-                                <label>Adult Price</label>
-                                <input type="number" name="group_adult" required value="<?php echo $editExcursion['groupPrice']['adult'] ?? 350; ?>">
-                            </div>
-                            <div class="form-group">
-                                <label>Child Price</label>
-                                <input type="number" name="group_child" required value="<?php echo $editExcursion['groupPrice']['child'] ?? 175; ?>">
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Dynamic Pricing Fields - Simple and Clear -->
+                    <div id="pricingFields"></div>
 
-                    <div class="price-section">
-                        <h3>Private Tour Prices (MAD)</h3>
-                        <div class="price-row">
-                            <div class="form-group">
-                                <label>Adult Price</label>
-                                <input type="number" name="private_adult" required value="<?php echo $editExcursion['privatePrice']['adult'] ?? 650; ?>">
-                            </div>
-                            <div class="form-group">
-                                <label>Child Price</label>
-                                <input type="number" name="private_child" required value="<?php echo $editExcursion['privatePrice']['child'] ?? 325; ?>">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="display: flex; gap: 10px;">
-                        <button type="submit" class="btn btn-primary">
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button type="submit" class="btn btn-primary" style="padding: 12px 30px;">
                             <i class="fas fa-save"></i> <?php echo $editExcursion ? 'Update Excursion' : 'Save Excursion'; ?>
                         </button>
-                        <?php if ($editExcursion): ?>
-                            <a href="index.php" class="btn" style="background: #6c757d; color: white;">
-                                <i class="fas fa-times"></i> Cancel Edit
-                            </a>
-                        <?php endif; ?>
                     </div>
                 </form>
-                <!-- In the form, add file upload -->
-                <div class="form-group">
-                    <label>Upload Image</label>
-                    <input type="file" name="image_file" accept="image/*">
-                    <small>Or enter image URL above</small>
-                </div>
             </div>
         </div>
 
         <!-- Excursions List -->
         <div class="card">
             <div class="card-header">
-                <h2><i class="fas fa-list"></i> All Excursions</h2>
+                <h2><i class="fas fa-list"></i> All Excursions (<?php echo count($data['excursions']); ?>)</h2>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -732,9 +703,9 @@ if (isset($_GET['edit'])) {
                                 <th>Image</th>
                                 <th>Title</th>
                                 <th>Category</th>
-                                <th>Location</th>
                                 <th>Duration</th>
-                                <th>Group Price</th>
+                                <th>Pricing Type</th>
+                                <th>Price Tag</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -745,30 +716,36 @@ if (isset($_GET['edit'])) {
                                     <td>
                                         <img src="<?php echo htmlspecialchars($excursion['image']); ?>"
                                             alt="<?php echo htmlspecialchars($excursion['title']); ?>"
-                                            style="width: 50px; height: 40px; object-fit: cover; border-radius: 4px;">
+                                            style="width: 50px; height: 40px; object-fit: cover; border-radius: 4px;"
+                                            onerror="this.src='https://via.placeholder.com/50x40?text=No+Image'">
                                     </td>
-                                    <td><?php echo htmlspecialchars($excursion['title']); ?></td>
+                                    <td>
+                                        <strong><?php echo htmlspecialchars($excursion['title']); ?></strong>
+                                        <span class="pricing-badge"><?php echo $excursion['pricingType']; ?></span>
+                                    </td>
                                     <td>
                                         <span class="category-badge category-<?php echo $excursion['category']; ?>">
                                             <?php echo ucfirst($excursion['category']); ?>
                                         </span>
                                     </td>
-                                    <td><?php echo htmlspecialchars($excursion['location']); ?></td>
                                     <td><?php echo htmlspecialchars($excursion['duration']); ?></td>
-                                    <td><?php echo $excursion['priceTag']; ?></td>
+                                    <td><?php echo $excursion['pricingType']; ?></td>
+                                    <td><?php echo htmlspecialchars($excursion['priceTag']); ?></td>
                                     <td>
                                         <div class="action-buttons">
-                                            <a href="?edit=<?php echo $excursion['id']; ?>" class="btn btn-edit">
+                                            <a href="?edit=<?php echo $excursion['id']; ?>" class="btn btn-edit btn-sm" title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <a href="?delete=<?php echo $excursion['id']; ?>"
-                                                class="btn btn-delete"
-                                                onclick="return confirm('Are you sure you want to delete this excursion?');">
+                                                class="btn btn-delete btn-sm"
+                                                onclick="return confirm('Are you sure you want to delete this excursion?');"
+                                                title="Delete">
                                                 <i class="fas fa-trash"></i>
                                             </a>
-                                            <a href="../excursions.html#<?php echo strtolower(str_replace(' ', '-', $excursion['title'])); ?>"
+                                            <a href="../pages/excursions.php#tour-<?php echo $excursion['id']; ?>"
                                                 target="_blank"
-                                                class="btn btn-view">
+                                                class="btn btn-view btn-sm"
+                                                title="View on site">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                         </div>
@@ -779,8 +756,8 @@ if (isset($_GET['edit'])) {
                             <?php if (empty($data['excursions'])): ?>
                                 <tr>
                                     <td colspan="8" style="text-align: center; padding: 40px;">
-                                        <i class="fas fa-info-circle" style="font-size: 48px; color: #ccc; margin-bottom: 10px;"></i>
-                                        <p>No excursions found. Add your first excursion above!</p>
+                                        <i class="fas fa-info-circle" style="font-size: 48px; color: #ccc;"></i>
+                                        <p style="margin-top: 10px;">No excursions found. Click "Add New Excursion" to get started!</p>
                                     </td>
                                 </tr>
                             <?php endif; ?>
@@ -789,106 +766,203 @@ if (isset($_GET['edit'])) {
                 </div>
             </div>
         </div>
-        <!-- Recent Bookings Section -->
-        <div class="card">
-            <div class="card-header">
-                <h2><i class="fas fa-calendar-check"></i> Recent Bookings</h2>
-                <a href="bookings.php" class="btn btn-primary btn-sm">View All</a>
-            </div>
-            <div class="card-body">
-                <?php
-                $bookingsFile = __DIR__ . '/../data/bookings.json';
-                if (file_exists($bookingsFile)) {
-                    $bookings = json_decode(file_get_contents($bookingsFile), true);
-                    $recentBookings = array_slice($bookings['bookings'] ?? [], 0, 5);
-
-                    if (!empty($recentBookings)):
-                ?>
-                        <div style="overflow-x: auto;">
-                            <table style="width: 100%; min-width: 800px;">
-                                <thead>
-                                    <tr>
-                                        <th>Booking ID</th>
-                                        <th>Customer</th>
-                                        <th>Contact</th>
-                                        <th>Tours</th>
-                                        <th>Date</th>
-                                        <th>Total</th>
-                                        <th>Status</th>
-                                        <th>Assigned</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($recentBookings as $booking):
-                                        $status = $booking['status'] ?? 'pending';
-                                        $assignedTo = $booking['assigned_to'] ?? '';
-                                    ?>
-                                        <tr>
-                                            <td><strong><?php echo $booking['booking_id']; ?></strong></td>
-                                            <td>
-                                                <?php echo htmlspecialchars($booking['customer']['name']); ?><br>
-                                                <small><?php echo htmlspecialchars($booking['customer']['email']); ?></small>
-                                            </td>
-                                            <td>
-                                                <a href="https://wa.me/<?php echo preg_replace('/[^0-9]/', '', $booking['customer']['phone']); ?>" target="_blank">
-                                                    <i class="fab fa-whatsapp"></i>
-                                                </a>
-                                                <a href="mailto:<?php echo $booking['customer']['email']; ?>">
-                                                    <i class="fas fa-envelope"></i>
-                                                </a>
-                                                <small><?php echo htmlspecialchars($booking['customer']['phone']); ?></small>
-                                            </td>
-                                            <td>
-                                                <?php echo count($booking['items']); ?> tour(s)<br>
-                                                <small>
-                                                    <?php
-                                                    $firstItem = $booking['items'][0] ?? null;
-                                                    if ($firstItem) {
-                                                        echo $firstItem['date'] . ' ' . $firstItem['time'];
-                                                    }
-                                                    ?>
-                                                </small>
-                                            </td>
-                                            <td><?php echo date('d/m/Y', strtotime($booking['created_at'])); ?></td>
-                                            <td><strong><?php echo $booking['total']; ?> MAD</strong></td>
-                                            <td>
-                                                <span class="status-badge status-<?php echo $status; ?>">
-                                                    <?php echo ucfirst($status); ?>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <?php if ($assignedTo): ?>
-                                                    <span class="assignment-badge"><?php echo ucfirst($assignedTo); ?></span>
-                                                <?php else: ?>
-                                                    <span style="color: #999;">-</span>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td>
-                                                <a href="bookings.php?view=<?php echo $booking['booking_id']; ?>" class="btn btn-sm btn-primary">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    <?php else: ?>
-                        <p style="text-align: center; padding: 30px;">No bookings yet.</p>
-                <?php
-                    endif;
-                } else {
-                    echo '<p style="text-align: center; padding: 30px;">Bookings file not found.</p>';
-                }
-                ?>
-            </div>
-        </div>
     </div>
 
     <div class="footer">
         <p>&copy; <?php echo date('Y'); ?> Travol Morocco Admin Panel. All rights reserved.</p>
     </div>
+
+    <script>
+        // Pricing type templates - Simple and clear for non-technical users
+        const pricingTemplates = {
+            standard: `
+                <div class="pricing-card">
+                    <h3><i class="fas fa-users"></i> Standard Tour Pricing</h3>
+                    <div class="info-text">
+                        <i class="fas fa-info-circle"></i> This tour has both Group and Private options with Adult/Child pricing
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h4 style="color: #667eea; margin-bottom: 10px;">🏷️ Group Tour (Shared with others)</h4>
+                        <div class="price-row">
+                            <div class="form-group">
+                                <label>Adult Price (MAD)</label>
+                                <input type="number" name="group_adult" value="<?php echo $editExcursion['groupPrice']['adult'] ?? 300; ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Child Price (MAD)</label>
+                                <input type="number" name="group_child" value="<?php echo $editExcursion['groupPrice']['child'] ?? 150; ?>" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: #667eea; margin-bottom: 10px;">⭐ Private Tour (Just your group)</h4>
+                        <div class="price-row">
+                            <div class="form-group">
+                                <label>Adult Price (MAD)</label>
+                                <input type="number" name="private_adult" value="<?php echo $editExcursion['privatePrice']['adult'] ?? 650; ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Child Price (MAD)</label>
+                                <input type="number" name="private_child" value="<?php echo $editExcursion['privatePrice']['child'] ?? 325; ?>" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+
+            quad: `
+                <div class="pricing-card">
+                    <h3><i class="fas fa-motorcycle"></i> Quad Biking Pricing</h3>
+                    <div class="info-text">
+                        <i class="fas fa-info-circle"></i> Different prices for Driver and Passenger (no private option)
+                    </div>
+                    <div class="price-row">
+                        <div class="form-group">
+                            <label>Driver Price (MAD)</label>
+                            <input type="number" name="driver_price" value="<?php echo $editExcursion['groupPrice']['adult'] ?? 450; ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Passenger Price (MAD)</label>
+                            <input type="number" name="passenger_price" value="<?php echo $editExcursion['groupPrice']['child'] ?? 300; ?>" required>
+                        </div>
+                    </div>
+                </div>
+            `,
+
+            balloon: `
+                <div class="pricing-card">
+                    <h3><i class="fas fa-hot-air-balloon"></i> Hot Air Balloon Pricing</h3>
+                    <div class="info-text">
+                        <i class="fas fa-info-circle"></i> Four different flight classes (same price for all ages)
+                    </div>
+                    <div class="price-row-4">
+                        <div class="form-group">
+                            <label>Classic Flight (MAD)</label>
+                            <input type="number" name="classic_price" value="<?php echo $editExcursion['flightClasses']['classic'] ?? 1500; ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Premium Flight (MAD)</label>
+                            <input type="number" name="premium_price" value="<?php echo $editExcursion['flightClasses']['premium'] ?? 2400; ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>VIP Flight (MAD)</label>
+                            <input type="number" name="vip_price" value="<?php echo $editExcursion['flightClasses']['vip'] ?? 4500; ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Royal Flight (MAD)</label>
+                            <input type="number" name="royal_price" value="<?php echo $editExcursion['flightClasses']['royal'] ?? 5200; ?>" required>
+                        </div>
+                    </div>
+                </div>
+            `,
+
+            perBuggy: `
+                <div class="pricing-card">
+                    <h3><i class="fas fa-car"></i> Buggy Adventure Pricing</h3>
+                    <div class="info-text">
+                        <i class="fas fa-info-circle"></i> Fixed price per buggy (up to 2 people per buggy)
+                    </div>
+                    <div class="form-group">
+                        <label>Price Per Buggy (MAD)</label>
+                        <input type="number" name="price_per_buggy" value="<?php echo $editExcursion['pricePerBuggy'] ?? 1600; ?>" required>
+                    </div>
+                </div>
+            `,
+
+            perPerson: `
+                <div class="pricing-card">
+                    <h3><i class="fas fa-user"></i> Per Person Pricing</h3>
+                    <div class="info-text">
+                        <i class="fas fa-info-circle"></i> Same price for everyone (no child discount, no private option)
+                    </div>
+                    <div class="form-group">
+                        <label>Price Per Person (MAD)</label>
+                        <input type="number" name="price_per_person" value="<?php echo $editExcursion['pricePerPerson'] ?? 350; ?>" required>
+                    </div>
+                </div>
+            `,
+
+            scooter: `
+                <div class="pricing-card">
+                    <h3><i class="fas fa-motorcycle"></i> Electric Scooter Pricing</h3>
+                    <div class="info-text">
+                        <i class="fas fa-info-circle"></i> Fixed price: 450 MAD for both Medina and Palm Grove tours
+                    </div>
+                    <div style="background: #e8f5e8; padding: 15px; border-radius: 5px;">
+                        <p><strong>Medina Tour:</strong> 450 MAD</p>
+                        <p><strong>Palm Grove Tour:</strong> 450 MAD</p>
+                        <p style="font-size: 12px; color: #666; margin-top: 10px;">Price is fixed and cannot be changed</p>
+                    </div>
+                </div>
+            `,
+
+            adultChild: `
+                <div class="pricing-card">
+                    <h3><i class="fas fa-family"></i> Adult/Child Only Pricing</h3>
+                    <div class="info-text">
+                        <i class="fas fa-info-circle"></i> Different prices for adults and children (no private/group options)
+                    </div>
+                    <div class="price-row">
+                        <div class="form-group">
+                            <label>Adult Price (MAD)</label>
+                            <input type="number" name="adult_price" value="<?php echo $editExcursion['prices']['adult'] ?? 500; ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Child Price (MAD)</label>
+                            <input type="number" name="child_price" value="<?php echo $editExcursion['prices']['child'] ?? 250; ?>" required>
+                        </div>
+                    </div>
+                </div>
+            `
+        };
+
+        function updatePricingFields() {
+            const pricingType = document.getElementById('pricingType').value;
+            const container = document.getElementById('pricingFields');
+
+            if (pricingType && pricingTemplates[pricingType]) {
+                container.innerHTML = pricingTemplates[pricingType];
+            } else {
+                container.innerHTML = '';
+            }
+        }
+
+        // Image upload function
+        function uploadImage(input) {
+            if (input.files && input.files[0]) {
+                const formData = new FormData();
+                formData.append('image_file', input.files[0]);
+
+                fetch('upload.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            document.getElementById('imageUrl').value = data.url;
+                            const preview = document.createElement('img');
+                            preview.src = data.url;
+                            preview.className = 'image-preview';
+                            preview.style.display = 'block';
+                            document.getElementById('imagePreview').innerHTML = '';
+                            document.getElementById('imagePreview').appendChild(preview);
+                        } else {
+                            alert('Upload failed: ' + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Upload failed');
+                    });
+            }
+        }
+
+        // Run on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePricingFields();
+        });
+    </script>
 </body>
 
 </html>

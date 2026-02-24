@@ -50,9 +50,11 @@
             ],
             "total": 1350,
             "date": "2026-02-15T22:24:33.658Z",
-            "status": "pending",
+            "status": "confirmed",
             "created_at": "2026-02-15 22:24:33",
-            "booking_id": "BK1771194273283"
+            "booking_id": "BK1771194273283",
+            "assigned_to": "rabii",
+            "updated_at": "2026-02-23 18:58:34"
         },
         {
             "customer": {
@@ -144,6 +146,71 @@
             "booking_id": "BK1771538455669",
             "assigned_to": "",
             "updated_at": "2026-02-19 22:01:23"
+        },
+        {
+            "customer": {
+                "name": "amal",
+                "email": "amal@gmail.com",
+                "phone": "+21266974632",
+                "pickup": "gallo"
+            },
+            "items": [
+                {
+                    "id": 1771829072842.6238,
+                    "tourId": "7",
+                    "title": "\n                                    Hot Air Balloon Flight",
+                    "date": "2026-02-24",
+                    "pricingType": "balloon",
+                    "flightClass": "classic",
+                    "people": 1,
+                    "pricePerPerson": 1500,
+                    "time": "Sunrise (exact time confirmed after booking)",
+                    "totalPrice": 1500
+                },
+                {
+                    "id": 1771829097994.6443,
+                    "tourId": "8",
+                    "title": "\n                                    Road of the Kasbahs",
+                    "date": "2026-02-25",
+                    "pricingType": "standard",
+                    "adults": 1,
+                    "children": 0,
+                    "tourType": "group",
+                    "adultPrice": 650,
+                    "childPrice": 325,
+                    "time": "09:00 (Fixed)",
+                    "totalPrice": 650
+                },
+                {
+                    "id": 1771829394866.8213,
+                    "tourId": "7",
+                    "title": "\n                                    Hot Air Balloon Flight",
+                    "date": "2026-02-28",
+                    "pricingType": "balloon",
+                    "flightClass": "royal",
+                    "people": 3,
+                    "pricePerPerson": 5200,
+                    "time": "Sunrise (exact time confirmed after booking)",
+                    "totalPrice": 15600
+                },
+                {
+                    "id": 1771830090440.04,
+                    "tourId": "7",
+                    "title": "\n                                    Hot Air Balloon Flight",
+                    "date": "2026-02-25",
+                    "pricingType": "balloon",
+                    "flightClass": "royal",
+                    "people": 4,
+                    "pricePerPerson": 5200,
+                    "time": "Sunrise (exact time confirmed after booking)",
+                    "totalPrice": 20800
+                }
+            ],
+            "total": 38550,
+            "date": "2026-02-23T07:10:51.229Z",
+            "status": "pending",
+            "created_at": "2026-02-23 07:10:51",
+            "booking_id": "BK1771830651761"
         }
     ]
 }

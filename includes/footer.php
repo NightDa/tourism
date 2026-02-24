@@ -6,19 +6,17 @@
 
             <!-- Logo & Description -->
             <div>
-                <!-- FIXED: Changed ./img/ to ../assets/img/ -->
                 <img src="../assets/img/Sans titre.png" alt="Travol Morocco" style="width: 120px; height: auto; margin-bottom: 20px; display: block;">
                 <p style="color: #ccc; line-height: 1.6; margin: 0; font-size: 14px;">Discover the magic of Morocco with our expert guides and curated experiences.</p>
             </div>
 
-            <!-- Quick Links - These are CORRECT (no pages/ prefix) -->
+            <!-- Quick Links - REMOVED Destinations and Packages -->
             <div>
                 <h3 style="color: #fff; margin-bottom: 20px; font-size: 18px; position: relative; padding-bottom: 10px;">Quick Links</h3>
                 <ul style="list-style: none; padding: 0; margin: 0;">
                     <li style="margin-bottom: 10px;"><a href="index.php" style="color: #ccc; text-decoration: none; transition: color 0.3s;">Home</a></li>
                     <li style="margin-bottom: 10px;"><a href="about.php" style="color: #ccc; text-decoration: none; transition: color 0.3s;">About Us</a></li>
                     <li style="margin-bottom: 10px;"><a href="excursions.php" style="color: #ccc; text-decoration: none; transition: color 0.3s;">Tours & Excursions</a></li>
-                    <li style="margin-bottom: 10px;"><a href="destinations.php" style="color: #ccc; text-decoration: none; transition: color 0.3s;">Destinations</a></li>
                     <li style="margin-bottom: 10px;"><a href="contact.php" style="color: #ccc; text-decoration: none; transition: color 0.3s;">Contact</a></li>
                 </ul>
             </div>

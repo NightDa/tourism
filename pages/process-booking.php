@@ -1,98 +1,181 @@
 <?php
-// Enable error reporting for debugging
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// Import PHPMailer classes into the global namespace
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
-// Set header for JSON response
-header('Content-Type: application/json');
+/**
+ * Send booking confirmation email to admin and customer
+ */
+function sendBookingEmail($bookingData)
+{
+    $mail = new PHPMailer(true);
 
-// Get booking data
-if (isset($_POST['booking'])) {
-    $bookingData = json_decode($_POST['booking'], true);
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'mhamed.elouardani@gmail.com'; // Your Gmail
+        $mail->Password = 'icak emfk pqei qkwv'; // Your App Password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
 
-    // Check if booking data is valid
-    if (!$bookingData) {
-        echo json_encode(['success' => false, 'error' => 'Invalid booking data']);
-        exit;
-    }
+        // Recipients
+        $mail->setFrom('bookings@travolmorocco.com', 'Travol Morocco Bookings');
+        $mail->addAddress('mhamed.elouardani@gmail.com'); // Admin email
+        $mail->addAddress($bookingData['customer']['email'], $bookingData['customer']['name']); // Customer email
+        $mail->addReplyTo('info@travolmorocco.com', 'Travol Morocco');
 
-    // Add timestamp and booking ID
-    $bookingData['created_at'] = date('Y-m-d H:i:s');
-    $bookingData['booking_id'] = 'BK' . time() . rand(100, 999);
-
-    // Save to bookings.json in data folder
-    $bookingsFile = __DIR__ . '/../data/bookings.json';
-
-    // Create data directory if it doesn't exist
-    if (!file_exists(__DIR__ . '/../data')) {
-        mkdir(__DIR__ . '/../data', 0777, true);
-    }
-
-    // Initialize bookings array
-    $bookings = ['bookings' => []];
-
-    // Read existing bookings if file exists
-    if (file_exists($bookingsFile)) {
-        $existingContent = file_get_contents($bookingsFile);
-        if (!empty($existingContent)) {
-            $bookings = json_decode($existingContent, true);
-            if (!$bookings) {
-                $bookings = ['bookings' => []];
+        // Build email content
+        $itemsHtml = '';
+        $itemsPlain = '';
+        foreach ($bookingData['items'] as $item) {
+            // Format people display based on pricing type
+            $peopleDisplay = '';
+            switch ($item['pricingType']) {
+                case 'standard':
+                    $peopleDisplay = "{$item['adults']} Adults, {$item['children']} Children";
+                    break;
+                case 'quad':
+                    $peopleDisplay = "{$item['drivers']} Drivers, {$item['passengers']} Passengers";
+                    break;
+                case 'balloon':
+                    $peopleDisplay = "{$item['people']} People ({$item['flightClass']} flight)";
+                    break;
+                case 'perBuggy':
+                    $peopleDisplay = "{$item['buggies']} Buggies";
+                    break;
+                case 'perPerson':
+                    $peopleDisplay = "{$item['persons']} Persons";
+                    break;
+                case 'scooter':
+                    $peopleDisplay = "{$item['scooters']} Scooters ({$item['scooterOption']} tour)";
+                    break;
+                case 'adultChild':
+                    $peopleDisplay = "{$item['adults']} Adults, {$item['children']} Children";
+                    break;
+                default:
+                    $peopleDisplay = "{$item['adults']} Adults, {$item['children']} Children";
             }
-        }
-    }
 
-    // Add new booking
-    $bookings['bookings'][] = $bookingData;
-
-    // Save back to file
-    $jsonOptions = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
-    if (file_put_contents($bookingsFile, json_encode($bookings, $jsonOptions))) {
-
-        // Prepare email content (optional - comment out if you don't want emails)
-        $to = "mhamed.elouardani@gmail.com";
-        $subject = "New Booking - " . $bookingData['booking_id'];
-
-        $message = "NEW BOOKING RECEIVED!\n\n";
-        $message .= "==================================\n";
-        $message .= "Booking ID: " . $bookingData['booking_id'] . "\n";
-        $message .= "Date: " . $bookingData['created_at'] . "\n";
-        $message .= "==================================\n\n";
-
-        $message .= "CUSTOMER INFORMATION:\n";
-        $message .= "----------------------\n";
-        $message .= "Name: " . ($bookingData['customer']['name'] ?? 'N/A') . "\n";
-        $message .= "Email: " . ($bookingData['customer']['email'] ?? 'N/A') . "\n";
-        $message .= "Phone: " . ($bookingData['customer']['phone'] ?? 'N/A') . "\n";
-        $message .= "Pickup: " . ($bookingData['customer']['pickup'] ?? 'N/A') . "\n\n";
-
-        $message .= "BOOKED TOURS:\n";
-        $message .= "--------------\n";
-        if (isset($bookingData['items']) && is_array($bookingData['items'])) {
-            foreach ($bookingData['items'] as $index => $item) {
-                $message .= ($index + 1) . ". " . ($item['title'] ?? 'Unknown') . "\n";
-                $message .= "   Date: " . ($item['date'] ?? 'N/A') . " at " . ($item['time'] ?? 'N/A') . "\n";
-                $message .= "   " . ($item['adults'] ?? 0) . " Adults, " . ($item['children'] ?? 0) . " Children\n";
-                $message .= "   " . ucfirst($item['tourType'] ?? 'group') . " Tour\n";
-                $message .= "   Price: " . ($item['totalPrice'] ?? 0) . " MAD\n\n";
-            }
+            $itemsHtml .= "
+            <tr>
+                <td style='padding: 10px; border-bottom: 1px solid #ddd;'><strong>{$item['title']}</strong></td>
+                <td style='padding: 10px; border-bottom: 1px solid #ddd;'>{$item['date']} at {$item['time']}</td>
+                <td style='padding: 10px; border-bottom: 1px solid #ddd;'>{$peopleDisplay}</td>
+                <td style='padding: 10px; border-bottom: 1px solid #ddd;'>{$item['totalPrice']} MAD</td>
+            </tr>
+            ";
+            $itemsPlain .= "- {$item['title']}: {$item['date']} at {$item['time']}, {$peopleDisplay} - {$item['totalPrice']} MAD\n";
         }
 
-        $message .= "TOTAL AMOUNT: " . ($bookingData['total'] ?? 0) . " MAD\n";
-        $message .= "Payment Method: Cash on Arrival\n";
+        // HTML body
+        $htmlBody = "
+        <html>
+        <head>
+            <style>
+                body { font-family: Arial, sans-serif; }
+                .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center; }
+                .content { padding: 20px; }
+                table { width: 100%; border-collapse: collapse; }
+                th { background: #f0f0f0; padding: 10px; text-align: left; }
+                td { padding: 10px; border-bottom: 1px solid #ddd; }
+                .total { font-size: 18px; font-weight: bold; color: #28a745; text-align: right; margin-top: 20px; }
+                .footer { margin-top: 30px; font-size: 12px; color: #999; text-align: center; }
+            </style>
+        </head>
+        <body>
+            <div class='header'>
+                <h2>Booking Confirmation</h2>
+                <p>Booking ID: {$bookingData['booking_id']}</p>
+            </div>
+            <div class='content'>
+                <p>Dear {$bookingData['customer']['name']},</p>
+                <p>Thank you for booking with Travol Morocco! Your booking has been confirmed.</p>
 
-        // Try to send email but don't fail if it doesn't work
-        @mail($to, $subject, $message);
+                <h3>Booking Details</h3>
+                <p><strong>Booking ID:</strong> {$bookingData['booking_id']}</p>
+                <p><strong>Booking Date:</strong> {$bookingData['created_at']}</p>
+                <p><strong>Payment Method:</strong> Cash on Arrival</p>
+                <p><strong>Pickup Location:</strong> {$bookingData['customer']['pickup']}</p>
 
-        // Return success response
-        echo json_encode([
-            'success' => true,
-            'booking_id' => $bookingData['booking_id'],
-            'message' => 'Booking confirmed!'
-        ]);
-    } else {
-        echo json_encode(['success' => false, 'error' => 'Failed to save booking']);
+                <h3>Your Tours</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tour</th>
+                            <th>Date/Time</th>
+                            <th>Participants</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {$itemsHtml}
+                    </tbody>
+                </table>
+
+                <div class='total'>
+                    Total Amount: {$bookingData['total']} MAD
+                </div>
+
+                <p><strong>What's next?</strong> Your guide will contact you on WhatsApp 24 hours before your tour. Please be at the pickup point 10 minutes before the scheduled time. Have cash ready for payment (MAD, EUR, or USD accepted).</p>
+
+                <p>If you have any questions, please contact us on WhatsApp: +212 655 23 71 96.</p>
+            </div>
+            <div class='footer'>
+                <p>&copy; " . date('Y') . " Travol Morocco. All rights reserved.</p>
+            </div>
+        </body>
+        </html>
+        ";
+
+        // Plain text version
+        $plainBody = "Booking Confirmation\n\n";
+        $plainBody .= "Booking ID: {$bookingData['booking_id']}\n";
+        $plainBody .= "Booking Date: {$bookingData['created_at']}\n";
+        $plainBody .= "Payment Method: Cash on Arrival\n";
+        $plainBody .= "Pickup Location: {$bookingData['customer']['pickup']}\n\n";
+        $plainBody .= "Your Tours:\n{$itemsPlain}\n";
+        $plainBody .= "Total Amount: {$bookingData['total']} MAD\n\n";
+        $plainBody .= "What's next? Your guide will contact you on WhatsApp 24 hours before your tour.\n";
+        $plainBody .= "Contact us on WhatsApp: +212 655 23 71 96";
+
+        $mail->isHTML(true);
+        $mail->Subject = "Booking Confirmation - Travol Morocco (#{$bookingData['booking_id']})";
+        $mail->Body = $htmlBody;
+        $mail->AltBody = $plainBody;
+
+        $mail->send();
+        logMessage("Booking confirmation email sent to admin and customer for booking {$bookingData['booking_id']}", 'info');
+        return true;
+    } catch (Exception $e) {
+        logError("Failed to send booking email: " . $mail->ErrorInfo, $bookingData);
+        return false;
     }
-} else {
-    echo json_encode(['success' => false, 'error' => 'No booking data received']);
+}
+
+/**
+ * Send WhatsApp notification to admin (placeholder – replace with actual API)
+ */
+function sendWhatsAppNotification($bookingData)
+{
+    $message = "🔔 *NEW BOOKING RECEIVED!*\n\n";
+    $message .= "Booking ID: " . $bookingData['booking_id'] . "\n";
+    $message .= "Customer: " . $bookingData['customer']['name'] . "\n";
+    $message .= "Phone: " . $bookingData['customer']['phone'] . "\n";
+    $message .= "Email: " . $bookingData['customer']['email'] . "\n";
+    $message .= "Pickup: " . $bookingData['customer']['pickup'] . "\n";
+    $message .= "Total: " . $bookingData['total'] . " MAD\n\n";
+    $message .= "Tours:\n";
+
+    foreach ($bookingData['items'] as $item) {
+        $message .= "- " . $item['title'] . " (" . $item['date'] . " " . $item['time'] . ")\n";
+    }
+
+    // Log the message (you can later replace with actual API call)
+    logMessage("WhatsApp notification would be sent:\n" . $message, 'info');
+
+    // For now, we'll just return true (simulate success)
+    return true;
 }
